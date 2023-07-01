@@ -4,6 +4,10 @@ import styled from 'styled-components';
 
 const Container = styled.div`
   height: 60px;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background-color: white;
 `;
 
 const Wrapper = styled.div`
