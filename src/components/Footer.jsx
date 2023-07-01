@@ -61,6 +61,12 @@ const List = styled.ul`
 const ListItem = styled.li`
   width: 50%;
   margin-bottom: 10px;
+  cursor: pointer;
+
+  &:hover {
+    text-decoration: underline;
+    text-underline-position: under;
+  }
 `;
 
 const Right = styled.div`
@@ -126,10 +132,12 @@ const Footer = () => {
           <Phone style={{ marginRight: "10px" }} />
           +1 (234) 567-8910
         </ContactItem>
-        <ContactItem>
-          <Email style={{ marginRight: "10px" }} />
-          contact@kshop.com
-        </ContactItem>
+        <a href="mailto:contact@kshop.com" style={{ textDecoration: "none", color: "black" }}>
+          <ContactItem>
+            <Email style={{ marginRight: "10px" }} />
+            contact@kshop.com
+          </ContactItem>
+        </a>
         <Payment src="https://i.ibb.co/Qfvn4z6/payment.png" />
       </Right>
     </Container>
