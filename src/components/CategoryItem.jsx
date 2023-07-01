@@ -25,6 +25,7 @@ const Info = styled.div`
   align-items: center;
   justify-content: center;
   transition: all 200ms ease;
+
   &:hover {
     backdrop-filter: brightness(0.55);
 `;
@@ -42,6 +43,7 @@ const Button = styled.button`
   cursor: pointer;
   font-weight: 600;
   transition: all 300ms ease;
+
   &:hover {
     background-color: gray;
     color: white;

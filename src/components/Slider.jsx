@@ -80,6 +80,7 @@ const Button = styled.button`
   border: 2px solid black;
   cursor: pointer;
   transition: all 300ms ease;
+
   &:hover {
     background-color: black;
     color: white;
