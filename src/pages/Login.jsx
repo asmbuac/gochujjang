@@ -4,6 +4,7 @@ import Navbar from "../components/Navbar";
 import Marquee from "../components/Marquee";
 import Newsletter from "../components/Newsletter";
 import Footer from "../components/Footer";
+import { mobile } from "../responsive";
 
 const Container = styled.div`
   width: 100%;
@@ -12,12 +13,13 @@ const Container = styled.div`
       rgba(255, 255, 255, 0.5),
       rgba(255, 255, 255, 0.5)
     ),
-    url("https://images.pexels.com/photos/6984650/pexels-photo-6984650.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940");
-    background-size: cover;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    url("https://images.pexels.com/photos/6984650/pexels-photo-6984650.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940") center;
+  background-size: cover;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  ${mobile({ height: "calc(100vh - 125px)" })}
 `;
 
 const Logo = styled.img`
@@ -29,6 +31,7 @@ const Wrapper = styled.div`
   width: 25%;
   padding: 20px;
   background-color: white;
+  ${mobile({ width: "75%" })}
 `;
 
 const Title = styled.h1`

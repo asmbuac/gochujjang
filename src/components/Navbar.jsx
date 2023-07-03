@@ -55,7 +55,7 @@ const Center = styled.div`
 
 const Logo = styled.h1`
   font-family: "Audiowide";
-  ${mobile({ fontSize: "20px" })}
+  ${mobile({ fontSize: "17px", marginLeft: "20px" })}
 `;
 
 const Right = styled.div`
@@ -64,7 +64,7 @@ const Right = styled.div`
   align-items: center;
   justify-content: flex-end;
   column-gap: 25px;
-  ${mobile({ flex: 1.5, justifyContent: "center", columnGap: "10px" })}
+  ${mobile({ flex: 1.9, justifyContent: "center", columnGap: "10px" })}
 `;
 
 const MenuItem = styled.div`
