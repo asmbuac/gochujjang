@@ -19,7 +19,7 @@ const Container = styled.div`
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    ${mobile({ height: "calc(100vh - 125px)" })}
+    ${mobile({ height: "calc(100vh - 100px)" })}
 `;
 
 const Logo = styled.img`

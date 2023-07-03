@@ -5,7 +5,7 @@ import { mobile } from "../responsive";
 const Container = styled.div`
   display: flex;
   padding: 20px 0px;
-  ${mobile({ flexDirection: "column" })}
+  ${mobile({ flexDirection: "column", padding: "0px" })}
 `;
 
 const Left = styled.div`
@@ -13,6 +13,7 @@ const Left = styled.div`
   display: flex;
   flex-direction: column;
   padding: 20px;
+  ${mobile({ padding: "40px 20px" })}
 `;
 
 const Logo = styled.h1`
@@ -77,7 +78,7 @@ const ListItem = styled.li`
 const Right = styled.div`
   flex: 1;
   padding: 20px;
-  ${mobile({ backgroundColor: "#f5fafd" })}
+  ${mobile({ backgroundColor: "#f5fafd", padding: "40px 20px" })}
 `;
 
 const ContactItem = styled.div`
