@@ -5,11 +5,10 @@ import { sliderItems } from '../data';
 
 const Container = styled.div`
   width: 100%;
-  height: 100vh;
+  height: calc(100vh - 130px);
   display: flex;
   position: relative;
   overflow: hidden;
-  margin-top: -90px;
 `;
 
 const Arrow = styled.div`

@@ -6,6 +6,7 @@ import Products from '../components/Products';
 import Newsletter from '../components/Newsletter';
 import Footer from '../components/Footer';
 import styled from "styled-components";
+import Marquee from '../components/Marquee';
 
 const Container = styled.div``;
 
@@ -14,6 +15,7 @@ const Home = () => {
     <Container>
       <Announcement />
       <Navbar />
+      <Marquee />
       <Slider />
       <Categories />
       <Products />

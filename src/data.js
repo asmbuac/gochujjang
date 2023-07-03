@@ -4,7 +4,7 @@ export const sliderItems = [
     img: "https://i.ibb.co/XsdmR2c/1.png",
     title: "SUMMER SALE",
     description: "DON'T COMPROMISE ON STYLE! GET FLAT 30% OFF FOR NEW ARRIVALS.",
-    bg: "f5fafd",
+    bg: "e7eaf4",
   },
   {
     id: 2,

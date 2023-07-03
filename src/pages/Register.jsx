@@ -1,12 +1,13 @@
 import styled from "styled-components";
 import Announcement from "../components/Announcement";
 import Navbar from "../components/Navbar";
+import Marquee from "../components/Marquee";
 import Newsletter from "../components/Newsletter";
 import Footer from "../components/Footer";
 
 const Container = styled.div`
   width: 100%;
-  height: 100vh;
+  height: calc(100vh - 130px);
   background: linear-gradient(
       rgba(255, 255, 255, 0.5),
       rgba(255, 255, 255, 0.5)
@@ -17,7 +18,6 @@ const Container = styled.div`
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    margin-top: -90px;
 `;
 
 const Logo = styled.img`
@@ -113,6 +113,7 @@ const Register = () => {
     <>
       <Announcement />
       <Navbar />
+      <Marquee />
       <Container>
         <Logo src="src/assets/logo.png" />
         <Wrapper>

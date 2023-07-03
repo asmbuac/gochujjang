@@ -4,6 +4,7 @@ import Navbar from '../components/Navbar';
 import Newsletter from '../components/Newsletter';
 import Footer from "../components/Footer";
 import { Add, Remove } from "@mui/icons-material";
+import Marquee from "../components/Marquee";
 
 const Container = styled.div``;
 
@@ -163,6 +164,7 @@ const Cart = () => {
     <Container>
       <Announcement />
       <Navbar />
+      <Marquee />
       <Wrapper>
         <Title>YOUR BAG</Title>
         <Top>
