@@ -1,6 +1,7 @@
 import Badge from '@mui/material/Badge';
 import { Search, ShoppingCartOutlined } from '@mui/icons-material';
 import styled from 'styled-components';
+import { mobile } from "../responsive";
 
 const Container = styled.div`
   height: 60px;
@@ -8,6 +9,8 @@ const Container = styled.div`
   top: 0;
   z-index: 10;
   background-color: white;
+  ${mobile({ height: "50px" })}
+  }
 `;
 
 const Wrapper = styled.div`
@@ -15,6 +18,7 @@ const Wrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  ${mobile({ padding: "10px 0px" })}
 `;
 
 const Left = styled.div`
@@ -26,6 +30,7 @@ const Left = styled.div`
 const Language = styled.span`
   font-size: 14px;
   cursor: pointer;
+  ${mobile({ display: "none" })}
 `;
 
 const SearchContainer = styled.div`
@@ -34,11 +39,13 @@ const SearchContainer = styled.div`
   align-items: center;
   margin-left: 25px;
   padding: 5px;
+  ${mobile({ marginLeft: "10px" })}
 `;
 
 const Input = styled.input`
   border: none;
   outline: none;
+  ${mobile({ width: "50px" })}
 `;
 
 const Center = styled.div`
@@ -48,6 +55,7 @@ const Center = styled.div`
 
 const Logo = styled.h1`
   font-family: "Audiowide";
+  ${mobile({ fontSize: "20px" })}
 `;
 
 const Right = styled.div`
@@ -55,12 +63,14 @@ const Right = styled.div`
   display: flex;
   align-items: center;
   justify-content: flex-end;
+  column-gap: 25px;
+  ${mobile({ flex: 1.5, justifyContent: "center", columnGap: "10px" })}
 `;
 
 const MenuItem = styled.div`
   font-size: 14px;
   cursor: pointer;
-  margin-left: 25px;
+  ${mobile({ fontSize: "12px" })}
 
   &:hover {
     text-decoration: underline;
@@ -75,7 +85,7 @@ const Navbar = () => {
         <Left>
           <Language>EN</Language>
           <SearchContainer>
-            <Input />
+            <Input placeholder="Search" />
             <Search style={{ color: "gray", fontSize: 16, cursor: "pointer" }} />
           </SearchContainer>
         </Left>

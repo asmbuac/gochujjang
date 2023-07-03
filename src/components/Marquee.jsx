@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { mobile } from "../responsive";
 
 const Container = styled.div`
   height: 40px;
@@ -9,6 +10,8 @@ const Container = styled.div`
   font-size: 14px;
   font-weight: 500;
   position: relative;
+
+  ${mobile({ height: "30px", fontSize: "12px" })}
 `;
 
 const Marquee = () => {

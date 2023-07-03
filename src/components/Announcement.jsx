@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { mobile } from "../responsive";
 
 const Container = styled.div`
   height: 30px;
@@ -13,6 +14,8 @@ const Container = styled.div`
   text-transform: uppercase;
   position: relative;
   z-index: 1;
+
+  ${mobile({ height: "20px", fontSize: "12px" })}
 `;
 
 const Announcement = () => {
