@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 const Container = styled.div`
   height: 30px;
-  background-color: teal;
+  background-color: #7487bf;
   color: white;
   display: flex;
   align-items: center;
@@ -16,7 +16,7 @@ const Container = styled.div`
 const Announcement = () => {
   return (
     <Container>
-      Super Deal! Free Shipping on Orders Over $50
+      Free Shipping on Orders Over $50
     </Container>
   );
 };

@@ -2,8 +2,8 @@ import { Send } from '@mui/icons-material';
 import styled from 'styled-components';
 
 const Container = styled.div`
-  height: 60vh;
-  background-color: #FCF5F5;
+  height: 40vh;
+  background-color: #eae7f4;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -11,7 +11,8 @@ const Container = styled.div`
 `;
 
 const Title = styled.h1`
-  font-size: 70px;
+  font-size: 36px;
+  text-transform: uppercase;
   margin-bottom: 20px;
 `;
 
@@ -31,6 +32,7 @@ const InputContainer = styled.div`
 `;
 
 const Input = styled.input`
+  font-size: 16px;
   border: none;
   outline: none;
   flex: 8;
@@ -40,22 +42,21 @@ const Input = styled.input`
 const Button = styled.button`
   flex: 1;
   border: none;
-  background-color: teal;
+  background-color: #8774bf;
   color: white;
   cursor: pointer;
   transition: all 300ms ease;
 
   &:hover {
-    background-color: #034A4A;
+    background-color: #312a90;
   }
 `;
-
 
 const Newsletter = () => {
   return (
     <Container>
-      <Title>Newsletter</Title>
-      <Description>Get timely updates from your favorite products.</Description>
+      <Title>Become a member and get 15% off your next purchase</Title>
+      <Description>Get the latest news and updates on new products and more!</Description>
       <InputContainer>
         <Input placeholder="Your email" />
         <Button>
