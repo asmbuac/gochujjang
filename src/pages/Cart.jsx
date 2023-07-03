@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import Announcement from '../components/Announcement';
 import Navbar from '../components/Navbar';
+import Newsletter from '../components/Newsletter';
 import Footer from "../components/Footer";
 import { Add, Remove } from "@mui/icons-material";
 
@@ -79,6 +80,7 @@ const Details = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-around;
+  text-transform: uppercase;
 `;
 
 const ProductName = styled.span``;
@@ -113,12 +115,47 @@ const ProductAmount = styled.span`
 `;
 
 const ProductPrice = styled.span`
-  font-size: 30px;
+  font-size: 24px;
   font-weight: 200;
 `;
 
 const Summary = styled.div`
   flex: 1;
+  border: 0.5px solid lightgray;
+  border-radius: 10px;
+  padding: 20px;
+  height: 50vh;
+`;
+
+const SummaryTitle = styled.h1`
+  font-weight: 200;
+`;
+
+const SummaryItem = styled.div`
+  margin: 30px 0px;
+  display: flex;
+  justify-content: space-between;
+  font-weight: ${props => props.type === "total" && "500"};
+  font-size: ${props => props.type === "total" && "24px"};
+`;
+
+const SummaryItemText = styled.span``;
+
+const SummaryItemPrice = styled.span``;
+
+const Button = styled.button`
+  width: 100%;
+  padding: 12px;
+  background-color: black;
+  color: white;
+  border: none;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 400ms ease;
+
+  &:hover {
+    transform: scale(1.1);
+  }
 `;
 
 const Cart = () => {
@@ -142,10 +179,10 @@ const Cart = () => {
               <ProductDetails>
                 <Image src="https://saranghello.com/cdn/shop/products/1_e16dc4ae-884c-4050-b96a-79548a9ce0ff_900x.jpg?v=1667762979" />
                 <Details>
-                  <ProductName><b>Product: </b>JESSIE THUNDER SHOES</ProductName>
+                  <ProductName><b>Product: </b>BLACKPINK - Official Light Stick Version 2</ProductName>
                   <ProductId><b>ID: </b>93813718293</ProductId>
                   <ProductColor color="black" />
-                  <ProductSize><b>Size: </b>6.5</ProductSize>
+                  <ProductSize><b>Size: </b>N/A</ProductSize>
                 </Details>
               </ProductDetails>
               <PriceDetails>
@@ -154,32 +191,52 @@ const Cart = () => {
                   <ProductAmount>2</ProductAmount>
                   <Add />
                 </ProductAmountContainer>
-                <ProductPrice>$120</ProductPrice>
+                <ProductPrice>$131.98</ProductPrice>
               </PriceDetails>
             </Product>
             <Product>
               <ProductDetails>
-                <Image src="https://saranghello.com/cdn/shop/products/1_e16dc4ae-884c-4050-b96a-79548a9ce0ff_900x.jpg?v=1667762979" />
+                <Image src="https://saranghello.com/cdn/shop/products/e3323ba0-bad4-46d3-8884-e2a5ce1bf812_750x.jpg?v=1678745716" />
                 <Details>
-                  <ProductName><b>Product: </b>JESSIE THUNDER SHOES</ProductName>
+                  <ProductName><b>Product: </b>Jisoo (BLACKPINK) - 1st Single Album + YG Select Benefits</ProductName>
                   <ProductId><b>ID: </b>93813718293</ProductId>
                   <ProductColor color="black" />
-                  <ProductSize><b>Size: </b>6.5</ProductSize>
+                  <ProductSize><b>Size: </b>N/A</ProductSize>
                 </Details>
               </ProductDetails>
               <PriceDetails>
                 <ProductAmountContainer>
                   <Remove />
-                  <ProductAmount>2</ProductAmount>
+                  <ProductAmount>1</ProductAmount>
                   <Add />
                 </ProductAmountContainer>
-                <ProductPrice>$120</ProductPrice>
+                <ProductPrice>$27.99</ProductPrice>
               </PriceDetails>
             </Product>
           </Info>
-          <Summary>Summary</Summary>
+          <Summary>
+            <SummaryTitle>ORDER SUMMARY</SummaryTitle>
+            <SummaryItem>
+              <SummaryItemText>Subtotal</SummaryItemText>
+              <SummaryItemPrice>$120</SummaryItemPrice>
+            </SummaryItem>
+            <SummaryItem>
+              <SummaryItemText>Estimated Shipping</SummaryItemText>
+              <SummaryItemPrice>$5.90</SummaryItemPrice>
+            </SummaryItem>
+            <SummaryItem>
+              <SummaryItemText>Discount</SummaryItemText>
+              <SummaryItemPrice>-$65.99</SummaryItemPrice>
+            </SummaryItem>
+            <SummaryItem type="total">
+              <SummaryItemText>Total</SummaryItemText>
+              <SummaryItemPrice>$93.98</SummaryItemPrice>
+            </SummaryItem>
+            <Button>CHECKOUT</Button>
+          </Summary>
         </Bottom>
       </Wrapper>
+      <Newsletter />
       <Footer />
     </Container>
   );
