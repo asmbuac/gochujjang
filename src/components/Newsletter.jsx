@@ -1,5 +1,6 @@
 import { Send } from '@mui/icons-material';
 import styled from 'styled-components';
+import { mobile } from "../responsive";
 
 const Container = styled.div`
   height: 40vh;
@@ -8,18 +9,21 @@ const Container = styled.div`
   align-items: center;
   justify-content: center;
   flex-direction: column;
+  ${mobile({ textAlign: "center", height: "45vh" })}
 `;
 
 const Title = styled.h1`
   font-size: 36px;
   text-transform: uppercase;
   margin-bottom: 20px;
+  ${mobile({ fontSize: "30px" })}
 `;
 
 const Description = styled.div`
   font-size: 24px;
   font-weight: 300;
   margin-bottom: 20px;
+  ${mobile({ fontSize: "18px" })}
 `;
 
 const InputContainer = styled.div`
@@ -29,6 +33,7 @@ const InputContainer = styled.div`
   display: flex;
   justify-content: space-between;
   border: 1px solid lightgray;
+  ${mobile({ width: "80%" })}
 `;
 
 const Input = styled.input`
@@ -36,7 +41,8 @@ const Input = styled.input`
   border: none;
   outline: none;
   flex: 8;
-  padding-left: 20px
+  padding-left: 20px;
+  ${mobile({ fontSize: "14px" })}
 `;
 
 const Button = styled.button`
