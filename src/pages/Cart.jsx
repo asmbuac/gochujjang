@@ -5,11 +5,13 @@ import Newsletter from '../components/Newsletter';
 import Footer from "../components/Footer";
 import { Add, Remove } from "@mui/icons-material";
 import Marquee from "../components/Marquee";
+import { mobile } from "../responsive";
 
 const Container = styled.div``;
 
 const Wrapper = styled.div`
   padding: 20px;
+  ${mobile({ padding: "10px" })}
 `;
 
 const Title = styled.h1`
@@ -38,7 +40,9 @@ const TopButton = styled.button`
   }
 `;
 
-const TopTexts = styled.div``;
+const TopTexts = styled.div`
+  ${mobile({ display: "none" })}
+`;
 
 const TopText = styled.span`
   text-decoration: underline;
@@ -55,6 +59,7 @@ const TopText = styled.span`
 const Bottom = styled.div`
   display: flex;
   justify-content: space-between;
+  ${mobile({ flexDirection: "column", marginBottom: "10px" })}
 `;
 
 const Info = styled.div`
@@ -65,6 +70,7 @@ const Product = styled.div`
   margin-bottom: 30px;
   display: flex;
   justify-content: space-between;
+  ${mobile({ flexDirection: "column" })}
 `;
 
 const ProductDetails = styled.div`
@@ -82,6 +88,7 @@ const Details = styled.div`
   flex-direction: column;
   justify-content: space-around;
   text-transform: uppercase;
+  ${mobile({ fontSize: "14px" })}
 `;
 
 const ProductName = styled.span``;
@@ -110,9 +117,16 @@ const ProductAmountContainer = styled.div`
   margin-right: 50px;
 `;
 
-const ProductAmount = styled.span`
+const ProductAmount = styled.input`
   font-size: 24px;
   margin: 5px;
+  width: 50px;
+  text-align: end;
+  border: none;
+  border-bottom: 2px solid black;
+  padding: 10px 0px;
+  outline: none;
+  ${mobile({ margin: "10px 15px", textAlign: "center" })}
 `;
 
 const ProductPrice = styled.span`
@@ -190,7 +204,7 @@ const Cart = () => {
               <PriceDetails>
                 <ProductAmountContainer>
                   <Remove />
-                  <ProductAmount>2</ProductAmount>
+                  <ProductAmount type="number" defaultValue="2" min="0" />
                   <Add />
                 </ProductAmountContainer>
                 <ProductPrice>$131.98</ProductPrice>
@@ -209,7 +223,7 @@ const Cart = () => {
               <PriceDetails>
                 <ProductAmountContainer>
                   <Remove />
-                  <ProductAmount>1</ProductAmount>
+                  <ProductAmount type="number" defaultValue="1" min="0" />
                   <Add />
                 </ProductAmountContainer>
                 <ProductPrice>$27.99</ProductPrice>
@@ -240,7 +254,7 @@ const Cart = () => {
       </Wrapper>
       <Newsletter />
       <Footer />
-    </Container>
+    </Container >
   );
 };
 
