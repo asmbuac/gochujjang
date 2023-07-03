@@ -61,6 +61,11 @@ const MenuItem = styled.div`
   font-size: 14px;
   cursor: pointer;
   margin-left: 25px;
+
+  &:hover {
+    text-decoration: underline;
+    text-underline-position: under;
+  }
 `;
 
 const Navbar = () => {
