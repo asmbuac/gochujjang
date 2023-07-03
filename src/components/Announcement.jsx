@@ -15,7 +15,7 @@ const Container = styled.div`
   position: relative;
   z-index: 1;
 
-  ${mobile({ height: "20px", fontSize: "12px" })}
+  ${mobile({ height: "20px", fontSize: "11px" })}
 `;
 
 const Announcement = () => {
