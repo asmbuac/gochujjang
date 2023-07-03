@@ -44,32 +44,32 @@ const ProductList = () => {
       <FilterContainer>
         <Filter>
           <FilterText>Filter Products:</FilterText>
-          <Select>
-            <Option disabled selected>Color</Option>
-            <Option>White</Option>
-            <Option>Black</Option>
-            <Option>Red</Option>
-            <Option>Blue</Option>
-            <Option>Yellow</Option>
-            <Option>Green</Option>
-            <Option>Purple</Option>
-            <Option>Pink</Option>
+          <Select defaultValue="default">
+            <Option disabled value="default">Color</Option>
+            <Option value="white">White</Option>
+            <Option value="black">Black</Option>
+            <Option value="red">Red</Option>
+            <Option value="blue">Blue</Option>
+            <Option value="yellow">Yellow</Option>
+            <Option value="green">Green</Option>
+            <Option value="purple">Purple</Option>
+            <Option value="pink">Pink</Option>
           </Select>
-          <Select>
-            <Option disabled selected>Size</Option>
-            <Option>XS</Option>
-            <Option>S</Option>
-            <Option>M</Option>
-            <Option>L</Option>
-            <Option>XL</Option>
+          <Select defaultValue="default">
+            <Option disabled value="default">Size</Option>
+            <Option value="xs">XS</Option>
+            <Option value="s">S</Option>
+            <Option value="m">M</Option>
+            <Option value="l">L</Option>
+            <Option value="xl">XL</Option>
           </Select>
         </Filter>
         <Filter>
           <FilterText>Sort Products:</FilterText>
-          <Select>
-            <Option selected>Newest</Option>
-            <Option>Price (asc)</Option>
-            <Option>Price (desc)</Option>
+          <Select defaultValue="newest">
+            <Option value="newest">Newest</Option>
+            <Option value="ascPrice">Price (asc)</Option>
+            <Option value="descPrice">Price (desc)</Option>
           </Select>
         </Filter>
       </FilterContainer>
