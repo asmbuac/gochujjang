@@ -1,17 +1,28 @@
 import styled from "styled-components";
+import Announcement from "../components/Announcement";
+import Navbar from "../components/Navbar";
+import Newsletter from "../components/Newsletter";
+import Footer from "../components/Footer";
 
 const Container = styled.div`
-  width: 100vw;
+  width: 100%;
   height: 100vh;
   background: linear-gradient(
       rgba(255, 255, 255, 0.5),
       rgba(255, 255, 255, 0.5)
     ),
-    url("https://images.pexels.com/photos/6984661/pexels-photo-6984661.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940") center;
+    url("https://images.pexels.com/photos/6984661/pexels-photo-6984661.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940");
     background-size: cover;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
+    margin-top: -90px;
+`;
+
+const Logo = styled.img`
+  width: 60px;
+  margin-bottom: 20px;
 `;
 
 const Wrapper = styled.div`
@@ -66,40 +77,69 @@ const Checkbox = styled.input`
 const Description = styled.p``;
 
 const Button = styled.button`
+  margin-bottom: 10px;
   width: 40%;
   border: none;
   padding: 15px 20px;
+  background-color: rosybrown;
+  color: white;
   cursor: pointer;
   transition: all 300ms ease;
 
   &:hover {
-    background-color: darkgray;
-    color: white;
+    background-color: #804d4d;
+  }
+`;
+
+const LinkContainer = styled.p`
+  margin: 10px 0px;
+  text-align: center;
+  font-size: 12px;
+`;
+
+const Link = styled.a`
+  text-decoration: underline;
+  text-underline-position: under;
+  cursor: pointer;
+  transition: all 300ms ease;
+
+  &:hover {
+    color: #804d4d;
   }
 `;
 
 const Register = () => {
   return (
-    <Container>
-      <Wrapper>
-        <Title>CREATE AN ACCOUNT</Title>
-        <Form>
-          <Input placeholder="First Name" type="text" required />
-          <Input placeholder="Last Name" type="text" required />
-          <Input placeholder="Username" type="text" required />
-          <Input placeholder="Email" type="email" required />
-          <Input placeholder="Password" type="password" required />
-          <Input placeholder="Confirm Password" type="password" required />
-          <Agreement>
-            <Checkbox type="checkbox" required />
-            <Description>
-              By creating an account, I consent to the processing of my personal data in accordance with the <b>PRIVACY POLICY</b>
-            </Description>
-          </Agreement>
-          <Button>CREATE</Button>
-        </Form>
-      </Wrapper>
-    </Container>
+    <>
+      <Announcement />
+      <Navbar />
+      <Container>
+        <Logo src="src/assets/logo.png" />
+        <Wrapper>
+          <Title>CREATE AN ACCOUNT</Title>
+          <Form>
+            <Input placeholder="First Name" type="text" required />
+            <Input placeholder="Last Name" type="text" required />
+            <Input placeholder="Username" type="text" required />
+            <Input placeholder="Email" type="email" required />
+            <Input placeholder="Password" type="password" required />
+            <Input placeholder="Confirm Password" type="password" required />
+            <Agreement>
+              <Checkbox type="checkbox" required />
+              <Description>
+                By creating an account, I consent to the processing of my personal data in accordance with the <b>PRIVACY POLICY</b>
+              </Description>
+            </Agreement>
+            <Button>CREATE</Button>
+          </Form>
+          <LinkContainer>
+            ALREADY HAVE AN ACCOUNT? <Link>SIGN IN</Link>
+          </LinkContainer>
+        </Wrapper>
+      </Container>
+      <Newsletter />
+      <Footer />
+    </>
   );
 };
 

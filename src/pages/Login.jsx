@@ -1,17 +1,28 @@
 import styled from "styled-components";
+import Announcement from "../components/Announcement";
+import Navbar from "../components/Navbar";
+import Newsletter from "../components/Newsletter";
+import Footer from "../components/Footer";
 
 const Container = styled.div`
-  width: 100vw;
+  width: 100%;
   height: 100vh;
   background: linear-gradient(
       rgba(255, 255, 255, 0.5),
       rgba(255, 255, 255, 0.5)
     ),
-    url("https://images.pexels.com/photos/6984650/pexels-photo-6984650.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940") center;
+    url("https://images.pexels.com/photos/6984650/pexels-photo-6984650.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940");
     background-size: cover;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
+    margin-top: -90px;
+`;
+
+const Logo = styled.img`
+  width: 60px;
+  margin-bottom: 20px;
 `;
 
 const Wrapper = styled.div`
@@ -54,12 +65,13 @@ const Button = styled.button`
   width: 40%;
   border: none;
   padding: 15px 20px;
+  background-color: #7487BF;
+  color: white;
   cursor: pointer;
   transition: all 300ms ease;
 
   &:hover {
-    background-color: darkgray;
-    color: white;
+    background-color: #183888;
   }
 `;
 
@@ -78,26 +90,33 @@ const Link = styled.a`
   transition: all 300ms ease;
 
   &:hover {
-    color: rosybrown;
+    color: #7487BF;
   }
 `;
 
 const Login = () => {
   return (
-    <Container>
-      <Wrapper>
-        <Title>SIGN IN</Title>
-        <Form>
-          <Input placeholder="Username or Email" type="text" required />
-          <Input placeholder="Password" type="password" required />
-          <Button>LOGIN</Button>
-          <LinkContainer>
-            <Link>FORGOT PASSWORD?</Link>
-            <Link>CREATE A NEW ACCOUNT</Link>
-          </LinkContainer>
-        </Form>
-      </Wrapper>
-    </Container>
+    <>
+      <Announcement />
+      <Navbar />
+      <Container>
+        <Logo src="src/assets/logo.png" />
+        <Wrapper>
+          <Title>SIGN IN</Title>
+          <Form>
+            <Input placeholder="Username or Email" type="text" required />
+            <Input placeholder="Password" type="password" required />
+            <Button>LOGIN</Button>
+            <LinkContainer>
+              <Link>FORGOT PASSWORD?</Link>
+              <Link>CREATE A NEW ACCOUNT</Link>
+            </LinkContainer>
+          </Form>
+        </Wrapper>
+      </Container>
+      <Newsletter />
+      <Footer />
+    </>
   );
 };
 
