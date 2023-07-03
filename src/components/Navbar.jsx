@@ -47,7 +47,7 @@ const Center = styled.div`
 `;
 
 const Logo = styled.h1`
-  font-weight: bold;
+  font-family: "Audiowide";
 `;
 
 const Right = styled.div`
