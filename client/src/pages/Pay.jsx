@@ -1,5 +1,6 @@
 import styled from "styled-components";
-import StripeCheckout from 'react-stripe-checkout';
+import { useState, useEffect } from "react";
+import axios from "axios";
 
 const KEY = "pk_test_51NQGOLIAANtxApxuZUDdQGAWuyxwC1fQfM1hAg72HnaREmSJ7lUbDUrXxJwpj3zxOLCQJyXjaiOicBVISd0DhnEK00mDPYGqr5";
 
@@ -28,24 +29,25 @@ const Button = styled.button`
 `;
 
 function Pay() {
-  const onToken = (token) => {
-    console.log(token);
+  const handleCheckout = async () => {
+    try {
+      const res = await axios.post(
+        "http://localhost:8000/api/checkout",
+        {
+          amount: 2000,
+        }
+      );
+      if (res.data.url) {
+        window.location.href = res.data.url;
+      }
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (
     <Container>
-      <StripeCheckout
-        name="K-SHOP"
-        image="src/assets/logo.png"
-        billingAddress
-        shippingAddress
-        description="Your total is $20"
-        amount={2000}
-        token={onToken}
-        stripeKey={KEY}
-      >
-        <Button>Pay Now</Button>
-      </StripeCheckout>
+      <Button onClick={handleCheckout}>Pay Now</Button>
     </Container>
   );
 }

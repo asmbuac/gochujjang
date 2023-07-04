@@ -1,8 +1,14 @@
 import styled from "styled-components";
+import Announcement from "../components/Announcement";
+import Navbar from "../components/Navbar";
+import Marquee from "../components/Marquee";
+import Newsletter from "../components/Newsletter";
+import Footer from "../components/Footer";
+import { mobile } from "../responsive";
 
 const Container = styled.div`
   width: 100%;
-  height: 100vh;
+  height: 60vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -26,15 +32,23 @@ const Button = styled.button`
 
 const SuccessMsg = styled.p`
   font-size: 18px;
+  ${mobile({ textAlign: "center", padding: "0px 5px" })}
 `;
 
 function Success() {
   return (
-    <Container>
-      <Logo src="src/assets/logo.png" />
-      <Button>Successful</Button>
-      <SuccessMsg>Your order is being prepared. Thanks for choosing K-SHOP!</SuccessMsg>
-    </Container>
+    <>
+      <Announcement />
+      <Navbar />
+      <Marquee />
+      <Container>
+        <Logo src="src/assets/logo.png" />
+        <Button>Successful</Button>
+        <SuccessMsg>Your order is being prepared. Thanks for choosing K-SHOP!</SuccessMsg>
+      </Container>
+      <Newsletter />
+      <Footer />
+    </>
   );
 }
 
