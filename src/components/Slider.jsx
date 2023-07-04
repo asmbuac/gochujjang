@@ -10,7 +10,7 @@ const Container = styled.div`
   display: flex;
   position: relative;
   overflow: hidden;
-  ${mobile({ display: "none" })}
+  ${mobile({ height: "calc(100vh - 100px)" })}
 `;
 
 const Arrow = styled.div`
@@ -45,6 +45,7 @@ const Slide = styled.div`
   display: flex;
   align-items: center;
   background-color: #${props => props.bg};
+  ${mobile({ flexDirection: "column" })}
 `;
 
 const ImgContainer = styled.div`
@@ -65,6 +66,7 @@ const InfoContainer = styled.div`
 
 const Title = styled.h1`
   font-size: 70px;
+  ${mobile({ fontSize: "42px" })}
 `;
 
 const Description = styled.p`
@@ -72,6 +74,7 @@ const Description = styled.p`
   font-size: 20px;
   font-weight: 500;
   letter-spacing: 3px;
+  ${mobile({ margin: "25px 0px", fontSize: "18px" })}
 `;
 
 const Button = styled.button`
