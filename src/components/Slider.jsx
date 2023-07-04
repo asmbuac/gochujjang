@@ -10,7 +10,7 @@ const Container = styled.div`
   display: flex;
   position: relative;
   overflow: hidden;
-  ${mobile({ height: "calc(100vh - 100px)" })}
+  ${mobile({ height: "calc(100vh - 99px)" })}
 `;
 
 const Arrow = styled.div`
