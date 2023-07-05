@@ -50,10 +50,17 @@ const Input = styled.input`
 
 const Center = styled.div`
   flex: 1;
-  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
 `;
 
-const Logo = styled.h1`
+const Logo = styled.img`
+  height: 30px;
+`;
+
+const BrandName = styled.h1`
   font-family: "Audiowide";
   ${mobile({ fontSize: "20px" })}
 `;
@@ -90,7 +97,8 @@ const Navbar = () => {
           </SearchContainer>
         </Left>
         <Center>
-          <Logo>K-SHOP</Logo>
+          <Logo src="src/assets/logo.png" />
+          <BrandName>K-SHOP</BrandName>
         </Center>
         <Right>
           <MenuItem>REGISTER</MenuItem>

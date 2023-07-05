@@ -17,7 +17,7 @@ router.post("/", async (req, res) => {
     ],
     mode: 'payment',
     success_url: 'http://localhost:5173/success',
-    cancel_url: 'http://localhost:5173/failure',
+    cancel_url: 'http://localhost:5173/cart',
     automatic_tax: { enabled: true },
   });
 
