@@ -1,9 +1,4 @@
 import styled from "styled-components";
-import Announcement from "../components/Announcement";
-import Navbar from "../components/Navbar";
-import Marquee from "../components/Marquee";
-import Newsletter from "../components/Newsletter";
-import Footer from "../components/Footer";
 import { mobile } from "../responsive";
 
 const Container = styled.div`
@@ -118,37 +113,30 @@ const Link = styled.a`
 
 const Register = () => {
   return (
-    <>
-      <Announcement />
-      <Navbar />
-      <Marquee />
-      <Container>
-        <Logo src="src/assets/logo.png" />
-        <Wrapper>
-          <Title>CREATE AN ACCOUNT</Title>
-          <Form>
-            <Input placeholder="First Name" type="text" required />
-            <Input placeholder="Last Name" type="text" required />
-            <Input placeholder="Username" type="text" required />
-            <Input placeholder="Email" type="email" required />
-            <Input placeholder="Password" type="password" required />
-            <Input placeholder="Confirm Password" type="password" required />
-            <Agreement>
-              <Checkbox type="checkbox" required />
-              <Description>
-                By creating an account, I consent to the processing of my personal data in accordance with the <b>PRIVACY POLICY</b>
-              </Description>
-            </Agreement>
-            <Button>CREATE</Button>
-          </Form>
-          <LinkContainer>
-            ALREADY HAVE AN ACCOUNT? <Link>SIGN IN</Link>
-          </LinkContainer>
-        </Wrapper>
-      </Container>
-      <Newsletter />
-      <Footer />
-    </>
+    <Container>
+      <Logo src="src/assets/logo.png" />
+      <Wrapper>
+        <Title>CREATE AN ACCOUNT</Title>
+        <Form>
+          <Input placeholder="First Name" type="text" required />
+          <Input placeholder="Last Name" type="text" required />
+          <Input placeholder="Username" type="text" required />
+          <Input placeholder="Email" type="email" required />
+          <Input placeholder="Password" type="password" required />
+          <Input placeholder="Confirm Password" type="password" required />
+          <Agreement>
+            <Checkbox type="checkbox" required />
+            <Description>
+              By creating an account, I consent to the processing of my personal data in accordance with the <b>PRIVACY POLICY</b>
+            </Description>
+          </Agreement>
+          <Button>CREATE</Button>
+        </Form>
+        <LinkContainer>
+          ALREADY HAVE AN ACCOUNT? <Link>SIGN IN</Link>
+        </LinkContainer>
+      </Wrapper>
+    </Container>
   );
 };
 

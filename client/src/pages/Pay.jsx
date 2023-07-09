@@ -6,7 +6,7 @@ const KEY = "pk_test_51NQGOLIAANtxApxuZUDdQGAWuyxwC1fQfM1hAg72HnaREmSJ7lUbDUrXxJ
 
 const Container = styled.div`
   width: 100%;
-  height: 100vh;
+  height: 40vh;
   display: flex;
   align-items: center;
   justify-content: center;

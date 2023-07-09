@@ -1,14 +1,9 @@
 import styled from "styled-components";
-import Announcement from "../components/Announcement";
-import Navbar from "../components/Navbar";
-import Marquee from "../components/Marquee";
-import Newsletter from "../components/Newsletter";
-import Footer from "../components/Footer";
 import { mobile } from "../responsive";
 
 const Container = styled.div`
   width: 100%;
-  height: 60vh;
+  height: 40vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -37,18 +32,11 @@ const SuccessMsg = styled.p`
 
 function Success() {
   return (
-    <>
-      <Announcement />
-      <Navbar />
-      <Marquee />
-      <Container>
-        <Logo src="src/assets/logo.png" />
-        <Button>Successful</Button>
-        <SuccessMsg>Your order is being prepared. Thanks for choosing K-SHOP!</SuccessMsg>
-      </Container>
-      <Newsletter />
-      <Footer />
-    </>
+    <Container>
+      <Logo src="src/assets/logo.png" />
+      <Button>Successful</Button>
+      <SuccessMsg>Your order is being prepared. Thanks for choosing K-SHOP!</SuccessMsg>
+    </Container>
   );
 }
 

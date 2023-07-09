@@ -1,9 +1,4 @@
 import styled from "styled-components";
-import Announcement from "../components/Announcement";
-import Navbar from "../components/Navbar";
-import Marquee from "../components/Marquee";
-import Newsletter from "../components/Newsletter";
-import Footer from "../components/Footer";
 import { Add, Remove } from "@mui/icons-material";
 import { mobile } from "../responsive";
 
@@ -121,9 +116,6 @@ const Button = styled.button`
 const Product = () => {
   return (
     <Container>
-      <Announcement />
-      <Navbar />
-      <Marquee />
       <Wrapper>
         <ImgContainer>
           <Image src="https://i.ibb.co/S6qMxwr/jean.jpg" />
@@ -162,8 +154,6 @@ const Product = () => {
           </AddContainer>
         </InfoContainer>
       </Wrapper>
-      <Newsletter />
-      <Footer />
     </Container>
   );
 };

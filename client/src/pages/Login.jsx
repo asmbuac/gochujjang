@@ -1,9 +1,4 @@
 import styled from "styled-components";
-import Announcement from "../components/Announcement";
-import Navbar from "../components/Navbar";
-import Marquee from "../components/Marquee";
-import Newsletter from "../components/Newsletter";
-import Footer from "../components/Footer";
 import { mobile } from "../responsive";
 
 const Container = styled.div`
@@ -99,28 +94,21 @@ const Link = styled.a`
 
 const Login = () => {
   return (
-    <>
-      <Announcement />
-      <Navbar />
-      <Marquee />
-      <Container>
-        <Logo src="src/assets/logo.png" />
-        <Wrapper>
-          <Title>SIGN IN</Title>
-          <Form>
-            <Input placeholder="Username or Email" type="text" required />
-            <Input placeholder="Password" type="password" required />
-            <Button>LOGIN</Button>
-            <LinkContainer>
-              <Link>FORGOT PASSWORD?</Link>
-              <Link>CREATE A NEW ACCOUNT</Link>
-            </LinkContainer>
-          </Form>
-        </Wrapper>
-      </Container>
-      <Newsletter />
-      <Footer />
-    </>
+    <Container>
+      <Logo src="src/assets/logo.png" />
+      <Wrapper>
+        <Title>SIGN IN</Title>
+        <Form>
+          <Input placeholder="Username or Email" type="text" required />
+          <Input placeholder="Password" type="password" required />
+          <Button>LOGIN</Button>
+          <LinkContainer>
+            <Link>FORGOT PASSWORD?</Link>
+            <Link>CREATE A NEW ACCOUNT</Link>
+          </LinkContainer>
+        </Form>
+      </Wrapper>
+    </Container>
   );
 };
 
