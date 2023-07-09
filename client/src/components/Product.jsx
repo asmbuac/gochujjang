@@ -1,5 +1,6 @@
 import { FavoriteBorderOutlined, Search, ShoppingCartOutlined } from '@mui/icons-material';
 import styled from 'styled-components';
+import { mobile } from "../responsive";
 
 const Info = styled.div`
   opacity: 0;
@@ -13,6 +14,7 @@ const Info = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  gap: 10px;
   cursor: pointer;
   transition: all 400ms ease;
 `;
@@ -30,6 +32,8 @@ const Container = styled.div`
   &:hover ${Info} {
     opacity: 1;
   }
+
+  ${mobile({ minWidth: "40vw", height: "20vh" })}
 `;
 
 const Circle = styled.div`
@@ -38,11 +42,15 @@ const Circle = styled.div`
   border-radius: 50%;
   background-color: #F5FBFD;
   position: absolute;
+
+  ${mobile({ width: "150px", height: "150px" })}
 `;
 
 const Image = styled.img`
   height: 75%;
   z-index: 2;
+
+  ${mobile({ height: "65%" })}
 `;
 
 const Icon = styled.div`
@@ -53,7 +61,6 @@ const Icon = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-left: 10px;
   transition: all 400ms ease;
 
   &:hover {
