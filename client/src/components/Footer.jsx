@@ -95,7 +95,7 @@ const Footer = () => {
   return (
     <Container>
       <Left>
-        <Logo>K-SHOP</Logo>
+        <Logo>GochuJjang</Logo>
         <Description>
           Lorem ipsum dolor sit amet, consectetur adipisicing elit. Earum ut facere esse dolores ullam culpa, ab inventore itaque, tenetur ducimus consectetur eligendi? Aperiam vero sapiente molestiae ipsum beatae consequuntur similique.
         </Description>

@@ -58,11 +58,12 @@ const Center = styled.div`
 
 const Logo = styled.img`
   height: 30px;
+  ${mobile({ height: "20px" })}
 `;
 
 const BrandName = styled.h1`
   font-family: "Audiowide";
-  ${mobile({ fontSize: "20px" })}
+  ${mobile({ fontSize: "14px" })}
 `;
 
 const Right = styled.div`
@@ -98,7 +99,7 @@ const Navbar = () => {
         </Left>
         <Center>
           <Logo src="src/assets/logo.png" />
-          <BrandName>K-SHOP</BrandName>
+          <BrandName>GochuJjang</BrandName>
         </Center>
         <Right>
           <MenuItem>REGISTER</MenuItem>
