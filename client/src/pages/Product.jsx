@@ -127,12 +127,13 @@ const Product = () => {
       try {
         const res = await publicRequest.get(`/products/${id}`);
         setProduct(res.data);
-      } catch (err) { }
+      } catch (err) {
+        console.error(err);
+      }
     };
     getProduct();
   }, [id]);
 
-  console.log(product);
   return (
     <Container>
       <Wrapper>
