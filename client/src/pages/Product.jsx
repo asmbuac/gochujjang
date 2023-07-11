@@ -1,6 +1,10 @@
 import styled from "styled-components";
 import { Add, Remove } from "@mui/icons-material";
 import { mobile } from "../responsive";
+import { useLocation } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { publicRequest } from "../requestMethods";
+
 
 const Container = styled.div``;
 
@@ -114,6 +118,21 @@ const Button = styled.button`
 `;
 
 const Product = () => {
+  const location = useLocation();
+  const id = location.pathname.split("/")[2];
+  const [product, setProduct] = useState({});
+
+  useEffect(() => {
+    const getProduct = async () => {
+      try {
+        const res = await publicRequest.get(`/products/${id}`);
+        setProduct(res.data);
+      } catch (err) { }
+    };
+    getProduct();
+  }, [id]);
+
+  console.log(product);
   return (
     <Container>
       <Wrapper>
