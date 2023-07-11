@@ -1,3 +1,4 @@
+import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import Announcement from "./components/Announcement";
 import Navbar from "./components/Navbar";
 import Marquee from "./components/Marquee";
@@ -9,15 +10,24 @@ import Login from "./pages/Login";
 import Cart from "./pages/Cart";
 import Pay from "./pages/Pay";
 import Success from "./pages/Success";
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import Newsletter from "./components/Newsletter";
 import Footer from "./components/Footer";
+import { useEffect } from 'react';
 
 const App = () => {
   const user = true;
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: "instant",
+    });
+  }, [pathname]);
 
   return (
-    <BrowserRouter>
+    <>
       <Announcement />
       <Navbar />
       <Marquee />
@@ -36,7 +46,7 @@ const App = () => {
       </Routes>
       <Newsletter />
       <Footer />
-    </BrowserRouter>
+    </>
   );
 };
 
