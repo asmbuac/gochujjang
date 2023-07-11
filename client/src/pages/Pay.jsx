@@ -1,8 +1,5 @@
 import styled from "styled-components";
-import { useState, useEffect } from "react";
 import axios from "axios";
-
-const KEY = "pk_test_51NQGOLIAANtxApxuZUDdQGAWuyxwC1fQfM1hAg72HnaREmSJ7lUbDUrXxJwpj3zxOLCQJyXjaiOicBVISd0DhnEK00mDPYGqr5";
 
 const Container = styled.div`
   width: 100%;
