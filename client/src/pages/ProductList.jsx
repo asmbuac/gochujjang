@@ -1,6 +1,8 @@
 import styled from "styled-components";
 import Products from "../components/Products";
 import { mobile } from "../responsive";
+import { useLocation } from "react-router-dom";
+import { useState } from "react";
 
 const Container = styled.div``;
 
@@ -34,13 +36,25 @@ const Select = styled.select`
 const Option = styled.option``;
 
 const ProductList = () => {
+  const location = useLocation();
+  const category = location.pathname.split("/")[2];
+  const [filter, setFilters] = useState({});
+
+  const handleFilters = e => {
+    const value = e.target.value;
+    setFilters({
+      ...filter,
+      [e.target.name]: value,
+    });
+  };
+
   return (
     <Container>
       <Title>Dresses</Title>
       <FilterContainer>
         <Filter>
           <FilterText>Filter Products:</FilterText>
-          <Select defaultValue="default">
+          <Select name="color" defaultValue="default" onChange={handleFilters}>
             <Option disabled value="default">Color</Option>
             <Option value="white">White</Option>
             <Option value="black">Black</Option>
@@ -51,7 +65,7 @@ const ProductList = () => {
             <Option value="purple">Purple</Option>
             <Option value="pink">Pink</Option>
           </Select>
-          <Select defaultValue="default">
+          <Select name="size" defaultValue="default" onChange={handleFilters}>
             <Option disabled value="default">Size</Option>
             <Option value="xs">XS</Option>
             <Option value="s">S</Option>
