@@ -98,7 +98,7 @@ const Navbar = () => {
           </SearchContainer>
         </Left>
         <Center>
-          <Logo src="src/assets/logo.png" />
+          <Logo src="/src/assets/logo.png" />
           <BrandName>GochuJjang</BrandName>
         </Center>
         <Right>
