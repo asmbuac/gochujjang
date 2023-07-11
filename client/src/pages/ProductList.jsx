@@ -52,7 +52,7 @@ const ProductList = () => {
 
   return (
     <Container>
-      <Title>{category}</Title>
+      <Title>{category ? category : "All Products"}</Title>
       <FilterContainer>
         <Filter>
           <FilterText>Filter Products:</FilterText>

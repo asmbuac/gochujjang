@@ -2,6 +2,7 @@ import Badge from '@mui/material/Badge';
 import { Search, ShoppingCartOutlined } from '@mui/icons-material';
 import styled from 'styled-components';
 import { mobile } from "../responsive";
+import { NavLink } from 'react-router-dom';
 
 const Container = styled.div`
   height: 60px;
@@ -53,7 +54,6 @@ const Center = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 5px;
 `;
 
 const Logo = styled.img`
@@ -75,15 +75,26 @@ const Right = styled.div`
   ${mobile({ flex: 1.5, justifyContent: "center", columnGap: "10px" })}
 `;
 
-const MenuItem = styled.div`
+const MenuItem = styled(NavLink)`
   font-size: 14px;
-  cursor: pointer;
+  text-decoration: none;
+  color: black;
+  transition: all 300ms ease;
   ${mobile({ fontSize: "12px" })}
 
   &:hover {
     text-decoration: underline;
     text-underline-position: under;
   }
+`;
+
+const NavbarLink = styled(NavLink)`
+  text-decoration: none;
+  color: black;
+  display: ${props => props.display && "flex"};
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
 `;
 
 const Navbar = () => {
@@ -98,13 +109,15 @@ const Navbar = () => {
           </SearchContainer>
         </Left>
         <Center>
-          <Logo src="/src/assets/logo.png" />
-          <BrandName>GochuJjang</BrandName>
+          <NavbarLink to="/" display="flex">
+            <Logo src="/src/assets/logo.png" />
+            <BrandName>GochuJjang</BrandName>
+          </NavbarLink>
         </Center>
         <Right>
-          <MenuItem>REGISTER</MenuItem>
-          <MenuItem>SIGN IN</MenuItem>
-          <MenuItem>
+          <MenuItem to="/register">REGISTER</MenuItem>
+          <MenuItem to="/login">SIGN IN</MenuItem>
+          <MenuItem to="/cart">
             <Badge badgeContent={4} color="primary">
               <ShoppingCartOutlined />
             </Badge>
