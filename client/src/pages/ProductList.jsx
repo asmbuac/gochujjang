@@ -8,6 +8,7 @@ const Container = styled.div``;
 
 const Title = styled.h1`
   margin: 20px;
+  text-transform: uppercase;
 `;
 
 const FilterContainer = styled.div`
@@ -51,7 +52,7 @@ const ProductList = () => {
 
   return (
     <Container>
-      <Title>Dresses</Title>
+      <Title>{category}</Title>
       <FilterContainer>
         <Filter>
           <FilterText>Filter Products:</FilterText>
@@ -82,8 +83,8 @@ const ProductList = () => {
             onChange={e => setSort(e.target.value)}
           >
             <Option value="newest">Newest</Option>
-            <Option value="ascPrice">Price (asc)</Option>
-            <Option value="descPrice">Price (desc)</Option>
+            <Option value="asc">Price (asc)</Option>
+            <Option value="desc">Price (desc)</Option>
           </Select>
         </Filter>
       </FilterContainer>
