@@ -99,7 +99,7 @@ const MenuItem = styled(NavLink)`
 `;
 
 const Navbar = () => {
-  const cart = useSelector(state => state.cart);
+  const quantity = useSelector(state => state.cart.quantity);
 
   return (
     <Container>
@@ -121,7 +121,7 @@ const Navbar = () => {
           <MenuItem to="/register">REGISTER</MenuItem>
           <MenuItem to="/login">SIGN IN</MenuItem>
           <MenuItem to="/cart">
-            <Badge badgeContent={4} color="primary">
+            <Badge badgeContent={quantity} color="primary">
               <ShoppingCartOutlined />
             </Badge>
           </MenuItem>
