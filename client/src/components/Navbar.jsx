@@ -56,6 +56,15 @@ const Center = styled.div`
   justify-content: center;
 `;
 
+const NavbarLink = styled(NavLink)`
+  text-decoration: none;
+  color: black;
+  display: ${props => props.display && "flex"};
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+`;
+
 const Logo = styled.img`
   height: 30px;
   ${mobile({ height: "20px" })}
@@ -86,15 +95,6 @@ const MenuItem = styled(NavLink)`
     text-decoration: underline;
     text-underline-position: under;
   }
-`;
-
-const NavbarLink = styled(NavLink)`
-  text-decoration: none;
-  color: black;
-  display: ${props => props.display && "flex"};
-  align-items: center;
-  justify-content: center;
-  gap: 5px;
 `;
 
 const Navbar = () => {

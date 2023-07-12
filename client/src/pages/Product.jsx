@@ -47,7 +47,7 @@ const Price = styled.span`
 const FilterContainer = styled.div`
   width: 50%;
   margin: 30px 0px;
-  display: flex;
+  display: ${props => props.color && props.size ? "flex" : "hidden"};
   justify-content: space-between;
   ${mobile({ width: "100%" })}
 `;
@@ -68,6 +68,7 @@ const FilterColor = styled.div`
   height: 20px;
   border-radius: 50%;
   background-color: ${props => props.color};
+  border: 1px solid lightgray;
   margin-right: 7px;
   cursor: pointer;
 `;
@@ -138,31 +139,35 @@ const Product = () => {
     <Container>
       <Wrapper>
         <ImgContainer>
-          <Image src="https://i.ibb.co/S6qMxwr/jean.jpg" />
+          <Image src={product?.image} />
         </ImgContainer>
         <InfoContainer>
-          <Title>Denim Jumpsuit</Title>
+          <Title>{product?.title}</Title>
           <Description>
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quisquam rerum sit quibusdam unde libero eligendi! Earum asperiores, labore maxime porro officia optio maiores vel odit, suscipit fugiat totam. Aspernatur, maiores!
+            {product?.description}
           </Description>
-          <Price>$20</Price>
-          <FilterContainer>
-            <Filter>
-              <FilterTitle>Color</FilterTitle>
-              <FilterColor color="black" />
-              <FilterColor color="darkblue" />
-              <FilterColor color="gray" />
-            </Filter>
-            <Filter>
-              <FilterTitle>Size</FilterTitle>
-              <FilterSize>
-                <FilterSizeOption>XS</FilterSizeOption>
-                <FilterSizeOption>S</FilterSizeOption>
-                <FilterSizeOption>M</FilterSizeOption>
-                <FilterSizeOption>L</FilterSizeOption>
-                <FilterSizeOption>XL</FilterSizeOption>
-              </FilterSize>
-            </Filter>
+          <Price>${product?.price}</Price>
+          <FilterContainer color={product.color?.length} size={product.size?.length}>
+            {
+              product.color?.length > 0 &&
+              <Filter>
+                <FilterTitle>Color</FilterTitle>
+                {product.color.map(c => (
+                  <FilterColor color={c} k={c} />
+                ))}
+              </Filter>
+            }
+            {
+              product.size?.length > 0 &&
+              <Filter>
+                <FilterTitle>Size</FilterTitle>
+                <FilterSize>
+                  {product.size.map(s => (
+                    <FilterSizeOption key={s}>{s}</FilterSizeOption>
+                  ))}
+                </FilterSize>
+              </Filter>
+            }
           </FilterContainer>
           <AddContainer>
             <AmountContainer>
