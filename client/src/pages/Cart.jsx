@@ -1,8 +1,7 @@
 import styled from "styled-components";
-import { Add, Remove } from "@mui/icons-material";
 import { mobile } from "../responsive";
-import { useSelector, useDispatch } from 'react-redux';
-import { addProduct, removeProduct } from "../redux/cartRedux";
+import { useSelector } from 'react-redux';
+import CartItem from "../components/CartItem";
 
 const Container = styled.div``;
 
@@ -63,75 +62,6 @@ const Info = styled.div`
   flex: 3;
 `;
 
-const Product = styled.div`
-  margin-bottom: 30px;
-  display: flex;
-  justify-content: space-between;
-  ${mobile({ flexDirection: "column" })}
-`;
-
-const ProductDetails = styled.div`
-  flex: 2;
-  display: flex;
-`;
-
-const Image = styled.img`
-  width: 200px;
-`;
-
-const Details = styled.div`
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  text-transform: uppercase;
-  ${mobile({ fontSize: "14px" })}
-`;
-
-const ProductName = styled.span``;
-
-const ProductId = styled.span``;
-
-const ProductColor = styled.div`
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  border: 1px solid lightgray;
-  background-color: ${props => props.color};
-`;
-
-const ProductSize = styled.span``;
-
-const PriceDetails = styled.div`
-  flex: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`;
-
-const ProductAmountContainer = styled.div`
-  display: flex;
-  align-items: center;
-  margin-right: 50px;
-`;
-
-const ProductAmount = styled.input`
-  font-size: 24px;
-  margin: 5px;
-  width: 50px;
-  text-align: center;
-  border: none;
-  border-bottom: 2px solid black;
-  padding: 10px 0px;
-  outline: none;
-  ${mobile({ margin: "10px 15px", textAlign: "center" })}
-`;
-
-const ProductPrice = styled.span`
-  font-size: 24px;
-  font-weight: 200;
-`;
-
 const Summary = styled.div`
   flex: 1;
   border: 0.5px solid lightgray;
@@ -173,15 +103,6 @@ const Button = styled.button`
 
 const Cart = () => {
   const cart = useSelector(state => state.cart);
-  const dispatch = useDispatch();
-
-  const handleQuantity = (type, product) => {
-    if (type === "dec") {
-      dispatch(removeProduct({ ...product, quantity: 1 }));
-    } else {
-      dispatch(addProduct({ ...product, quantity: 1 }));
-    }
-  };
 
   return (
     <Container>
@@ -198,27 +119,8 @@ const Cart = () => {
         <Bottom>
           <Info>
             {cart.products.map(product => (
-              <Product key={product._id}>
-                <ProductDetails>
-                  <Image src={product.image} />
-                  <Details>
-                    <ProductName><b>Product: </b>{product.title}</ProductName>
-                    <ProductId><b>ID: </b>{product._id}</ProductId>
-                    <ProductColor color={product.color} />
-                    {product.size && <ProductSize><b>Size: </b>{product.size}</ProductSize>}
-                  </Details>
-                </ProductDetails>
-                <PriceDetails>
-                  <ProductAmountContainer>
-                    <Remove onClick={() => handleQuantity("dec", product)} style={{ cursor: "pointer" }} />
-                    <ProductAmount type="number" value={product.quantity} min="1" />
-                    <Add onClick={() => handleQuantity("inc", product)} style={{ cursor: "pointer" }} />
-                  </ProductAmountContainer>
-                  <ProductPrice>${(product.price * product.quantity).toFixed(2)}</ProductPrice>
-                </PriceDetails>
-              </Product>
-            ))
-            }
+              <CartItem key={product._id} product={product} />
+            ))}
           </Info>
           <Summary>
             <SummaryTitle>ORDER SUMMARY</SummaryTitle>
