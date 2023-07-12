@@ -51,10 +51,18 @@ const PriceDetails = styled.div`
   justify-content: center;
 `;
 
+const AmountAndRemoveContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-right: 50px;
+  gap: 5px;
+`;
+
 const ProductAmountContainer = styled.div`
   display: flex;
   align-items: center;
-  margin-right: 50px;
 `;
 
 const ProductAmount = styled.input`
@@ -67,6 +75,16 @@ const ProductAmount = styled.input`
   padding: 10px 0px;
   outline: none;
   ${mobile({ margin: "10px 15px", textAlign: "center" })}
+`;
+
+const RemoveProduct = styled.span`
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 300ms ease;
+
+  &:hover {
+    color: #7487BF;
+  }
 `;
 
 const ProductPrice = styled.span`
@@ -85,6 +103,8 @@ const CartItem = ({ product }) => {
     } else if (type === "inc") {
       setQuantity(Number(quantity) + 1);
       dispatch(addProduct({ ...product, quantity: 1 }));
+    } else if (type === "del") {
+      dispatch(removeProduct({ ...product, quantity: product.quantity }));
     } else {
       setQuantity(type);
       if (type) {
@@ -108,11 +128,14 @@ const CartItem = ({ product }) => {
         </Details>
       </ProductDetails>
       <PriceDetails>
-        <ProductAmountContainer>
-          <Remove onClick={() => handleQuantity("dec", product)} style={{ cursor: "pointer" }} />
-          <ProductAmount type="number" value={quantity} min="0" onChange={e => handleQuantity(e.target.value, product)} />
-          <Add onClick={() => handleQuantity("inc", product)} style={{ cursor: "pointer" }} />
-        </ProductAmountContainer>
+        <AmountAndRemoveContainer>
+          <ProductAmountContainer>
+            <Remove onClick={() => handleQuantity("dec", product)} style={{ cursor: "pointer" }} />
+            <ProductAmount type="number" value={quantity} min="0" onChange={e => handleQuantity(e.target.value, product)} />
+            <Add onClick={() => handleQuantity("inc", product)} style={{ cursor: "pointer" }} />
+          </ProductAmountContainer>
+          <RemoveProduct onClick={() => handleQuantity("del", product)}>Remove</RemoveProduct>
+        </AmountAndRemoveContainer>
         <ProductPrice>${(product.price * product.quantity).toFixed(2)}</ProductPrice>
       </PriceDetails>
     </Product>

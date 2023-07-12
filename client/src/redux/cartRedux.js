@@ -10,32 +10,38 @@ const cartSlice = createSlice({
   },
   reducers: {
     addProduct: (state, action) => {
-      if (!(action.payload._id in state.indices)) {
-        state.indices[action.payload._id] = state.products.length;
+      const { _id, quantity, price } = action.payload;
+
+      if (!(_id in state.indices)) {
+        state.indices[_id] = state.products.length;
         state.products.push(action.payload);
       } else {
-        const index = state.indices[action.payload._id];
-        state.products[index].quantity += action.payload.quantity;
+        const index = state.indices[_id];
+        state.products[index].quantity += quantity;
       }
-      state.quantity += action.payload.quantity;
-      state.total += action.payload.price * action.payload.quantity;
+
+      state.quantity += quantity;
+      state.total += price * quantity;
     },
     removeProduct: (state, action) => {
-      const index = state.indices[action.payload._id];
-      if (state.products[index].quantity === 1) {
+      const { _id, quantity, price } = action.payload;
+      const index = state.indices[_id];
+      const product = state.products[index];
+
+      if (product.quantity === 1 || quantity === product.quantity) {
         if (state.products.length > 1) {
           const lastProduct = state.products.at(-1);
           state.indices[lastProduct._id] = index;
           state.products[index] = lastProduct;
         }
-        delete state.indices[action.payload._id];
+        delete state.indices[_id];
         state.products.pop();
-        state.quantity -= 1;
-        state.total -= action.payload.price;
+        state.quantity -= (quantity > 1 ? quantity : 1);
+        state.total -= price * quantity;
       } else {
-        state.products[index].quantity -= action.payload.quantity;
-        state.quantity -= action.payload.quantity;
-        state.total -= action.payload.price * action.payload.quantity;
+        product.quantity -= quantity;
+        state.quantity -= quantity;
+        state.total -= price * quantity;
       }
     }
   },
