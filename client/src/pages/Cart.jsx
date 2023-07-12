@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { Add, Remove } from "@mui/icons-material";
 import { mobile } from "../responsive";
+import { useSelector } from 'react-redux';
 
 const Container = styled.div``;
 
@@ -94,6 +95,7 @@ const ProductColor = styled.div`
   width: 20px;
   height: 20px;
   border-radius: 50%;
+  border: 1px solid lightgray;
   background-color: ${props => props.color};
 `;
 
@@ -116,7 +118,7 @@ const ProductAmount = styled.input`
   font-size: 24px;
   margin: 5px;
   width: 50px;
-  text-align: end;
+  text-align: center;
   border: none;
   border-bottom: 2px solid black;
   padding: 10px 0px;
@@ -169,6 +171,9 @@ const Button = styled.button`
 `;
 
 const Cart = () => {
+  const cart = useSelector(state => state.cart);
+
+
   return (
     <Container>
       <Wrapper>
@@ -183,50 +188,34 @@ const Cart = () => {
         </Top>
         <Bottom>
           <Info>
-            <Product>
-              <ProductDetails>
-                <Image src="https://saranghello.com/cdn/shop/products/1_e16dc4ae-884c-4050-b96a-79548a9ce0ff_900x.jpg?v=1667762979" />
-                <Details>
-                  <ProductName><b>Product: </b>BLACKPINK - Official Light Stick Version 2</ProductName>
-                  <ProductId><b>ID: </b>93813718293</ProductId>
-                  <ProductColor color="black" />
-                  <ProductSize><b>Size: </b>N/A</ProductSize>
-                </Details>
-              </ProductDetails>
-              <PriceDetails>
-                <ProductAmountContainer>
-                  <Remove />
-                  <ProductAmount type="number" defaultValue="2" min="0" />
-                  <Add />
-                </ProductAmountContainer>
-                <ProductPrice>$131.98</ProductPrice>
-              </PriceDetails>
-            </Product>
-            <Product>
-              <ProductDetails>
-                <Image src="https://saranghello.com/cdn/shop/products/e3323ba0-bad4-46d3-8884-e2a5ce1bf812_750x.jpg?v=1678745716" />
-                <Details>
-                  <ProductName><b>Product: </b>Jisoo (BLACKPINK) - 1st Single Album + YG Select Benefits</ProductName>
-                  <ProductId><b>ID: </b>93813718293</ProductId>
-                  <ProductColor color="black" />
-                  <ProductSize><b>Size: </b>N/A</ProductSize>
-                </Details>
-              </ProductDetails>
-              <PriceDetails>
-                <ProductAmountContainer>
-                  <Remove />
-                  <ProductAmount type="number" defaultValue="1" min="0" />
-                  <Add />
-                </ProductAmountContainer>
-                <ProductPrice>$27.99</ProductPrice>
-              </PriceDetails>
-            </Product>
+            {cart.products.map(product => (
+              <Product>
+                <ProductDetails>
+                  <Image src={product.image} />
+                  <Details>
+                    <ProductName><b>Product: </b>{product.title}</ProductName>
+                    <ProductId><b>ID: </b>{product._id}</ProductId>
+                    <ProductColor color={product.color} />
+                    {product.size && <ProductSize><b>Size: </b>{product.size}</ProductSize>}
+                  </Details>
+                </ProductDetails>
+                <PriceDetails>
+                  <ProductAmountContainer>
+                    <Remove />
+                    <ProductAmount type="number" defaultValue={product.quantity} min="1" />
+                    <Add />
+                  </ProductAmountContainer>
+                  <ProductPrice>${(product.price * product.quantity).toFixed(2)}</ProductPrice>
+                </PriceDetails>
+              </Product>
+            ))
+            }
           </Info>
           <Summary>
             <SummaryTitle>ORDER SUMMARY</SummaryTitle>
             <SummaryItem>
               <SummaryItemText>Subtotal</SummaryItemText>
-              <SummaryItemPrice>$120</SummaryItemPrice>
+              <SummaryItemPrice>${cart.total.toFixed(2)}</SummaryItemPrice>
             </SummaryItem>
             <SummaryItem>
               <SummaryItemText>Estimated Shipping</SummaryItemText>
@@ -234,11 +223,11 @@ const Cart = () => {
             </SummaryItem>
             <SummaryItem>
               <SummaryItemText>Discount</SummaryItemText>
-              <SummaryItemPrice>-$65.99</SummaryItemPrice>
+              <SummaryItemPrice>-$5.90</SummaryItemPrice>
             </SummaryItem>
             <SummaryItem type="total">
               <SummaryItemText>Total</SummaryItemText>
-              <SummaryItemPrice>$93.98</SummaryItemPrice>
+              <SummaryItemPrice>${cart.total.toFixed(2)}</SummaryItemPrice>
             </SummaryItem>
             <Button>CHECKOUT</Button>
           </Summary>
