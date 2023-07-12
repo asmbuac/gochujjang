@@ -68,7 +68,7 @@ const FilterColor = styled.div`
   height: 20px;
   border-radius: 50%;
   background-color: ${props => props.color};
-  border: 1px solid lightgray;
+  border: ${props => props.selected ? "2px" : "1px"} solid lightgray;
   margin-right: 7px;
   cursor: pointer;
 `;
@@ -122,6 +122,9 @@ const Product = () => {
   const location = useLocation();
   const id = location.pathname.split("/")[2];
   const [product, setProduct] = useState({});
+  const [quantity, setQuantity] = useState(1);
+  const [color, setColor] = useState("");
+  const [size, setSize] = useState("");
 
   useEffect(() => {
     const getProduct = async () => {
@@ -134,6 +137,14 @@ const Product = () => {
     };
     getProduct();
   }, [id]);
+
+  const handleQuantity = (type) => {
+    if (type === "dec") {
+      quantity > 1 && setQuantity(quantity - 1);
+    } else {
+      setQuantity(quantity + 1);
+    }
+  };
 
   return (
     <Container>
@@ -152,8 +163,8 @@ const Product = () => {
               product.color?.length > 0 &&
               <Filter>
                 <FilterTitle>Color</FilterTitle>
-                {product.color.map(c => (
-                  <FilterColor color={c} k={c} />
+                {product.color?.map(c => (
+                  <FilterColor color={c} key={c} selected={c === color} onClick={() => setColor(c)} />
                 ))}
               </Filter>
             }
@@ -161,9 +172,9 @@ const Product = () => {
               product.size?.length > 0 &&
               <Filter>
                 <FilterTitle>Size</FilterTitle>
-                <FilterSize>
-                  {product.size.map(s => (
-                    <FilterSizeOption key={s}>{s}</FilterSizeOption>
+                <FilterSize onChange={e => setSize(e.target.value)}>
+                  {product.size?.map(s => (
+                    <FilterSizeOption key={s} value={s}>{s}</FilterSizeOption>
                   ))}
                 </FilterSize>
               </Filter>
@@ -171,9 +182,9 @@ const Product = () => {
           </FilterContainer>
           <AddContainer>
             <AmountContainer>
-              <Remove />
-              <Amount>1</Amount>
-              <Add />
+              <Remove onClick={() => handleQuantity("dec")} style={{ cursor: `${quantity > 1 ? "pointer" : "not-allowed"}` }} />
+              <Amount>{quantity}</Amount>
+              <Add onClick={() => handleQuantity("inc")} style={{ cursor: "pointer" }} />
             </AmountContainer>
             <Button>ADD TO CART</Button>
           </AddContainer>
