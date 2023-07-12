@@ -1,7 +1,8 @@
 import styled from "styled-components";
 import { Add, Remove } from "@mui/icons-material";
 import { mobile } from "../responsive";
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { addProduct, removeProduct } from "../redux/cartRedux";
 
 const Container = styled.div``;
 
@@ -172,7 +173,15 @@ const Button = styled.button`
 
 const Cart = () => {
   const cart = useSelector(state => state.cart);
+  const dispatch = useDispatch();
 
+  const handleQuantity = (type, product) => {
+    if (type === "dec") {
+      dispatch(removeProduct({ ...product, quantity: 1 }));
+    } else {
+      dispatch(addProduct({ ...product, quantity: 1 }));
+    }
+  };
 
   return (
     <Container>
@@ -181,7 +190,7 @@ const Cart = () => {
         <Top>
           <TopButton>CONTINUE SHOPPING</TopButton>
           <TopTexts>
-            <TopText>Shopping Bag (2)</TopText>
+            <TopText>Shopping Bag ({cart.quantity})</TopText>
             <TopText>Your Wishlist (0)</TopText>
           </TopTexts>
           <TopButton type="filled">CHECKOUT NOW</TopButton>
@@ -189,7 +198,7 @@ const Cart = () => {
         <Bottom>
           <Info>
             {cart.products.map(product => (
-              <Product>
+              <Product key={product._id}>
                 <ProductDetails>
                   <Image src={product.image} />
                   <Details>
@@ -201,9 +210,9 @@ const Cart = () => {
                 </ProductDetails>
                 <PriceDetails>
                   <ProductAmountContainer>
-                    <Remove />
-                    <ProductAmount type="number" defaultValue={product.quantity} min="1" />
-                    <Add />
+                    <Remove onClick={() => handleQuantity("dec", product)} style={{ cursor: "pointer" }} />
+                    <ProductAmount type="number" value={product.quantity} min="1" />
+                    <Add onClick={() => handleQuantity("inc", product)} style={{ cursor: "pointer" }} />
                   </ProductAmountContainer>
                   <ProductPrice>${(product.price * product.quantity).toFixed(2)}</ProductPrice>
                 </PriceDetails>
