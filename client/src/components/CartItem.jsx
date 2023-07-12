@@ -25,7 +25,7 @@ const Details = styled.div`
   padding: 20px;
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
+  gap: 15px;
   text-transform: uppercase;
   ${mobile({ fontSize: "14px" })}
 `;
@@ -103,7 +103,7 @@ const CartItem = ({ product }) => {
         <Details>
           <ProductName><b>Product: </b>{product.title}</ProductName>
           <ProductId><b>ID: </b>{product._id}</ProductId>
-          <ProductColor color={product.color} />
+          {product.color && <ProductColor color={product.color} />}
           {product.size && <ProductSize><b>Size: </b>{product.size}</ProductSize>}
         </Details>
       </ProductDetails>

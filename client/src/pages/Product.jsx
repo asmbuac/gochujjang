@@ -18,12 +18,14 @@ const Wrapper = styled.div`
 
 const ImgContainer = styled.div`
   flex: 1;
+  display: flex;
+  align-items: start;
+  justify-content: center;
 `;
 
 const Image = styled.img`
-  width: 100%;
-  height: 90vh;
-  object-fit: cover;
+  max-width: 100%;
+  height: 60vh;
   ${mobile({ height: "40vh" })}
 `;
 
@@ -99,7 +101,7 @@ const Amount = styled.span`
   width: 30px;
   height: 30px;
   border-radius: 10px;
-  border: 1px solid teal;
+  border: 1px solid #7487bf;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -108,14 +110,14 @@ const Amount = styled.span`
 
 const Button = styled.button`
   padding: 15px;
-  border: 2px solid teal;
+  border: 2px solid #7487bf;
   background-color: white;
   font-weight: 500;
   cursor: pointer;
   transition: all 300ms ease;
 
   &:hover {
-    background-color: teal;
+    background-color: #7487bf;
     color: white;
   }
 `;
