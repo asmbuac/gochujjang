@@ -10,7 +10,7 @@ router.post("/", async (req, res) => {
           product_data: {
             name: 'BLACKPINK - Official Light Stick Version 2',
           },
-          unit_amount: 2000,
+          unit_amount: req.body.amount,
         },
         quantity: 1,
       },

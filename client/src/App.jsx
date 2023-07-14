@@ -8,7 +8,6 @@ import Product from "./pages/Product";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
 import Cart from "./pages/Cart";
-import Pay from "./pages/Pay";
 import Success from "./pages/Success";
 import Newsletter from "./components/Newsletter";
 import Footer from "./components/Footer";
@@ -41,7 +40,6 @@ const App = () => {
         </Route>
         <Route path="/product/:id" element={<Product />} />
         <Route path="/cart" element={<Cart />} />
-        <Route path="/pay" element={<Pay />} />
         <Route path="/success" element={<Success />} />
       </Routes>
       <Newsletter />

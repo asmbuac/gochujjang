@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { mobile } from "../responsive";
 import { useSelector } from 'react-redux';
 import CartItem from "../components/CartItem";
+import { publicRequest } from "../requestMethods";
 
 const Container = styled.div``;
 
@@ -104,6 +105,22 @@ const Button = styled.button`
 const Cart = () => {
   const cart = useSelector(state => state.cart);
 
+  const handleCheckout = async () => {
+    try {
+      const res = await publicRequest.post(
+        "/checkout",
+        {
+          amount: cart.total.toFixed(2) * 100,
+        }
+      );
+      if (res.data.url) {
+        window.location.href = res.data.url;
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   return (
     <Container>
       <Wrapper>
@@ -140,7 +157,7 @@ const Cart = () => {
               <SummaryItemText>Total</SummaryItemText>
               <SummaryItemPrice>${cart.total.toFixed(2)}</SummaryItemPrice>
             </SummaryItem>
-            <Button>CHECKOUT</Button>
+            <Button onClick={handleCheckout}>CHECKOUT</Button>
           </Summary>
         </Bottom>
       </Wrapper>
