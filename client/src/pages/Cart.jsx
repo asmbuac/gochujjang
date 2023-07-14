@@ -107,12 +107,7 @@ const Cart = () => {
 
   const handleCheckout = async () => {
     try {
-      const res = await publicRequest.post(
-        "/checkout",
-        {
-          amount: cart.total.toFixed(2) * 100,
-        }
-      );
+      const res = await publicRequest.post("/checkout", { cart });
       if (res.data.url) {
         window.location.href = res.data.url;
       }
