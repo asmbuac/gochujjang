@@ -1,11 +1,11 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 import { mobile } from "../responsive";
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 
 const Container = styled.div`
   flex: 1;
   margin: 3px;
-  height: 70vh;
+  height: 55vh;
   position: relative;
   ${mobile({ margin: "0px" })}
 `;
@@ -27,10 +27,11 @@ const Info = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  background-color: rgb(0, 0, 0, 0.2);
   transition: all 200ms ease;
 
   &:hover {
-    backdrop-filter: brightness(0.55);
+    background-color: rgb(0, 0, 0, 0.55);
 `;
 
 const Title = styled.h1`
@@ -42,17 +43,16 @@ const Button = styled.button`
   border: none;
   padding: 10px;
   background-color: white;
-  color: gray;
+  color: #7487bf;
   cursor: pointer;
   font-weight: 600;
   transition: all 300ms ease;
 
   &:hover {
-    background-color: gray;
+    background-color: #7487bf;
     color: white;
   }
 `;
-
 
 const CategoryItem = ({ item }) => {
   return (
