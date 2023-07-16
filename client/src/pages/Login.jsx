@@ -1,5 +1,8 @@
 import styled from "styled-components";
 import { mobile } from "../responsive";
+import { useState } from "react";
+import { login } from "../redux/apiCalls";
+import { useDispatch, useSelector } from "react-redux";
 
 const Container = styled.div`
   width: 100%;
@@ -8,7 +11,8 @@ const Container = styled.div`
       rgba(255, 255, 255, 0.5),
       rgba(255, 255, 255, 0.5)
     ),
-    url("https://images.pexels.com/photos/6984650/pexels-photo-6984650.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940") center;
+    url("https://images.pexels.com/photos/6984650/pexels-photo-6984650.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940")
+      center;
   background-size: cover;
   display: flex;
   flex-direction: column;
@@ -63,7 +67,7 @@ const Button = styled.button`
   width: 40%;
   border: none;
   padding: 15px 20px;
-  background-color: #7487BF;
+  background-color: #7487bf;
   color: white;
   cursor: pointer;
   transition: all 300ms ease;
@@ -71,6 +75,15 @@ const Button = styled.button`
   &:hover {
     background-color: #183888;
   }
+
+  &:disabled {
+    background-color: #183888;
+    cursor: not-allowed;
+  }
+`;
+
+const Error = styled.span`
+  color: red;
 `;
 
 const LinkContainer = styled.div`
@@ -88,20 +101,43 @@ const Link = styled.a`
   transition: all 300ms ease;
 
   &:hover {
-    color: #7487BF;
+    color: #7487bf;
   }
 `;
 
 const Login = () => {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const dispatch = useDispatch();
+  const { isFetching, error } = useSelector((state) => state.user);
+
+  const handleClick = (e) => {
+    e.preventDefault();
+    login(dispatch, { username, password });
+  };
+
   return (
     <Container>
       <Logo src="src/assets/logo.png" />
       <Wrapper>
         <Title>SIGN IN</Title>
         <Form>
-          <Input placeholder="Username or Email" type="text" required />
-          <Input placeholder="Password" type="password" required />
-          <Button>LOGIN</Button>
+          <Input
+            placeholder="Username or Email"
+            type="text"
+            required
+            onChange={(e) => setUsername(e.target.value)}
+          />
+          <Input
+            placeholder="Password"
+            type="password"
+            required
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          <Button onClick={handleClick} disabled={isFetching}>
+            LOGIN
+          </Button>
+          {error && <Error>Something went wrong...</Error>}
           <LinkContainer>
             <Link>FORGOT PASSWORD?</Link>
             <Link>CREATE A NEW ACCOUNT</Link>
