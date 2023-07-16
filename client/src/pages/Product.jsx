@@ -4,9 +4,8 @@ import { mobile } from "../responsive";
 import { useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { publicRequest } from "../requestMethods";
-import { addProduct } from "../redux/cartRedux";
+import { addProduct } from "../redux/cartSlice";
 import { useDispatch } from "react-redux";
-
 
 const Container = styled.div``;
 
@@ -51,7 +50,7 @@ const Price = styled.span`
 const FilterContainer = styled.div`
   width: 50%;
   margin: 30px 0px;
-  display: ${props => props.color && props.size ? "flex" : "hidden"};
+  display: ${(props) => (props.color && props.size ? "flex" : "hidden")};
   justify-content: space-between;
   ${mobile({ width: "100%" })}
 `;
@@ -71,8 +70,8 @@ const FilterColor = styled.div`
   width: 20px;
   height: 20px;
   border-radius: 50%;
-  background-color: ${props => props.color};
-  border: ${props => props.selected ? "2px" : "1px"} solid lightgray;
+  background-color: ${(props) => props.color};
+  border: ${(props) => (props.selected ? "2px" : "1px")} solid lightgray;
   margin-right: 7px;
   cursor: pointer;
 `;
@@ -163,37 +162,51 @@ const Product = () => {
         </ImgContainer>
         <InfoContainer>
           <Title>{product?.title}</Title>
-          <Description>
-            {product?.description}
-          </Description>
+          <Description>{product?.description}</Description>
           <Price>${product?.price}</Price>
-          <FilterContainer color={product.color?.length} size={product.size?.length}>
-            {
-              product.color?.length > 0 &&
+          <FilterContainer
+            color={product.color?.length}
+            size={product.size?.length}
+          >
+            {product.color?.length > 0 && (
               <Filter>
                 <FilterTitle>Color</FilterTitle>
-                {product.color?.map(c => (
-                  <FilterColor color={c} key={c} selected={c === color} onClick={() => setColor(c)} />
+                {product.color?.map((c) => (
+                  <FilterColor
+                    color={c}
+                    key={c}
+                    selected={c === color}
+                    onClick={() => setColor(c)}
+                  />
                 ))}
               </Filter>
-            }
-            {
-              product.size?.length > 0 &&
+            )}
+            {product.size?.length > 0 && (
               <Filter>
                 <FilterTitle>Size</FilterTitle>
-                <FilterSize onChange={e => setSize(e.target.value)}>
-                  {product.size?.map(s => (
-                    <FilterSizeOption key={s} value={s}>{s}</FilterSizeOption>
+                <FilterSize onChange={(e) => setSize(e.target.value)}>
+                  {product.size?.map((s) => (
+                    <FilterSizeOption key={s} value={s}>
+                      {s}
+                    </FilterSizeOption>
                   ))}
                 </FilterSize>
               </Filter>
-            }
+            )}
           </FilterContainer>
           <AddContainer>
             <AmountContainer>
-              <Remove onClick={() => handleQuantity("dec")} style={{ cursor: `${quantity > 1 ? "pointer" : "not-allowed"}` }} />
+              <Remove
+                onClick={() => handleQuantity("dec")}
+                style={{
+                  cursor: `${quantity > 1 ? "pointer" : "not-allowed"}`,
+                }}
+              />
               <Amount>{quantity}</Amount>
-              <Add onClick={() => handleQuantity("inc")} style={{ cursor: "pointer" }} />
+              <Add
+                onClick={() => handleQuantity("inc")}
+                style={{ cursor: "pointer" }}
+              />
             </AmountContainer>
             <Button onClick={handleClick}>ADD TO CART</Button>
           </AddContainer>

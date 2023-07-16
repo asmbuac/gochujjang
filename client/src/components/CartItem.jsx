@@ -1,9 +1,9 @@
 import styled from "styled-components";
 import { Add, Remove } from "@mui/icons-material";
 import { mobile } from "../responsive";
-import { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { addProduct, removeProduct } from "../redux/cartRedux";
+import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { addProduct, removeProduct } from "../redux/cartSlice";
 
 const Product = styled.div`
   margin-bottom: 30px;
@@ -39,7 +39,7 @@ const ProductColor = styled.div`
   height: 20px;
   border-radius: 50%;
   border: 1px solid lightgray;
-  background-color: ${props => props.color};
+  background-color: ${(props) => props.color};
 `;
 
 const ProductSize = styled.span``;
@@ -83,7 +83,7 @@ const RemoveProduct = styled.span`
   transition: all 300ms ease;
 
   &:hover {
-    color: #7487BF;
+    color: #7487bf;
   }
 `;
 
@@ -121,22 +121,48 @@ const CartItem = ({ product }) => {
       <ProductDetails>
         <Image src={product.image} />
         <Details>
-          <ProductName><b>Product: </b>{product.title}</ProductName>
-          <ProductId><b>ID: </b>{product._id}</ProductId>
+          <ProductName>
+            <b>Product: </b>
+            {product.title}
+          </ProductName>
+          <ProductId>
+            <b>ID: </b>
+            {product._id}
+          </ProductId>
           {product.color && <ProductColor color={product.color} />}
-          {product.size && <ProductSize><b>Size: </b>{product.size}</ProductSize>}
+          {product.size && (
+            <ProductSize>
+              <b>Size: </b>
+              {product.size}
+            </ProductSize>
+          )}
         </Details>
       </ProductDetails>
       <PriceDetails>
         <AmountAndRemoveContainer>
           <ProductAmountContainer>
-            <Remove onClick={() => handleQuantity("dec", product)} style={{ cursor: "pointer" }} />
-            <ProductAmount type="number" value={quantity} min="0" onChange={e => handleQuantity(e.target.value, product)} />
-            <Add onClick={() => handleQuantity("inc", product)} style={{ cursor: "pointer" }} />
+            <Remove
+              onClick={() => handleQuantity("dec", product)}
+              style={{ cursor: "pointer" }}
+            />
+            <ProductAmount
+              type="number"
+              value={quantity}
+              min="0"
+              onChange={(e) => handleQuantity(e.target.value, product)}
+            />
+            <Add
+              onClick={() => handleQuantity("inc", product)}
+              style={{ cursor: "pointer" }}
+            />
           </ProductAmountContainer>
-          <RemoveProduct onClick={() => handleQuantity("del", product)}>Remove</RemoveProduct>
+          <RemoveProduct onClick={() => handleQuantity("del", product)}>
+            Remove
+          </RemoveProduct>
         </AmountAndRemoveContainer>
-        <ProductPrice>${(product.price * product.quantity).toFixed(2)}</ProductPrice>
+        <ProductPrice>
+          ${(product.price * product.quantity).toFixed(2)}
+        </ProductPrice>
       </PriceDetails>
     </Product>
   );

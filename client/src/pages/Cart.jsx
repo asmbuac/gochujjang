@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { mobile } from "../responsive";
-import { useSelector } from 'react-redux';
+import { useSelector } from "react-redux";
 import CartItem from "../components/CartItem";
 import { publicRequest } from "../requestMethods";
 
@@ -28,8 +28,9 @@ const TopButton = styled.button`
   font-weight: 600;
   cursor: pointer;
   border: 2px solid black;
-  background-color: ${props => props.type === "filled" ? "black" : "transparent"};
-  color: ${props => props.type === "filled" && "white"};
+  background-color: ${(props) =>
+    props.type === "filled" ? "black" : "transparent"};
+  color: ${(props) => props.type === "filled" && "white"};
   transition: all 400ms ease;
 
   &:hover {
@@ -49,7 +50,7 @@ const TopText = styled.span`
   transition: all 300ms ease;
 
   &:hover {
-    color: #7487BF;
+    color: #7487bf;
   }
 `;
 
@@ -79,8 +80,8 @@ const SummaryItem = styled.div`
   margin: 30px 0px;
   display: flex;
   justify-content: space-between;
-  font-weight: ${props => props.type === "total" && "500"};
-  font-size: ${props => props.type === "total" && "24px"};
+  font-weight: ${(props) => props.type === "total" && "500"};
+  font-size: ${(props) => props.type === "total" && "24px"};
 `;
 
 const SummaryItemText = styled.span``;
@@ -103,7 +104,7 @@ const Button = styled.button`
 `;
 
 const Cart = () => {
-  const cart = useSelector(state => state.cart);
+  const cart = useSelector((state) => state.cart);
 
   const handleCheckout = async () => {
     try {
@@ -130,7 +131,7 @@ const Cart = () => {
         </Top>
         <Bottom>
           <Info>
-            {cart.products.map(product => (
+            {cart.products.map((product) => (
               <CartItem key={product._id} product={product} />
             ))}
           </Info>
@@ -156,7 +157,7 @@ const Cart = () => {
           </Summary>
         </Bottom>
       </Wrapper>
-    </Container >
+    </Container>
   );
 };
 

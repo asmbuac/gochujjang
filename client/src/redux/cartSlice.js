@@ -36,14 +36,14 @@ const cartSlice = createSlice({
         }
         delete state.indices[_id];
         state.products.pop();
-        state.quantity -= (quantity > 1 ? quantity : 1);
+        state.quantity -= quantity > 1 ? quantity : 1;
         state.total -= price * quantity;
       } else {
         product.quantity -= quantity;
         state.quantity -= quantity;
         state.total -= price * quantity;
       }
-    }
+    },
   },
 });
 
