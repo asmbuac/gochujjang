@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 import { mobile } from "../responsive";
 
 const Container = styled.div`
@@ -18,7 +18,8 @@ const Marquee = () => {
   return (
     <Container>
       <marquee>
-        <b>New Arrivals: </b>BLACKPINK - Official Light Stick Version 2 | ATEEZ Lightstick | Jisoo (BLACKPINK) - 1st Single Album + YG Select Benefits
+        <b>New Arrivals: </b>BLACKPINK - Official Light Stick Version 2 | ATEEZ
+        Lightstick | Jisoo (BLACKPINK) - 1st Single Album + YG Select Benefits
       </marquee>
     </Container>
   );

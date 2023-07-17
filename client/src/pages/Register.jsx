@@ -8,13 +8,14 @@ const Container = styled.div`
       rgba(255, 255, 255, 0.5),
       rgba(255, 255, 255, 0.5)
     ),
-    url("https://images.pexels.com/photos/6984661/pexels-photo-6984661.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940") center;
-    background-size: cover;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    ${mobile({ height: "calc(100vh - 100px)" })}
+    url("https://images.pexels.com/photos/6984661/pexels-photo-6984661.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940")
+      center;
+  background-size: cover;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  ${mobile({ height: "calc(100vh - 100px)" })}
 `;
 
 const Logo = styled.img`
@@ -71,7 +72,7 @@ const Checkbox = styled.input`
   height: 25px;
   width: 25px;
   cursor: pointer;
-  accent-color: #B38080;
+  accent-color: #b38080;
   ${mobile({ flex: "1" })}
 `;
 
@@ -127,7 +128,8 @@ const Register = () => {
           <Agreement>
             <Checkbox type="checkbox" required />
             <Description>
-              By creating an account, I consent to the processing of my personal data in accordance with the <b>PRIVACY POLICY</b>
+              By creating an account, I consent to the processing of my personal
+              data in accordance with the <b>PRIVACY POLICY</b>
             </Description>
           </Agreement>
           <Button>CREATE</Button>

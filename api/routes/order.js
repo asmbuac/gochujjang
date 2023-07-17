@@ -1,5 +1,9 @@
 const Order = require("../models/Order");
-const { verifyToken, verifyTokenAndAuthorization, verifyTokenAndAdmin } = require("./verifyToken");
+const {
+  verifyToken,
+  verifyTokenAndAuthorization,
+  verifyTokenAndAdmin,
+} = require("./verifyToken");
 
 const router = require("express").Router();
 
@@ -57,7 +61,7 @@ router.put("/:id", verifyTokenAndAdmin, async (req, res) => {
     const updatedOrder = await Order.findByIdAndUpdate(
       req.params.id,
       {
-        $set: req.body
+        $set: req.body,
       },
       { new: true }
     );

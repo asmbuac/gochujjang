@@ -1,5 +1,8 @@
 const User = require("../models/User");
-const { verifyTokenAndAuthorization, verifyTokenAndAdmin } = require("./verifyToken");
+const {
+  verifyTokenAndAuthorization,
+  verifyTokenAndAdmin,
+} = require("./verifyToken");
 
 const router = require("express").Router();
 
@@ -42,7 +45,7 @@ router.put("/:id", verifyTokenAndAuthorization, async (req, res) => {
     const updatedUser = await User.findByIdAndUpdate(
       req.params.id,
       {
-        $set: req.body
+        $set: req.body,
       },
       { new: true }
     );

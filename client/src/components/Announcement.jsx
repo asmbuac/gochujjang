@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 import { mobile } from "../responsive";
 
 const Container = styled.div`
@@ -19,11 +19,7 @@ const Container = styled.div`
 `;
 
 const Announcement = () => {
-  return (
-    <Container>
-      Free Shipping on Orders Over $50
-    </Container>
-  );
+  return <Container>Free Shipping on Orders Over $50</Container>;
 };
 
 export default Announcement;

@@ -1,7 +1,11 @@
-import { FavoriteBorderOutlined, Search, ShoppingCartOutlined } from '@mui/icons-material';
-import styled from 'styled-components';
+import {
+  FavoriteBorderOutlined,
+  Search,
+  ShoppingCartOutlined,
+} from "@mui/icons-material";
+import styled from "styled-components";
 import { mobile } from "../responsive";
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 
 const Info = styled.div`
   opacity: 0;
@@ -41,7 +45,7 @@ const Circle = styled.div`
   width: 200px;
   height: 200px;
   border-radius: 50%;
-  background-color: #F5FBFD;
+  background-color: #f5fbfd;
   position: absolute;
 
   ${mobile({ width: "150px", height: "150px" })}
@@ -65,7 +69,7 @@ const Icon = styled.div`
   transition: all 400ms ease;
 
   &:hover {
-    background-color: #E9F5F5;
+    background-color: #e9f5f5;
     transform: scale(1.1);
   }
 `;

@@ -21,7 +21,7 @@ router.put("/:id", verifyTokenAndAdmin, async (req, res) => {
     const updatedProduct = await Product.findByIdAndUpdate(
       req.params.id,
       {
-        $set: req.body
+        $set: req.body,
       },
       { new: true }
     );
@@ -64,7 +64,7 @@ router.get("/", async (req, res) => {
       products = await Product.find({
         categories: {
           $regex: qCategory,
-          $options: 'i',
+          $options: "i",
         },
       });
     } else {

@@ -1,9 +1,13 @@
-import Badge from '@mui/material/Badge';
-import { Search, ShoppingCartOutlined } from '@mui/icons-material';
-import styled from 'styled-components';
+import Badge from "@mui/material/Badge";
+import {
+  FavoriteBorder,
+  Search,
+  ShoppingCartOutlined,
+} from "@mui/icons-material";
+import styled from "styled-components";
 import { mobile } from "../responsive";
-import { NavLink } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { NavLink } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const Container = styled.div`
   height: 60px;
@@ -60,7 +64,7 @@ const Center = styled.div`
 const NavbarLink = styled(NavLink)`
   text-decoration: none;
   color: black;
-  display: ${props => props.display && "flex"};
+  display: ${(props) => props.display && "flex"};
   align-items: center;
   justify-content: center;
   gap: 5px;
@@ -99,7 +103,7 @@ const MenuItem = styled(NavLink)`
 `;
 
 const Navbar = () => {
-  const quantity = useSelector(state => state.cart.quantity);
+  const quantity = useSelector((state) => state.cart.quantity);
 
   return (
     <Container>
@@ -108,7 +112,9 @@ const Navbar = () => {
           <Language>EN</Language>
           <SearchContainer>
             <Input placeholder="Search" />
-            <Search style={{ color: "gray", fontSize: 16, cursor: "pointer" }} />
+            <Search
+              style={{ color: "gray", fontSize: 16, cursor: "pointer" }}
+            />
           </SearchContainer>
         </Left>
         <Center>
@@ -120,6 +126,9 @@ const Navbar = () => {
         <Right>
           <MenuItem to="/register">REGISTER</MenuItem>
           <MenuItem to="/login">SIGN IN</MenuItem>
+          <MenuItem to="/wishlist">
+            <FavoriteBorder />
+          </MenuItem>
           <MenuItem to="/cart">
             <Badge badgeContent={quantity} color="primary">
               <ShoppingCartOutlined />

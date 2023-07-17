@@ -6,10 +6,10 @@ router.post("/", async (req, res) => {
 
   const cartItems = cart.products.map(({ title, image, price, quantity }) => ({
     price_data: {
-      currency: 'usd',
+      currency: "usd",
       product_data: {
         name: title,
-        images: [image]
+        images: [image],
       },
       unit_amount: (price * 100).toFixed(0),
     },
@@ -18,9 +18,9 @@ router.post("/", async (req, res) => {
 
   const session = await stripe.checkout.sessions.create({
     line_items: cartItems,
-    mode: 'payment',
-    success_url: 'http://localhost:5173/success',
-    cancel_url: 'http://localhost:5173/cart',
+    mode: "payment",
+    success_url: "http://localhost:5173/success",
+    cancel_url: "http://localhost:5173/cart",
     automatic_tax: { enabled: true },
   });
 

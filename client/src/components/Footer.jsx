@@ -1,5 +1,13 @@
-import { Facebook, Instagram, Twitter, LinkedIn, Place, Phone, Email } from '@mui/icons-material';
-import styled from 'styled-components';
+import {
+  Facebook,
+  Instagram,
+  Twitter,
+  LinkedIn,
+  Place,
+  Phone,
+  Email,
+} from "@mui/icons-material";
+import styled from "styled-components";
 import { mobile } from "../responsive";
 
 const Container = styled.div`
@@ -17,7 +25,7 @@ const Left = styled.div`
 `;
 
 const Logo = styled.h1`
-font-family: "Audiowide";
+  font-family: "Audiowide";
 `;
 
 const Description = styled.p`
@@ -33,7 +41,7 @@ const SocialIcon = styled.div`
   height: 40px;
   border-radius: 50%;
   color: white;
-  background-color: #${props => props.color};
+  background-color: #${(props) => props.color};
   display: flex;
   align-items: center;
   justify-content: center;
@@ -97,7 +105,10 @@ const Footer = () => {
       <Left>
         <Logo>GochuJjang</Logo>
         <Description>
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Earum ut facere esse dolores ullam culpa, ab inventore itaque, tenetur ducimus consectetur eligendi? Aperiam vero sapiente molestiae ipsum beatae consequuntur similique.
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Earum ut
+          facere esse dolores ullam culpa, ab inventore itaque, tenetur ducimus
+          consectetur eligendi? Aperiam vero sapiente molestiae ipsum beatae
+          consequuntur similique.
         </Description>
         <SocialContainer>
           <SocialIcon color="3B5999">
@@ -139,7 +150,10 @@ const Footer = () => {
           <Phone style={{ marginRight: "10px" }} />
           +1 (234) 567-8910
         </ContactItem>
-        <a href="mailto:contact@kshop.com" style={{ textDecoration: "none", color: "black" }}>
+        <a
+          href="mailto:contact@kshop.com"
+          style={{ textDecoration: "none", color: "black" }}
+        >
           <ContactItem>
             <Email style={{ marginRight: "10px" }} />
             contact@kshop.com

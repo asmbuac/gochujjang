@@ -4,31 +4,31 @@ const OrderSchema = new mongoose.Schema(
   {
     userId: {
       type: String,
-      required: true
+      required: true,
     },
     products: [
       {
         productId: {
-          type: String
+          type: String,
         },
         quantity: {
           type: Number,
-          default: 1
-        }
-      }
+          default: 1,
+        },
+      },
     ],
     amount: {
       type: Number,
-      required: true
+      required: true,
     },
     address: {
       type: Object,
-      required: true
+      required: true,
     },
     status: {
       type: String,
-      default: "pending"
-    }
+      default: "pending",
+    },
   },
   { timestamps: true }
 );

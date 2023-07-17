@@ -35,7 +35,9 @@ function Success() {
     <Container>
       <Logo src="src/assets/logo.png" />
       <Button>Successful</Button>
-      <SuccessMsg>Your order is being prepared. Thanks for choosing K-SHOP!</SuccessMsg>
+      <SuccessMsg>
+        Your order is being prepared. Thanks for choosing K-SHOP!
+      </SuccessMsg>
     </Container>
   );
 }

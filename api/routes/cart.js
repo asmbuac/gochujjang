@@ -1,5 +1,9 @@
 const Cart = require("../models/Cart");
-const { verifyToken, verifyTokenAndAuthorization, verifyTokenAndAdmin } = require("./verifyToken");
+const {
+  verifyToken,
+  verifyTokenAndAuthorization,
+  verifyTokenAndAdmin,
+} = require("./verifyToken");
 
 const router = require("express").Router();
 
@@ -21,7 +25,7 @@ router.put("/:id", verifyTokenAndAuthorization, async (req, res) => {
     const updatedCart = await Cart.findByIdAndUpdate(
       req.params.id,
       {
-        $set: req.body
+        $set: req.body,
       },
       { new: true }
     );

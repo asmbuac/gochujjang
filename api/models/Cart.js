@@ -4,19 +4,19 @@ const CartSchema = new mongoose.Schema(
   {
     userId: {
       type: String,
-      required: true
+      required: true,
     },
     products: [
       {
         productId: {
-          type: String
+          type: String,
         },
         quantity: {
           type: Number,
-          default: 1
-        }
-      }
-    ]
+          default: 1,
+        },
+      },
+    ],
   },
   { timestamps: true }
 );
