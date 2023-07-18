@@ -7,7 +7,9 @@ import {
 import styled from "styled-components";
 import { mobile } from "../responsive";
 import { NavLink } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { logout } from "../redux/userSlice";
+import { deleteCart } from "../redux/cartSlice";
 
 const Container = styled.div`
   height: 60px;
@@ -104,6 +106,13 @@ const MenuItem = styled(NavLink)`
 
 const Navbar = () => {
   const quantity = useSelector((state) => state.cart.quantity);
+  const user = useSelector((state) => state.user.currentUser);
+  const dispatch = useDispatch();
+
+  const handleLogout = () => {
+    dispatch(deleteCart());
+    dispatch(logout());
+  };
 
   return (
     <Container>
@@ -124,8 +133,16 @@ const Navbar = () => {
           </NavbarLink>
         </Center>
         <Right>
-          <MenuItem to="/register">REGISTER</MenuItem>
-          <MenuItem to="/login">SIGN IN</MenuItem>
+          {user ? (
+            <MenuItem to="/" onClick={handleLogout}>
+              LOGOUT
+            </MenuItem>
+          ) : (
+            <>
+              <MenuItem to="/register">REGISTER</MenuItem>
+              <MenuItem to="/login">SIGN IN</MenuItem>
+            </>
+          )}
           <MenuItem to="/wishlist">
             <FavoriteBorder />
           </MenuItem>
