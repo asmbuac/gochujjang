@@ -20,10 +20,10 @@ router.post("/", verifyToken, async (req, res) => {
 });
 
 // UPDATE
-router.put("/:id", verifyTokenAndAuthorization, async (req, res) => {
+router.put("/:userId", verifyTokenAndAuthorization, async (req, res) => {
   try {
-    const updatedCart = await Cart.findByIdAndUpdate(
-      req.params.id,
+    const updatedCart = await Cart.findOneAndUpdate(
+      { userId: req.params.userId },
       {
         $set: req.body,
       },

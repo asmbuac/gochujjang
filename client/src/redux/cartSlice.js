@@ -46,6 +46,9 @@ const cartSlice = createSlice({
         state.total -= price * quantity;
       }
     },
+    updateCart: (state, action) => {
+      state.products = action.payload;
+    },
     deleteCart: () => initialState,
   },
 });

@@ -15,7 +15,7 @@ import { useEffect } from "react";
 import { useSelector } from "react-redux";
 
 const App = () => {
-  const user = useSelector((state) => state.user.currentUser);
+  const user = useSelector((state) => state.auth.currentUser);
   const { pathname } = useLocation();
 
   useEffect(() => {

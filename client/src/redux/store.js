@@ -1,6 +1,7 @@
 import { configureStore, combineReducers } from "@reduxjs/toolkit";
 import cartReducer from "./cartSlice";
-import userReducer from "./userSlice";
+import authReducer from "./authSlice";
+import cartApiReducer from "./cartApi";
 import {
   persistStore,
   persistReducer,
@@ -12,6 +13,7 @@ import {
   REGISTER,
 } from "redux-persist";
 import storage from "redux-persist/lib/storage";
+import { cartApi } from "./cartApi";
 
 const persistConfig = {
   key: "root",
@@ -19,7 +21,11 @@ const persistConfig = {
   storage,
 };
 
-const rootReducer = combineReducers({ user: userReducer, cart: cartReducer });
+const rootReducer = combineReducers({
+  auth: authReducer,
+  cart: cartReducer,
+  cartApi: cartApiReducer,
+});
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
@@ -30,7 +36,7 @@ export const store = configureStore({
       serializableCheck: {
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
-    }),
+    }).concat(cartApi.middleware),
 });
 
 export let persistor = persistStore(store);

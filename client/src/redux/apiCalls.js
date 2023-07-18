@@ -1,5 +1,5 @@
 import { publicRequest } from "../requestMethods";
-import { loginStart, loginSuccess, loginFailure } from "./userSlice";
+import { loginStart, loginSuccess, loginFailure } from "./authSlice";
 
 export const login = async (dispatch, user) => {
   dispatch(loginStart());
@@ -10,3 +10,10 @@ export const login = async (dispatch, user) => {
     dispatch(loginFailure());
   }
 };
+
+// export const createOrUpdateCart = async (dispatch, cart) => {
+//   dispatch(cartStart());
+//   try {
+//     const res = await.publicRequest
+//   }
+// }

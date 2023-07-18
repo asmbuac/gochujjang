@@ -8,7 +8,7 @@ import styled from "styled-components";
 import { mobile } from "../responsive";
 import { NavLink } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { logout } from "../redux/userSlice";
+import { logout } from "../redux/authSlice";
 import { deleteCart } from "../redux/cartSlice";
 
 const Container = styled.div`
@@ -104,9 +104,16 @@ const MenuItem = styled(NavLink)`
   }
 `;
 
+const CartBadge = styled(Badge)`
+  .MuiBadge-badge {
+    background-color: #7487bf;
+    color: white;
+  }
+`;
+
 const Navbar = () => {
   const quantity = useSelector((state) => state.cart.quantity);
-  const user = useSelector((state) => state.user.currentUser);
+  const user = useSelector((state) => state.auth.currentUser);
   const dispatch = useDispatch();
 
   const handleLogout = () => {
@@ -147,9 +154,9 @@ const Navbar = () => {
             <FavoriteBorder />
           </MenuItem>
           <MenuItem to="/cart">
-            <Badge badgeContent={quantity} color="primary">
+            <CartBadge badgeContent={quantity}>
               <ShoppingCartOutlined />
-            </Badge>
+            </CartBadge>
           </MenuItem>
         </Right>
       </Wrapper>
