@@ -47,11 +47,24 @@ const cartSlice = createSlice({
       }
     },
     updateCart: (state, action) => {
-      state.products = action.payload;
+      const products = action.payload;
+
+      for (const prod of products) {
+        if (!(prod._id in state.indices)) {
+          state.indices[prod._id] = state.products.length;
+          state.products.push(prod);
+        } else {
+          const index = state.indices[prod._id];
+          state.products[index].quantity += prod.quantity;
+        }
+        state.quantity += prod.quantity;
+        state.price += prod.quantity * prod.price;
+      }
     },
     deleteCart: () => initialState,
   },
 });
 
-export const { addProduct, removeProduct, deleteCart } = cartSlice.actions;
+export const { addProduct, removeProduct, updateCart, deleteCart } =
+  cartSlice.actions;
 export default cartSlice.reducer;
