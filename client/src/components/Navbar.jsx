@@ -10,6 +10,11 @@ import { NavLink } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { logout } from "../redux/authSlice";
 import { deleteCart } from "../redux/cartSlice";
+import {
+  useCreateCartMutation,
+  useGetCartQuery,
+  useUpdateCartMutation,
+} from "../redux/cartApi";
 
 const Container = styled.div`
   height: 60px;
@@ -114,9 +119,23 @@ const CartBadge = styled(Badge)`
 const Navbar = () => {
   const quantity = useSelector((state) => state.cart.quantity);
   const user = useSelector((state) => state.auth.currentUser);
+  const storeCart = useSelector((state) => state.cart.products);
+  const { data: cartData } = useGetCartQuery(user?._id);
+  const [createCart, createResult] = useCreateCartMutation();
+  const [updateCart, updateResult] = useUpdateCartMutation();
   const dispatch = useDispatch();
 
-  const handleLogout = () => {
+  const handleLogout = async () => {
+    if (storeCart.length > 0) {
+      const products = storeCart.map(({ _id, quantity }) => ({
+        product: _id,
+        quantity,
+      }));
+
+      await (cartData
+        ? updateCart({ id: user?._id, data: { products } })
+        : createCart({ userId: user?._id, products }));
+    }
     dispatch(deleteCart());
     dispatch(logout());
   };
