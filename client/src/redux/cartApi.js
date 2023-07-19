@@ -14,11 +14,9 @@ export const cartApi = createApi({
       return headers;
     },
   }),
-  tagTypes: ["Cart"],
   endpoints: (builder) => ({
     getCart: builder.query({
       query: (id) => `/carts/${id}`,
-      providesTags: ["Cart"],
     }),
     createCart: builder.mutation({
       query: (data) => ({
@@ -33,11 +31,9 @@ export const cartApi = createApi({
         body: data,
         method: "put",
       }),
-      invalidatesTags: ["Cart"],
     }),
   }),
 });
 
 export const { useGetCartQuery, useCreateCartMutation, useUpdateCartMutation } =
   cartApi;
-export default cartApi.reducer;
