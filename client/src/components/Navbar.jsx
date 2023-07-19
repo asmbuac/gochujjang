@@ -121,8 +121,8 @@ const Navbar = () => {
   const user = useSelector((state) => state.auth.currentUser);
   const storeCart = useSelector((state) => state.cart.products);
   const { data: cartData } = useGetCartQuery(user?._id);
-  const [createCart, createResult] = useCreateCartMutation();
-  const [updateCart, updateResult] = useUpdateCartMutation();
+  const [createCart] = useCreateCartMutation();
+  const [updateCart] = useUpdateCartMutation();
   const dispatch = useDispatch();
 
   const handleLogout = async () => {
