@@ -36,10 +36,10 @@ router.put("/:userId", verifyTokenAndAuthorization, async (req, res) => {
 });
 
 // DELETE
-router.delete("/:id", verifyTokenAndAuthorization, async (req, res) => {
+router.delete("/:userId", verifyTokenAndAuthorization, async (req, res) => {
   try {
-    await Cart.findByIdAndDelete(req.params.id);
-    res.status(200).json("Cart has been deleted");
+    await Cart.findOneAndDelete({ userId: req.params.userId });
+    res.status(200).json("User's cart has been deleted");
   } catch (err) {
     res.status(500).json(err);
   }
@@ -48,7 +48,9 @@ router.delete("/:id", verifyTokenAndAuthorization, async (req, res) => {
 // GET CART
 router.get("/:userId", verifyTokenAndAuthorization, async (req, res) => {
   try {
-    const cart = await Cart.findOne({ userId: req.params.userId });
+    const cart = await Cart.findOne({ userId: req.params.userId }).populate(
+      "products.product"
+    );
     res.status(200).json(cart);
   } catch (err) {
     res.status(500).json(err);
