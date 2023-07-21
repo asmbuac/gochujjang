@@ -2,10 +2,10 @@ import styled from "styled-components";
 import { Add, Remove } from "@mui/icons-material";
 import { mobile } from "../responsive";
 import { useLocation } from "react-router-dom";
-import { useEffect, useState } from "react";
-import { publicRequest } from "../requestMethods";
+import { useState } from "react";
 import { addProduct } from "../redux/cartSlice";
 import { useDispatch } from "react-redux";
+import { useGetProductQuery } from "../redux/productApi";
 
 const Container = styled.div``;
 
@@ -124,23 +124,11 @@ const Button = styled.button`
 const Product = () => {
   const location = useLocation();
   const id = location.pathname.split("/")[2];
-  const [product, setProduct] = useState({});
+  const { data: product } = useGetProductQuery(id);
   const [quantity, setQuantity] = useState(1);
   const [color, setColor] = useState("");
   const [size, setSize] = useState("");
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    const getProduct = async () => {
-      try {
-        const res = await publicRequest.get(`/products/${id}`);
-        setProduct(res.data);
-      } catch (err) {
-        console.error(err);
-      }
-    };
-    getProduct();
-  }, [id]);
 
   const handleQuantity = (type) => {
     if (type === "dec") {
@@ -165,13 +153,13 @@ const Product = () => {
           <Description>{product?.description}</Description>
           <Price>${product?.price}</Price>
           <FilterContainer
-            color={product.color?.length}
-            size={product.size?.length}
+            color={product?.color?.length}
+            size={product?.size?.length}
           >
-            {product.color?.length > 0 && (
+            {product?.color?.length > 0 && (
               <Filter>
                 <FilterTitle>Color</FilterTitle>
-                {product.color?.map((c) => (
+                {product?.color?.map((c) => (
                   <FilterColor
                     color={c}
                     key={c}
@@ -181,11 +169,11 @@ const Product = () => {
                 ))}
               </Filter>
             )}
-            {product.size?.length > 0 && (
+            {product?.size?.length > 0 && (
               <Filter>
                 <FilterTitle>Size</FilterTitle>
                 <FilterSize onChange={(e) => setSize(e.target.value)}>
-                  {product.size?.map((s) => (
+                  {product?.size?.map((s) => (
                     <FilterSizeOption key={s} value={s}>
                       {s}
                     </FilterSizeOption>
