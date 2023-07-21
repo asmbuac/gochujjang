@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import Product from "./Product";
 import { useState, useEffect } from "react";
-import { publicRequest } from "../requestMethods";
+import { useGetProductsQuery } from "../redux/productApi";
 
 const Container = styled.div`
   padding: 20px;
@@ -11,27 +11,13 @@ const Container = styled.div`
 `;
 
 const Products = ({ category, filters, sort }) => {
-  const [products, setProducts] = useState([]);
+  const { data: products } = useGetProductsQuery(category);
   const [filteredProducts, setFilteredProducts] = useState([]);
-
-  useEffect(() => {
-    const getProducts = async () => {
-      try {
-        const res = await publicRequest.get(
-          category ? `/products?category=${category}` : "/products"
-        );
-        setProducts(res.data);
-      } catch (err) {
-        console.error(err);
-      }
-    };
-    getProducts();
-  }, [category]);
 
   useEffect(() => {
     category &&
       setFilteredProducts(
-        products.filter((item) =>
+        products?.filter((item) =>
           Object.entries(filters).every(([key, value]) =>
             item[key].includes(value)
           )
@@ -40,27 +26,31 @@ const Products = ({ category, filters, sort }) => {
   }, [products, category, filters]);
 
   useEffect(() => {
-    if (sort === "newest") {
-      setFilteredProducts((prev) =>
-        [...prev].sort((a, b) => a.createdAt - b.createdAt)
-      );
-    } else if (sort === "asc") {
-      setFilteredProducts((prev) =>
-        [...prev].sort((a, b) => a.price - b.price)
-      );
-    } else {
-      setFilteredProducts((prev) =>
-        [...prev].sort((a, b) => b.price - a.price)
-      );
+    if (filteredProducts.length > 0) {
+      if (sort === "newest") {
+        setFilteredProducts((prev) =>
+          [...prev]?.sort((a, b) => a.createdAt - b.createdAt)
+        );
+      } else if (sort === "asc") {
+        setFilteredProducts((prev) =>
+          [...prev]?.sort((a, b) => a.price - b.price)
+        );
+      } else {
+        setFilteredProducts((prev) =>
+          [...prev]?.sort((a, b) => b.price - a.price)
+        );
+      }
     }
   }, [sort]);
 
   return (
     <Container>
       {category
-        ? filteredProducts.map((item) => <Product item={item} key={item._id} />)
+        ? filteredProducts?.map((item) => (
+            <Product item={item} key={item._id} />
+          ))
         : products
-            .slice(0, 8)
+            ?.slice(0, 8)
             .map((item) => <Product item={item} key={item._id} />)}
     </Container>
   );
