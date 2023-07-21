@@ -3,6 +3,7 @@ import cartReducer from "./cartSlice";
 import authReducer from "./authSlice";
 import { cartApi } from "./cartApi";
 import { productApi } from "./productApi";
+import { orderApi } from "./orderApi";
 import {
   persistStore,
   persistReducer,
@@ -26,6 +27,7 @@ const rootReducer = combineReducers({
   cart: cartReducer,
   [cartApi.reducerPath]: cartApi.reducer,
   [productApi.reducerPath]: productApi.reducer,
+  [orderApi.reducerPath]: orderApi.reducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
@@ -39,7 +41,8 @@ export const store = configureStore({
       },
     })
       .concat(cartApi.middleware)
-      .concat(productApi.middleware),
+      .concat(productApi.middleware)
+      .concat(orderApi.middleware),
 });
 
 export let persistor = persistStore(store);
