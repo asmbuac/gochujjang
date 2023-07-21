@@ -44,7 +44,7 @@ router.get("/income", verifyTokenAndAdmin, async (req, res) => {
 });
 
 // CREATE
-router.post("/", verifyToken, async (req, res) => {
+router.post("/", async (req, res) => {
   const order = new Order(req.body);
 
   try {
