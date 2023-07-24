@@ -1,5 +1,8 @@
 import styled from "styled-components";
 import { mobile } from "../responsive";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { deleteCart } from "../redux/cartSlice";
 
 const Container = styled.div`
   width: 100%;
@@ -31,6 +34,15 @@ const SuccessMsg = styled.p`
 `;
 
 function Success() {
+  const dispatch = useDispatch();
+  const cart = useSelector((state) => state.cart);
+
+  useEffect(() => {
+    if (cart.products.length > 0) {
+      dispatch(deleteCart());
+    }
+  }, []);
+
   return (
     <Container>
       <Logo src="src/assets/logo.png" />
