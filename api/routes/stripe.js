@@ -3,6 +3,7 @@ const stripe = require("stripe")(process.env.STRIPE_KEY);
 const Order = require("../models/Order");
 const Cart = require("../models/Cart");
 
+// CREATE SESSION
 router.post("/", async (req, res) => {
   const cart = req.body.cart;
 
@@ -28,6 +29,18 @@ router.post("/", async (req, res) => {
       shipping_address_collection: { allowed_countries: ["US"] },
     });
     res.status(200).json({ url: session.url });
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
+// RETRIEVE SESSION
+router.get("/:sessionId", async (req, res) => {
+  const sessionId = req.params.sessionId;
+
+  try {
+    const session = await stripe.checkout.sessions.retrieve(sessionId);
+    res.status(200).json(session);
   } catch (err) {
     res.status(500).json(err);
   }

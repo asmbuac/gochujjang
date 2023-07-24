@@ -26,6 +26,10 @@ const OrderSchema = new mongoose.Schema(
       type: Object,
       required: true,
     },
+    sessionId: {
+      type: String,
+      required: true,
+    },
     status: {
       type: String,
       default: "pending",
