@@ -1,8 +1,10 @@
 import styled from "styled-components";
 import { mobile } from "../responsive";
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { deleteCart } from "../redux/cartSlice";
+import { publicRequest } from "../requestMethods";
+import { useCreateOrderMutation } from "../redux/orderApi";
 
 const Container = styled.div`
   width: 100%;
@@ -36,12 +38,42 @@ const SuccessMsg = styled.p`
 function Success() {
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart);
+  const userId = useSelector((state) => state.auth.currentUser?._id);
+  const url = new URL(window.location);
+  const sessionId = url.searchParams.get("session_id");
+  const [session, setSession] = useState({});
+  const [createOrder] = useCreateOrderMutation();
+
+  const getSession = async () => {
+    try {
+      const res = await publicRequest.get(`/checkout/${sessionId}`);
+      setSession(res.data);
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
   useEffect(() => {
+    getSession();
+    if (session.status === "complete") {
+      const products = cart.products.map(({ _id, quantity }) => ({
+        product: _id,
+        quantity,
+      }));
+      const address = session?.shipping_details?.address;
+      const fullAddress = `${address?.line1}, ${address?.city}, ${address?.state} ${address?.postal_code}`;
+      createOrder({
+        userId,
+        products,
+        amount: cart.total,
+        address: fullAddress ? fullAddress : "",
+        sessionId,
+      });
+    }
     if (cart.products.length > 0) {
       dispatch(deleteCart());
     }
-  }, []);
+  }, [sessionId]);
 
   return (
     <Container>
