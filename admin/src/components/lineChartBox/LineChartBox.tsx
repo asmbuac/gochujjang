@@ -1,6 +1,6 @@
 import { SvgIconComponent } from "@mui/icons-material";
 import { Link } from "react-router-dom";
-import "./chartBox.scss";
+import "./lineChartBox.scss";
 import { Line, LineChart, ResponsiveContainer, Tooltip } from "recharts";
 import { SvgIcon } from "@mui/material";
 
@@ -14,7 +14,7 @@ type Props = {
   chartData: object[];
 };
 
-const ChartBox = (props: Props) => {
+const LineChartBox = (props: Props) => {
   return (
     <div className="chartBox">
       <div className="boxInfo">
@@ -60,4 +60,4 @@ const ChartBox = (props: Props) => {
   );
 };
 
-export default ChartBox;
+export default LineChartBox;
