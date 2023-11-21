@@ -2,6 +2,8 @@ import { GridColDef } from "@mui/x-data-grid";
 import DataTable from "../../components/dataTable/DataTable";
 import "./users.scss";
 import { userRows } from "../../data";
+import { useState } from "react";
+import AddModal from "../../components/addModal/AddModal";
 
 const columns: GridColDef[] = [
   { field: "id", headerName: "ID", width: 75 },
@@ -52,13 +54,16 @@ const columns: GridColDef[] = [
 ];
 
 const Users = () => {
+  const [open, setOpen] = useState(false);
+
   return (
     <div className="users">
       <div className="info">
         <h1>Users</h1>
-        <button>Add New User</button>
+        <button onClick={() => setOpen(true)}>Add New User</button>
       </div>
       <DataTable columns={columns} rows={userRows} slug="users" />
+      {open && <AddModal slug="user" columns={columns} setOpen={setOpen} />}
     </div>
   );
 };
