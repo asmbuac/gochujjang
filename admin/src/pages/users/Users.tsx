@@ -42,7 +42,7 @@ const columns: GridColDef[] = [
   {
     field: "createdAt",
     headerName: "Created At",
-    width: 150,
+    width: 100,
     type: "string",
   },
   {
