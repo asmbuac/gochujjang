@@ -61,7 +61,7 @@ export const menu = [
       {
         id: 4,
         title: "Posts",
-        url: "/posts",
+        url: "/",
         icon: LibraryBooksOutlined,
       },
     ],
