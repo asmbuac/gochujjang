@@ -4,11 +4,11 @@ import "./users.scss";
 import { userRows } from "../../data";
 
 const columns: GridColDef[] = [
-  { field: "id", headerName: "ID", width: 90 },
+  { field: "id", headerName: "ID", width: 75 },
   {
     field: "img",
     headerName: "Avatar",
-    width: 100,
+    width: 75,
     renderCell: (params) => {
       return <img src={params.row.img || "/noavatar.png"} alt="" />;
     },
@@ -35,18 +35,18 @@ const columns: GridColDef[] = [
     field: "phone",
     type: "string",
     headerName: "Phone",
-    width: 200,
+    width: 150,
   },
   {
     field: "createdAt",
     headerName: "Created At",
-    width: 200,
+    width: 150,
     type: "string",
   },
   {
     field: "verified",
     headerName: "Verified",
-    width: 150,
+    width: 100,
     type: "boolean",
   },
 ];
@@ -58,7 +58,7 @@ const Users = () => {
         <h1>Users</h1>
         <button>Add New User</button>
       </div>
-      <DataTable columns={columns} rows={userRows} />
+      <DataTable columns={columns} rows={userRows} slug="users" />
     </div>
   );
 };

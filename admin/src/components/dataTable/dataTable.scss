@@ -13,5 +13,16 @@
       border-radius: 50%;
       object-fit: cover;
     }
+
+    .action {
+      display: flex;
+      gap: 15px;
+
+      svg {
+        width: 20px;
+        height: 20px;
+        cursor: pointer;
+      }
+    }
   }
 }
