@@ -23,10 +23,10 @@ const DataTable: React.FC<Props> = ({ columns, rows, slug }) => {
       return (
         <div className="action">
           <Link to={`/${slug}/${params.row.id}`}>
-            <PageviewOutlined style={{ color: "green" }} />
+            <PageviewOutlined style={{ fill: "limegreen" }} />
           </Link>
           <div className="delete" onClick={() => handleDelete(params.row.id)}>
-            <DeleteOutline style={{ color: "red" }} />
+            <DeleteOutline style={{ fill: "tomato" }} />
           </div>
         </div>
       );
@@ -54,7 +54,6 @@ const DataTable: React.FC<Props> = ({ columns, rows, slug }) => {
           },
         }}
         pageSizeOptions={[10]}
-        checkboxSelection
         disableRowSelectionOnClick
         disableColumnFilter
         disableColumnSelector

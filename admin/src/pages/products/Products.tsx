@@ -3,6 +3,7 @@ import AddModal from "../../components/addModal/AddModal";
 import DataTable from "../../components/dataTable/DataTable";
 import { products } from "../../data";
 import "./products.scss";
+import { Add } from "@mui/icons-material";
 
 const columns: GridColDef[] = [
   { field: "id", headerName: "ID", width: 75 },
@@ -59,7 +60,10 @@ const Products = () => {
     <div className="products">
       <div className="info">
         <h1>Products</h1>
-        <button onClick={() => setOpen(true)}>Add New Product</button>
+        <button onClick={() => setOpen(true)}>
+          <Add />
+          <span>Add New Product</span>
+        </button>
       </div>
       <DataTable columns={columns} rows={products} slug="products" />
       {open && <AddModal slug="product" columns={columns} setOpen={setOpen} />}

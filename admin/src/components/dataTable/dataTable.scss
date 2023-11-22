@@ -1,10 +1,41 @@
+@import "../../styles/variables.scss";
+
 .dataTable {
   .dataGrid {
-    background: white;
+    background: $main-bg;
     padding: 20px;
+    border: none;
+    color: $main-color;
 
     .MuiDataGrid-toolbarContainer {
       flex-direction: row-reverse;
+    }
+
+    .MuiInput-root {
+      color: $main-color;
+
+      &::before {
+        border-color: $soft-bg;
+      }
+
+      &:hover:before {
+        border-color: $main-color;
+      }
+      &::after {
+        border-color: #86a4ff;
+      }
+    }
+
+    .MuiButton-root {
+      color: #86a4ff;
+    }
+
+    .MuiSvgIcon-root {
+      fill: $main-color;
+    }
+
+    .MuiTablePagination-root {
+      color: $soft-color;
     }
 
     img {

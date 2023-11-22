@@ -4,6 +4,7 @@ import "./users.scss";
 import { userRows } from "../../data";
 import { useState } from "react";
 import AddModal from "../../components/addModal/AddModal";
+import { Add } from "@mui/icons-material";
 
 const columns: GridColDef[] = [
   { field: "id", headerName: "ID", width: 75 },
@@ -60,7 +61,10 @@ const Users = () => {
     <div className="users">
       <div className="info">
         <h1>Users</h1>
-        <button onClick={() => setOpen(true)}>Add New User</button>
+        <button onClick={() => setOpen(true)}>
+          <Add />
+          <span>Add New User</span>
+        </button>
       </div>
       <DataTable columns={columns} rows={userRows} slug="users" />
       {open && <AddModal slug="user" columns={columns} setOpen={setOpen} />}
