@@ -1,7 +1,14 @@
+import Single from "../../components/single/Single";
 import "./product.scss";
 
 const Product = () => {
-  return <div className="product">Product</div>;
+  // Fetch data and send to Single component
+
+  return (
+    <div className="product">
+      <Single />
+    </div>
+  );
 };
 
 export default Product;
