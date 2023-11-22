@@ -632,7 +632,7 @@ export const singleUser = {
   img: "https://images.pexels.com/photos/17397364/pexels-photo-17397364.jpeg?auto=compress&cs=tinysrgb&w=1600&lazy=load",
   info: {
     username: "Johndoe99",
-    fullname: "John Doe",
+    name: "John Doe",
     email: "johndoe@gmail.com",
     phone: "123 456 789",
     status: "verified",
@@ -683,7 +683,7 @@ export const singleUser = {
   activities: [
     {
       text: "John Doe purchased Playstation 5 Digital Edition",
-      time: "3 day ago",
+      time: "3 days ago",
     },
     {
       text: "John Doe added 3 items into their wishlist",
@@ -765,7 +765,7 @@ export const singleProduct = {
   activities: [
     {
       text: "John Doe purchased Playstation 5 Digital Edition",
-      time: "3 day ago",
+      time: "3 days ago",
     },
     {
       text: "Jane Doe added Playstation 5 Digital Edition into their wishlist",
