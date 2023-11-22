@@ -4,6 +4,7 @@ import DataTable from "../../components/dataTable/DataTable";
 import { products } from "../../data";
 import "./products.scss";
 import { Add } from "@mui/icons-material";
+import { GridColDef, GridRenderCellParams } from "@mui/x-data-grid";
 
 const columns: GridColDef[] = [
   { field: "id", headerName: "ID", width: 75 },
@@ -11,7 +12,7 @@ const columns: GridColDef[] = [
     field: "img",
     headerName: "Image",
     width: 75,
-    renderCell: (params) => {
+    renderCell: (params: GridRenderCellParams) => {
       return <img src={params.row.img || "/noavatar.png"} alt="" />;
     },
   },

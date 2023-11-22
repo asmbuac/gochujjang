@@ -6,7 +6,7 @@ const Menu = () => {
   return (
     <div className="menu">
       <div className="brand">
-        <img src="src/assets/logo.png" alt="" />
+        <img src="/src/assets/logo.png" alt="" />
         <span>GochuJjang</span>
       </div>
       {menu.map((item) => (

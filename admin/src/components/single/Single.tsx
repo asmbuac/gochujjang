@@ -62,6 +62,7 @@ const Single = (props: Props) => {
                     type="monotone"
                     dataKey={dataKey.name}
                     stroke={dataKey.color}
+                    key={dataKey.color}
                   />
                 ))}
               </LineChart>
@@ -74,7 +75,7 @@ const Single = (props: Props) => {
         {props.activities && (
           <ul>
             {props.activities.map((activity) => (
-              <li>
+              <li key={activity.text + activity.time}>
                 <div>
                   <p>{activity.text}</p>
                   <time>{activity.time}</time>

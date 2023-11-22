@@ -1,4 +1,4 @@
-import { GridColDef } from "@mui/x-data-grid";
+import { GridColDef, GridRenderCellParams } from "@mui/x-data-grid";
 import DataTable from "../../components/dataTable/DataTable";
 import "./users.scss";
 import { userRows } from "../../data";
@@ -12,7 +12,7 @@ const columns: GridColDef[] = [
     field: "img",
     headerName: "Avatar",
     width: 75,
-    renderCell: (params) => {
+    renderCell: (params: GridRenderCellParams) => {
       return <img src={params.row.img || "/noavatar.png"} alt="" />;
     },
   },
