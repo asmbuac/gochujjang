@@ -10,11 +10,7 @@ import "./navbar.scss";
 const Navbar = () => {
   return (
     <div className="navbar">
-      <div className="left">
-        <img src="src/assets/logo.png" alt="" />
-        <span>GochuJjang</span>
-      </div>
-      <div className="right">
+      <div className="icons">
         <Search className="icon" />
         <GridView className="icon" />
         <CropFreeSharp className="icon" />

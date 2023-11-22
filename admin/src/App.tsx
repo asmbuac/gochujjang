@@ -14,16 +14,16 @@ function App() {
   const Layout = () => {
     return (
       <div className="main">
-        <Navbar />
         <div className="container">
           <div className="menuContainer">
             <Menu />
           </div>
           <div className="contentContainer">
+            <Navbar />
             <Outlet />
+            <Footer />
           </div>
         </div>
-        <Footer />
       </div>
     );
   };

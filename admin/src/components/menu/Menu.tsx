@@ -5,6 +5,10 @@ import { menu } from "../../data";
 const Menu = () => {
   return (
     <div className="menu">
+      <div className="brand">
+        <img src="src/assets/logo.png" alt="" />
+        <span>GochuJjang</span>
+      </div>
       {menu.map((item) => (
         <div className="item" key={item.id}>
           <span className="title">{item.title}</span>
