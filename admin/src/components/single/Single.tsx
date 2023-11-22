@@ -46,7 +46,6 @@ const Single = (props: Props) => {
             ))}
           </div>
         </div>
-        <hr />
         {props.chart && (
           <div className="chart">
             <ResponsiveContainer width="99%" height="100%">
