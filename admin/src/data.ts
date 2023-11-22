@@ -58,46 +58,10 @@ export const menu = [
         url: "/orders",
         icon: AssignmentOutlined,
       },
-      {
-        id: 4,
-        title: "Posts",
-        url: "/",
-        icon: LibraryBooksOutlined,
-      },
     ],
   },
   {
     id: 3,
-    title: "general",
-    listItems: [
-      {
-        id: 1,
-        title: "Elements",
-        url: "/",
-        icon: GridView,
-      },
-      {
-        id: 2,
-        title: "Notes",
-        url: "/",
-        icon: NoteAltOutlined,
-      },
-      {
-        id: 3,
-        title: "Forms",
-        url: "/",
-        icon: NotesOutlined,
-      },
-      {
-        id: 4,
-        title: "Calendar",
-        url: "/",
-        icon: CalendarMonthOutlined,
-      },
-    ],
-  },
-  {
-    id: 4,
     title: "Maintenance",
     listItems: [
       {
@@ -115,7 +79,7 @@ export const menu = [
     ],
   },
   {
-    id: 5,
+    id: 4,
     title: "analytics",
     listItems: [
       {
