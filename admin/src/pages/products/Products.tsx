@@ -1,26 +1,32 @@
 import { useState } from "react";
 import AddModal from "../../components/addModal/AddModal";
 import DataTable from "../../components/dataTable/DataTable";
-import { products } from "../../data";
 import "./products.scss";
 import { Add } from "@mui/icons-material";
-import { GridColDef, GridRenderCellParams } from "@mui/x-data-grid";
+import {
+  GridColDef,
+  GridRenderCellParams,
+  GridValueFormatterParams,
+} from "@mui/x-data-grid";
+import { useQuery } from "@tanstack/react-query";
 
 const columns: GridColDef[] = [
-  { field: "id", headerName: "ID", width: 75 },
+  { field: "_id", headerName: "ID", width: 75 },
   {
-    field: "img",
+    field: "image",
     headerName: "Image",
     width: 75,
     renderCell: (params: GridRenderCellParams) => {
-      return <img src={params.row.img || "/noavatar.png"} alt="" />;
+      return (
+        <img src={params.row.image || "/src/assets/noavatar.png"} alt="" />
+      );
     },
   },
   {
     field: "title",
     type: "string",
     headerName: "Title",
-    width: 275,
+    width: 400,
   },
   {
     field: "color",
@@ -33,18 +39,15 @@ const columns: GridColDef[] = [
     type: "string",
     headerName: "Price",
     width: 125,
-  },
-  {
-    field: "producer",
-    headerName: "Producer",
-    type: "string",
-    width: 150,
+    valueFormatter: (params: GridValueFormatterParams) => `$${params.value}`,
   },
   {
     field: "createdAt",
     headerName: "Created At",
-    width: 100,
+    width: 175,
     type: "string",
+    valueFormatter: (params: GridValueFormatterParams) =>
+      new Date(params.value).toLocaleString(),
   },
   {
     field: "inStock",
@@ -57,6 +60,12 @@ const columns: GridColDef[] = [
 const Products = () => {
   const [open, setOpen] = useState(false);
 
+  const { isPending, data } = useQuery({
+    queryKey: ["repoData"],
+    queryFn: () =>
+      fetch("http://localhost:8000/api/products").then((res) => res.json()),
+  });
+
   return (
     <div className="products">
       <div className="info">
@@ -66,7 +75,11 @@ const Products = () => {
           <span>Add New Product</span>
         </button>
       </div>
-      <DataTable columns={columns} rows={products} slug="products" />
+      {isPending ? (
+        "Loading..."
+      ) : (
+        <DataTable columns={columns} rows={data} slug="products" />
+      )}
       {open && <AddModal slug="product" columns={columns} setOpen={setOpen} />}
     </div>
   );
