@@ -39,6 +39,7 @@ const DataTable: React.FC<Props> = ({ columns, rows, slug }) => {
         className="dataGrid"
         rows={rows}
         columns={[...columns, actionColumn]}
+        getRowId={(row) => row._id}
         initialState={{
           pagination: {
             paginationModel: {

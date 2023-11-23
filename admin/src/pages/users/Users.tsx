@@ -1,19 +1,23 @@
-import { GridColDef, GridRenderCellParams } from "@mui/x-data-grid";
+import {
+  GridColDef,
+  GridRenderCellParams,
+  GridValueFormatterParams,
+} from "@mui/x-data-grid";
 import DataTable from "../../components/dataTable/DataTable";
 import "./users.scss";
-import { userRows } from "../../data";
 import { useState } from "react";
 import AddModal from "../../components/addModal/AddModal";
 import { Add } from "@mui/icons-material";
+import { useQuery } from "@tanstack/react-query";
 
 const columns: GridColDef[] = [
-  { field: "id", headerName: "ID", width: 75 },
+  { field: "_id", headerName: "ID" },
   {
     field: "img",
     headerName: "Avatar",
     width: 75,
     renderCell: (params: GridRenderCellParams) => {
-      return <img src={params.row.img || "/noavatar.png"} alt="" />;
+      return <img src={params.row.img || "/src/assets/noavatar.png"} alt="" />;
     },
   },
   {
@@ -29,26 +33,28 @@ const columns: GridColDef[] = [
     width: 150,
   },
   {
+    field: "username",
+    type: "string",
+    headerName: "Username",
+    width: 100,
+  },
+  {
     field: "email",
     type: "string",
     headerName: "Email",
     width: 200,
   },
   {
-    field: "phone",
-    type: "string",
-    headerName: "Phone",
-    width: 150,
-  },
-  {
     field: "createdAt",
     headerName: "Created At",
-    width: 100,
+    width: 175,
     type: "string",
+    valueFormatter: (params: GridValueFormatterParams) =>
+      new Date(params.value).toLocaleString(),
   },
   {
-    field: "verified",
-    headerName: "Verified",
+    field: "isAdmin",
+    headerName: "Admin",
     width: 100,
     type: "boolean",
   },
@@ -56,6 +62,12 @@ const columns: GridColDef[] = [
 
 const Users = () => {
   const [open, setOpen] = useState(false);
+
+  const { isPending, data } = useQuery({
+    queryKey: ["repoData"],
+    queryFn: () =>
+      fetch("http://localhost:8000/api/users").then((res) => res.json()),
+  });
 
   return (
     <div className="users">
@@ -66,7 +78,11 @@ const Users = () => {
           <span>Add New User</span>
         </button>
       </div>
-      <DataTable columns={columns} rows={userRows} slug="users" />
+      {isPending ? (
+        "Loading..."
+      ) : (
+        <DataTable columns={columns} rows={data} slug="users" />
+      )}
       {open && <AddModal slug="user" columns={columns} setOpen={setOpen} />}
     </div>
   );
