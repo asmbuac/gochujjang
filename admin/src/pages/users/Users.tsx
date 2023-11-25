@@ -64,7 +64,7 @@ const Users = () => {
   const [open, setOpen] = useState(false);
 
   const { isPending, data } = useQuery({
-    queryKey: ["repoData"],
+    queryKey: ["users"],
     queryFn: () =>
       fetch("http://localhost:8000/api/users").then((res) => res.json()),
   });

@@ -1,4 +1,9 @@
-import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
+import {
+  createBrowserRouter,
+  RouterProvider,
+  Outlet,
+  Navigate,
+} from "react-router-dom";
 import Home from "./pages/home/Home";
 import Users from "./pages/users/Users";
 import Products from "./pages/products/Products";
@@ -10,10 +15,19 @@ import "./styles/global.scss";
 import User from "./pages/user/User";
 import Product from "./pages/product/Product";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { useSelector } from "react-redux";
 
 const queryClient = new QueryClient();
 
+type userParams = {
+  currentUser: object;
+  isFetching: boolean;
+  error: boolean;
+};
+
 export default function App() {
+  const user = useSelector((state: userParams) => state.currentUser);
+
   const Layout = () => {
     return (
       <div className="main">
@@ -36,7 +50,7 @@ export default function App() {
   const router = createBrowserRouter([
     {
       path: "/",
-      element: <Layout />,
+      element: user ? <Layout /> : <Navigate replace to="/login" />,
       children: [
         {
           path: "/",
@@ -62,7 +76,7 @@ export default function App() {
     },
     {
       path: "login",
-      element: <Login />,
+      element: user ? <Navigate replace to="/" /> : <Login />,
     },
   ]);
 

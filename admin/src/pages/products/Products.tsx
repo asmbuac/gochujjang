@@ -61,7 +61,7 @@ const Products = () => {
   const [open, setOpen] = useState(false);
 
   const { isPending, data } = useQuery({
-    queryKey: ["repoData"],
+    queryKey: ["products"],
     queryFn: () =>
       fetch("http://localhost:8000/api/products").then((res) => res.json()),
   });
