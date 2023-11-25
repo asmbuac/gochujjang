@@ -21,7 +21,9 @@ const Login = () => {
         username,
         password,
       });
-      dispatch(loginSuccess(res.data));
+      res.data.isAdmin
+        ? dispatch(loginSuccess(res.data))
+        : dispatch(loginFailure());
     } catch (err) {
       dispatch(loginFailure());
     }

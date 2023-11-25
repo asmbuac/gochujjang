@@ -20,7 +20,7 @@ import { useSelector } from "react-redux";
 const queryClient = new QueryClient();
 
 type userParams = {
-  currentUser: object;
+  currentUser: object | null;
   isFetching: boolean;
   error: boolean;
 };
