@@ -31,7 +31,9 @@ const Login = () => {
 
   const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    login(dispatch, username, password);
+    e.target instanceof HTMLElement && e.target.className === "demo"
+      ? login(dispatch, "admin", "admin")
+      : login(dispatch, username, password);
   };
 
   return (
@@ -53,6 +55,9 @@ const Login = () => {
             onChange={(e) => setPassword(e.target.value)}
           />
           <button onClick={handleClick}>Login</button>
+          <button className="demo" onClick={handleClick}>
+            Demo Login
+          </button>
         </form>
       </div>
     </div>
