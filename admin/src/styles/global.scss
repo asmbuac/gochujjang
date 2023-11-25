@@ -23,12 +23,12 @@ a {
 .menuContainer {
   background-color: $main-bg;
   width: 250px;
-  padding: 5px 20px;
+  padding: 0px 20px;
 }
 
 .contentContainer {
   background-color: $dark-bg;
-  padding: 5px 20px;
+  padding: 0px 20px;
   width: 100%;
   height: calc(100vh);
   overflow: auto;
