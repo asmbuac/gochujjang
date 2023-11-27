@@ -8,7 +8,6 @@ import {
   GridRenderCellParams,
   GridValueFormatterParams,
 } from "@mui/x-data-grid";
-import { useQuery } from "@tanstack/react-query";
 
 const columns: GridColDef[] = [
   { field: "_id", headerName: "ID", width: 75 },
@@ -60,12 +59,6 @@ const columns: GridColDef[] = [
 const Products = () => {
   const [open, setOpen] = useState(false);
 
-  const { isPending, data } = useQuery({
-    queryKey: ["products"],
-    queryFn: () =>
-      fetch("http://localhost:8000/api/products").then((res) => res.json()),
-  });
-
   return (
     <div className="products">
       <div className="info">
@@ -75,11 +68,11 @@ const Products = () => {
           <span>Add New Product</span>
         </button>
       </div>
-      {isPending ? (
+      {/* {isPending ? (
         "Loading..."
-      ) : (
-        <DataTable columns={columns} rows={data} slug="products" />
-      )}
+      ) : ( */}
+      <DataTable columns={columns} rows={data} slug="products" />
+      {/* )} */}
       {open && <AddModal slug="product" columns={columns} setOpen={setOpen} />}
     </div>
   );

@@ -14,19 +14,11 @@ import Login from "./pages/login/Login";
 import "./styles/global.scss";
 import User from "./pages/user/User";
 import Product from "./pages/product/Product";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { useSelector } from "react-redux";
-
-const queryClient = new QueryClient();
-
-type userParams = {
-  currentUser: object | null;
-  isFetching: boolean;
-  error: boolean;
-};
+import { RootState } from "./redux/store";
 
 export default function App() {
-  const user = useSelector((state: userParams) => state.currentUser);
+  const user = useSelector((state: RootState) => state.auth.currentUser);
 
   const Layout = () => {
     return (
@@ -37,9 +29,7 @@ export default function App() {
           </div>
           <div className="contentContainer">
             <Navbar />
-            <QueryClientProvider client={queryClient}>
-              <Outlet />
-            </QueryClientProvider>
+            <Outlet />
             <Footer />
           </div>
         </div>

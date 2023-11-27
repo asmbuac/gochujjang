@@ -8,7 +8,7 @@ import "./users.scss";
 import { useState } from "react";
 import AddModal from "../../components/addModal/AddModal";
 import { Add } from "@mui/icons-material";
-import { useQuery } from "@tanstack/react-query";
+import { useGetUsersQuery } from "../../redux/userApi";
 
 const columns: GridColDef[] = [
   { field: "_id", headerName: "ID" },
@@ -62,12 +62,7 @@ const columns: GridColDef[] = [
 
 const Users = () => {
   const [open, setOpen] = useState(false);
-
-  const { isPending, data } = useQuery({
-    queryKey: ["users"],
-    queryFn: () =>
-      fetch("http://localhost:8000/api/users").then((res) => res.json()),
-  });
+  const { data, isLoading } = useGetUsersQuery();
 
   return (
     <div className="users">
@@ -78,7 +73,7 @@ const Users = () => {
           <span>Add New User</span>
         </button>
       </div>
-      {isPending ? (
+      {isLoading ? (
         "Loading..."
       ) : (
         <DataTable columns={columns} rows={data} slug="users" />
