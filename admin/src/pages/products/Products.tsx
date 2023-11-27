@@ -8,7 +8,7 @@ import {
   GridRenderCellParams,
   GridValueFormatterParams,
 } from "@mui/x-data-grid";
-import { useGetProductsQuery } from "../../redux/productApi";
+import { useGetRowsQuery } from "../../redux/apiSlice";
 
 const columns: GridColDef[] = [
   { field: "_id", headerName: "ID", width: 75 },
@@ -59,7 +59,7 @@ const columns: GridColDef[] = [
 
 const Products = () => {
   const [open, setOpen] = useState(false);
-  const { data, isLoading } = useGetProductsQuery();
+  const { data, isLoading } = useGetRowsQuery("products");
 
   return (
     <div className="products">

@@ -2,6 +2,7 @@ import { DataGrid, GridColDef, GridToolbar } from "@mui/x-data-grid";
 import "./dataTable.scss";
 import { Link } from "react-router-dom";
 import { DeleteOutline, PageviewOutlined } from "@mui/icons-material";
+import { useDeleteRowMutation } from "../../redux/apiSlice";
 
 type Props = {
   columns: GridColDef[];
@@ -10,9 +11,10 @@ type Props = {
 };
 
 const DataTable: React.FC<Props> = ({ columns, rows, slug }) => {
-  const handleDelete = (id: number) => {
-    // Delete item
-    console.log(id + " has been deleted");
+  const [deleteRow] = useDeleteRowMutation();
+
+  const handleDelete = (slug: string, id: string) => {
+    deleteRow({ slug, id });
   };
 
   const actionColumn: GridColDef = {
@@ -22,10 +24,13 @@ const DataTable: React.FC<Props> = ({ columns, rows, slug }) => {
     renderCell: (params) => {
       return (
         <div className="action">
-          <Link to={`/${slug}/${params.row.id}`}>
+          <Link to={`/${slug}/${params.row._id}`}>
             <PageviewOutlined style={{ fill: "limegreen" }} />
           </Link>
-          <div className="delete" onClick={() => handleDelete(params.row.id)}>
+          <div
+            className="delete"
+            onClick={() => handleDelete(slug, params.row._id)}
+          >
             <DeleteOutline style={{ fill: "tomato" }} />
           </div>
         </div>

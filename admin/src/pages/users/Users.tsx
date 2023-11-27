@@ -8,7 +8,7 @@ import "./users.scss";
 import { useState } from "react";
 import AddModal from "../../components/addModal/AddModal";
 import { Add } from "@mui/icons-material";
-import { useGetUsersQuery } from "../../redux/userApi";
+import { useGetRowsQuery } from "../../redux/apiSlice";
 
 const columns: GridColDef[] = [
   { field: "_id", headerName: "ID" },
@@ -62,7 +62,7 @@ const columns: GridColDef[] = [
 
 const Users = () => {
   const [open, setOpen] = useState(false);
-  const { data, isLoading } = useGetUsersQuery();
+  const { data, isLoading } = useGetRowsQuery("users");
 
   return (
     <div className="users">
