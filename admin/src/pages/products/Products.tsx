@@ -8,6 +8,7 @@ import {
   GridRenderCellParams,
   GridValueFormatterParams,
 } from "@mui/x-data-grid";
+import { useGetProductsQuery } from "../../redux/productApi";
 
 const columns: GridColDef[] = [
   { field: "_id", headerName: "ID", width: 75 },
@@ -58,6 +59,7 @@ const columns: GridColDef[] = [
 
 const Products = () => {
   const [open, setOpen] = useState(false);
+  const { data, isLoading } = useGetProductsQuery();
 
   return (
     <div className="products">
@@ -68,11 +70,11 @@ const Products = () => {
           <span>Add New Product</span>
         </button>
       </div>
-      {/* {isPending ? (
+      {isLoading ? (
         "Loading..."
-      ) : ( */}
-      <DataTable columns={columns} rows={data} slug="products" />
-      {/* )} */}
+      ) : (
+        <DataTable columns={columns} rows={data} slug="products" />
+      )}
       {open && <AddModal slug="product" columns={columns} setOpen={setOpen} />}
     </div>
   );
