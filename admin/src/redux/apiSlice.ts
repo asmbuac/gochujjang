@@ -35,7 +35,18 @@ export const api = createApi({
         { type: "list", id: slug },
       ],
     }),
+    createRow: builder.mutation<object, { slug: string; data: object }>({
+      query: ({ slug, data }) => ({
+        url: `/${slug}`,
+        body: data,
+        method: "post",
+      }),
+      invalidatesTags: (result, error, { slug }) => [
+        { type: "list", id: slug },
+      ],
+    }),
   }),
 });
 
-export const { useGetRowsQuery, useDeleteRowMutation } = api;
+export const { useGetRowsQuery, useDeleteRowMutation, useCreateRowMutation } =
+  api;
