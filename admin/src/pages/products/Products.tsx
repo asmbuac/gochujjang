@@ -4,18 +4,21 @@ import DataTable from "../../components/dataTable/DataTable";
 import "./products.scss";
 import { Add } from "@mui/icons-material";
 import {
-  GridColDef,
   GridRenderCellParams,
   GridValueFormatterParams,
 } from "@mui/x-data-grid";
 import { useGetRowsQuery } from "../../redux/apiSlice";
+import { ColumnInfo } from "../../types";
 
-const columns: GridColDef[] = [
+const columns: ColumnInfo[] = [
   { field: "_id", headerName: "ID", width: 75 },
   {
     field: "image",
+    type: "string",
     headerName: "Image",
     width: 75,
+    inputType: "url",
+    required: true,
     renderCell: (params: GridRenderCellParams) => {
       return (
         <img src={params.row.image || "/src/assets/noavatar.png"} alt="" />
@@ -27,18 +30,45 @@ const columns: GridColDef[] = [
     type: "string",
     headerName: "Title",
     width: 400,
+    inputType: "text",
+    required: true,
+  },
+  {
+    field: "description",
+    type: "string",
+    headerName: "Description",
+    inputType: "text",
+    required: true,
+  },
+  {
+    field: "categories",
+    type: "string",
+    headerName: "Categories",
+    inputType: "text",
+    required: false,
+  },
+  {
+    field: "size",
+    type: "string",
+    headerName: "Size",
+    inputType: "text",
+    required: false,
   },
   {
     field: "color",
     type: "string",
     headerName: "Color",
     width: 125,
+    inputType: "text",
+    required: false,
   },
   {
     field: "price",
-    type: "string",
+    type: "number",
     headerName: "Price",
     width: 125,
+    inputType: "number",
+    required: true,
     valueFormatter: (params: GridValueFormatterParams) => `$${params.value}`,
   },
   {
@@ -54,11 +84,26 @@ const columns: GridColDef[] = [
     headerName: "In Stock",
     width: 100,
     type: "boolean",
+    inputType: "checkbox",
+    required: true,
   },
 ];
 
+const hiddenColumns = {
+  categories: false,
+  size: false,
+  color: false,
+};
+
 const Products = () => {
   const [open, setOpen] = useState(false);
+  const [formData, setFormData] = useState({
+    title: "",
+    description: "",
+    image: "",
+    price: 0,
+    inStock: false,
+  });
   const { data, isLoading } = useGetRowsQuery("products");
 
   return (
@@ -73,9 +118,22 @@ const Products = () => {
       {isLoading ? (
         "Loading..."
       ) : (
-        <DataTable columns={columns} rows={data} slug="products" />
+        <DataTable
+          columns={columns}
+          rows={data}
+          slug="products"
+          hiddenColumns={hiddenColumns}
+        />
       )}
-      {open && <AddModal slug="product" columns={columns} setOpen={setOpen} />}
+      {open && (
+        <AddModal
+          slug="product"
+          columns={columns}
+          setOpen={setOpen}
+          setFormData={setFormData}
+          formData={formData}
+        />
+      )}
     </div>
   );
 };

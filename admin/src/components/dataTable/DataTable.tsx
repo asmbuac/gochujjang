@@ -1,4 +1,9 @@
-import { DataGrid, GridColDef, GridToolbar } from "@mui/x-data-grid";
+import {
+  DataGrid,
+  GridColDef,
+  GridColumnVisibilityModel,
+  GridToolbar,
+} from "@mui/x-data-grid";
 import "./dataTable.scss";
 import { Link } from "react-router-dom";
 import { DeleteOutline, PageviewOutlined } from "@mui/icons-material";
@@ -8,9 +13,10 @@ type Props = {
   columns: GridColDef[];
   rows: object[];
   slug: string;
+  hiddenColumns?: GridColumnVisibilityModel;
 };
 
-const DataTable: React.FC<Props> = ({ columns, rows, slug }) => {
+const DataTable: React.FC<Props> = ({ columns, rows, slug, hiddenColumns }) => {
   const [deleteRow] = useDeleteRowMutation();
 
   const handleDelete = (slug: string, id: string) => {
@@ -45,6 +51,7 @@ const DataTable: React.FC<Props> = ({ columns, rows, slug }) => {
         rows={rows}
         columns={[...columns, actionColumn]}
         getRowId={(row) => row._id}
+        columnVisibilityModel={hiddenColumns}
         initialState={{
           pagination: {
             paginationModel: {
