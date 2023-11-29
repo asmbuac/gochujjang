@@ -45,6 +45,19 @@ export const api = createApi({
         { type: "list", id: slug },
       ],
     }),
+    updateRow: builder.mutation<
+      object,
+      { slug: string; id: string; data: object }
+    >({
+      query: ({ slug, id, data }) => ({
+        url: `/${slug}/${id}`,
+        body: data,
+        method: "put",
+      }),
+      invalidatesTags: (result, error, { slug }) => [
+        { type: "list", id: slug },
+      ],
+    }),
   }),
 });
 
