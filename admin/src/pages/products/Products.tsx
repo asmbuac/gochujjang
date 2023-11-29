@@ -85,7 +85,7 @@ const columns: ColumnInfo[] = [
     width: 100,
     type: "boolean",
     inputType: "checkbox",
-    required: true,
+    required: false,
   },
 ];
 

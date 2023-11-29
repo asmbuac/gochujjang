@@ -31,7 +31,11 @@ const AddModal: React.FC<Props> = ({
   const resetForm = () => {
     const newForm = Object.fromEntries(
       columns
-        .filter((item) => item.hasOwnProperty("inputType") && item.required)
+        .filter(
+          (item) =>
+            item.hasOwnProperty("inputType") &&
+            (item.required || item.type === "boolean")
+        )
         .map((column) => [
           column.field,
           column.type === "string"
@@ -123,6 +127,7 @@ const AddModal: React.FC<Props> = ({
                     placeholder={column.headerName}
                     onChange={handleChange}
                     required={column.required}
+                    step={column.field === "price" ? 0.01 : undefined}
                   />
                 )}
               </div>
