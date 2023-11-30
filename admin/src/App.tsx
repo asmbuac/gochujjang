@@ -16,6 +16,7 @@ import User from "./pages/user/User";
 import Product from "./pages/product/Product";
 import { useSelector } from "react-redux";
 import { RootState } from "./redux/store";
+import Orders from "./pages/orders/Orders";
 
 export default function App() {
   const user = useSelector((state: RootState) => state.auth.currentUser);
@@ -53,6 +54,10 @@ export default function App() {
         {
           path: "products",
           element: <Products />,
+        },
+        {
+          path: "orders",
+          element: <Orders />,
         },
         {
           path: "users/:id",
