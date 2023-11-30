@@ -29,8 +29,8 @@ const DataTable: React.FC<Props> = ({ columns, rows, slug, hiddenColumns }) => {
   };
 
   const actionColumn: GridColDef = {
-    field: "action",
-    headerName: "Actions",
+    field: "actions",
+    type: "actions",
     width: 100,
     renderCell: (params) => {
       return (

@@ -108,9 +108,7 @@ const AddModal: React.FC<Props> = ({
         <h1>Add new {slug}</h1>
         <form onSubmit={handleSubmit}>
           {columns
-            .filter(
-              (item) => item.field !== "_id" && item.field !== "createdAt"
-            )
+            .filter((item) => item.hasOwnProperty("required"))
             .map((column) => (
               <div className="item" key={column.field}>
                 <label htmlFor={column.field}>{column.headerName}</label>

@@ -13,7 +13,6 @@
       outline: none;
       border: none;
       border-radius: 5px;
-      font-weight: bold;
       cursor: pointer;
       display: flex;
       align-items: center;
@@ -26,6 +25,10 @@
       svg {
         width: 20px;
         height: 20px;
+      }
+
+      span {
+        font-weight: bold;
       }
     }
   }
