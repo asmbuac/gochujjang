@@ -26,6 +26,12 @@ const columns: ColumnInfo[] = [
     required: true,
   },
   {
+    field: "products",
+    headerName: "Products",
+    inputType: "text",
+    required: true,
+  },
+  {
     field: "amount",
     type: "number",
     headerName: "Total",
@@ -57,6 +63,7 @@ const columns: ColumnInfo[] = [
 
 const hiddenColumns = {
   address: false,
+  products: false,
 };
 
 const Orders = () => {

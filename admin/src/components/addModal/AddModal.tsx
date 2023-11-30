@@ -115,6 +115,7 @@ const AddModal: React.FC<Props> = ({
                 {column.field === "description" ? (
                   <textarea
                     name={column.field}
+                    id={column.field}
                     onChange={handleChange}
                     required={column.required}
                   />
@@ -122,6 +123,7 @@ const AddModal: React.FC<Props> = ({
                   <input
                     type={column.inputType}
                     name={column.field}
+                    id={column.field}
                     placeholder={column.headerName}
                     onChange={handleChange}
                     required={column.required}
