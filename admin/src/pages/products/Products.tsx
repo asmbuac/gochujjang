@@ -93,6 +93,7 @@ const hiddenColumns = {
   categories: false,
   size: false,
   color: false,
+  description: false,
 };
 
 const Products = () => {

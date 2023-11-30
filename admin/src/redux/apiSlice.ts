@@ -61,5 +61,9 @@ export const api = createApi({
   }),
 });
 
-export const { useGetRowsQuery, useDeleteRowMutation, useCreateRowMutation } =
-  api;
+export const {
+  useGetRowsQuery,
+  useDeleteRowMutation,
+  useCreateRowMutation,
+  useUpdateRowMutation,
+} = api;
