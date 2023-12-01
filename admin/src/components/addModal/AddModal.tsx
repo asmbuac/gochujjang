@@ -1,20 +1,23 @@
 import "./add.scss";
 import { HighlightOff } from "@mui/icons-material";
 import { ChangeEvent, useEffect, useRef } from "react";
-import { ColumnInfo, Product } from "../../types";
+import { ColumnInfo, Order, Product } from "../../types";
 import { useCreateRowMutation } from "../../redux/apiSlice";
+import { useLocation } from "react-router-dom";
 
 type Props = {
   slug: string;
   columns: ColumnInfo[];
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  formData: Product;
-  setFormData: React.Dispatch<React.SetStateAction<Product>>;
+  formData: Product & Order;
+  setFormData: React.Dispatch<React.SetStateAction<Product | Order>>;
 };
 
 export const splitString = (data: any, property: string) => {
   if (data.hasOwnProperty(property) && typeof data[property] === "string") {
-    data[property] = data[property]?.split(", ");
+    data[property] = data[property]
+      ?.split(",")
+      .map((item: string) => item.trim());
   }
 };
 
@@ -26,6 +29,7 @@ const AddModal: React.FC<Props> = ({
   formData,
 }) => {
   const ref = useRef<HTMLDivElement>(null);
+  const pathName = useLocation().pathname;
   const [createItem] = useCreateRowMutation();
 
   const resetForm = () => {
@@ -72,9 +76,20 @@ const AddModal: React.FC<Props> = ({
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    splitString(formData, "color");
-    splitString(formData, "categories");
-    splitString(formData, "size");
+    if (pathName === "/products") {
+      splitString(formData, "color");
+      splitString(formData, "categories");
+      splitString(formData, "size");
+    } else if (pathName === "/orders") {
+      splitString(formData, "products");
+
+      if (formData.products instanceof Array) {
+        formData.products = formData.products.map((product) => {
+          const splitProduct = (product as string).split(" ");
+          return { product: splitProduct[0], quantity: splitProduct[1] };
+        });
+      }
+    }
 
     createItem({ data: formData, slug: `${slug}s` });
     resetForm();
@@ -112,22 +127,27 @@ const AddModal: React.FC<Props> = ({
             .map((column) => (
               <div className="item" key={column.field}>
                 <label htmlFor={column.field}>{column.headerName}</label>
-                {column.field === "description" ? (
+                {column.inputType === "textarea" ? (
                   <textarea
                     name={column.field}
                     id={column.field}
                     onChange={handleChange}
                     required={column.required}
+                    placeholder={column.placeholder || column.headerName}
                   />
                 ) : (
                   <input
                     type={column.inputType}
                     name={column.field}
                     id={column.field}
-                    placeholder={column.headerName}
+                    placeholder={column.placeholder || column.headerName}
                     onChange={handleChange}
                     required={column.required}
-                    step={column.field === "price" ? 0.01 : undefined}
+                    step={
+                      column.field === "price" || column.field === "amount"
+                        ? 0.01
+                        : undefined
+                    }
                   />
                 )}
               </div>

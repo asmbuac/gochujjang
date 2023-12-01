@@ -28,8 +28,9 @@ const columns: ColumnInfo[] = [
   {
     field: "products",
     headerName: "Products",
-    inputType: "text",
+    inputType: "textarea",
     required: true,
+    placeholder: "productId quantity, productId quantity",
   },
   {
     field: "amount",
@@ -67,7 +68,14 @@ const hiddenColumns = {
 };
 
 const Orders = () => {
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState<boolean>(false);
+  const [formData, setFormData] = useState<{ [key: string]: any }>({
+    userId: "",
+    sessionId: "",
+    products: "",
+    amount: 0,
+    address: "",
+  });
   const { data, isLoading } = useGetRowsQuery("orders");
 
   return (
@@ -89,7 +97,15 @@ const Orders = () => {
           hiddenColumns={hiddenColumns}
         />
       )}
-      {open && <AddModal slug="order" columns={columns} setOpen={setOpen} />}
+      {open && (
+        <AddModal
+          slug="order"
+          columns={columns}
+          setOpen={setOpen}
+          formData={formData}
+          setFormData={setFormData}
+        />
+      )}
     </div>
   );
 };

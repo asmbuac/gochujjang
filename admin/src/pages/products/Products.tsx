@@ -37,7 +37,7 @@ const columns: ColumnInfo[] = [
     field: "description",
     type: "string",
     headerName: "Description",
-    inputType: "text",
+    inputType: "textarea",
     required: true,
   },
   {
@@ -97,8 +97,8 @@ const hiddenColumns = {
 };
 
 const Products = () => {
-  const [open, setOpen] = useState(false);
-  const [formData, setFormData] = useState({
+  const [open, setOpen] = useState<boolean>(false);
+  const [formData, setFormData] = useState<{ [key: string]: any }>({
     title: "",
     description: "",
     image: "",
