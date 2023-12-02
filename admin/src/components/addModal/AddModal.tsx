@@ -1,16 +1,15 @@
-import "./add.scss";
-import { HighlightOff } from "@mui/icons-material";
-import { ChangeEvent, useEffect, useRef } from "react";
-import { ColumnInfo, Order, Product } from "../../types";
+import "./addModal.scss";
+import { ErrorOutline, HighlightOff } from "@mui/icons-material";
+import { ChangeEvent, useEffect, useRef, useState } from "react";
+import { ColumnInfo, Order, Product, User } from "../../types";
 import { useCreateRowMutation } from "../../redux/apiSlice";
-import { useLocation } from "react-router-dom";
 
 type Props = {
   slug: string;
   columns: ColumnInfo[];
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  formData: Product & Order;
-  setFormData: React.Dispatch<React.SetStateAction<Product | Order>>;
+  formData: Product & Order & User;
+  setFormData: React.Dispatch<React.SetStateAction<Product | Order | User>>;
 };
 
 export const splitString = (data: any, property: string) => {
@@ -29,8 +28,9 @@ const AddModal: React.FC<Props> = ({
   formData,
 }) => {
   const ref = useRef<HTMLDivElement>(null);
-  const pathName = useLocation().pathname;
-  const [createItem] = useCreateRowMutation();
+  const [errorStatus, setErrorStatus] = useState<boolean>(false);
+  const [errorMsg, setErrorMsg] = useState<string>("");
+  const [createItem, res] = useCreateRowMutation();
 
   const resetForm = () => {
     const newForm = Object.fromEntries(
@@ -76,11 +76,11 @@ const AddModal: React.FC<Props> = ({
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (pathName === "/products") {
+    if (slug === "product") {
       splitString(formData, "color");
       splitString(formData, "categories");
       splitString(formData, "size");
-    } else if (pathName === "/orders") {
+    } else if (slug === "order") {
       splitString(formData, "products");
 
       if (formData.products instanceof Array) {
@@ -89,12 +89,37 @@ const AddModal: React.FC<Props> = ({
           return { product: splitProduct[0], quantity: splitProduct[1] };
         });
       }
+    } else {
+      if (formData.password !== formData.confirmPassword) {
+        setErrorStatus(true);
+        setErrorMsg("Passwords do not match");
+      } else {
+        setErrorStatus(false);
+        setErrorMsg("");
+      }
     }
 
-    createItem({ data: formData, slug: `${slug}s` });
+    if (!errorStatus) {
+      createItem({
+        data: formData,
+        slug: slug === "user" ? "auth/register" : `${slug}s`,
+      });
+    }
+  };
+
+  if (res.isSuccess) {
+    res.reset();
     resetForm();
     setOpen(false);
-  };
+  } else if (res.isError) {
+    setErrorStatus(true);
+    const errMsg =
+      res.error.data instanceof Object
+        ? JSON.stringify(res.error.data)
+        : res.error.data;
+    setErrorMsg(errMsg);
+    res.reset();
+  }
 
   useEffect(() => {
     const checkIfClickedOutside = (e: MouseEvent) => {
@@ -119,14 +144,29 @@ const AddModal: React.FC<Props> = ({
   return (
     <div className="addContainer">
       <div className="modal" ref={ref}>
-        <HighlightOff onClick={closeModal} />
+        <HighlightOff className="close" onClick={closeModal} />
         <h1>Add new {slug}</h1>
+        {errorMsg.length > 0 && (
+          <div className="error">
+            <ErrorOutline />
+            <span>{errorMsg}</span>
+          </div>
+        )}
         <form onSubmit={handleSubmit}>
           {columns
             .filter((item) => item.hasOwnProperty("required"))
             .map((column) => (
-              <div className="item" key={column.field}>
-                <label htmlFor={column.field}>{column.headerName}</label>
+              <div
+                className="item"
+                key={column.field}
+                style={{
+                  width: column.inputType === "textarea" ? "100%" : "45%",
+                }}
+              >
+                <label htmlFor={column.field}>
+                  {column.headerName}
+                  {column.required && <span>*</span>}
+                </label>
                 {column.inputType === "textarea" ? (
                   <textarea
                     name={column.field}

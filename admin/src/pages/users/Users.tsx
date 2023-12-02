@@ -9,15 +9,21 @@ import { useState } from "react";
 import AddModal from "../../components/addModal/AddModal";
 import { Add } from "@mui/icons-material";
 import { useGetRowsQuery } from "../../redux/apiSlice";
+import { ColumnInfo } from "../../types";
 
-const columns: GridColDef[] = [
+const columns: ColumnInfo[] = [
   { field: "_id", headerName: "ID" },
   {
-    field: "img",
+    field: "avatar",
+    type: "string",
     headerName: "Avatar",
     width: 75,
+    inputType: "url",
+    required: false,
     renderCell: (params: GridRenderCellParams) => {
-      return <img src={params.row.img || "/src/assets/noavatar.png"} alt="" />;
+      return (
+        <img src={params.row.avatar || "/src/assets/noavatar.png"} alt="" />
+      );
     },
   },
   {
@@ -25,24 +31,44 @@ const columns: GridColDef[] = [
     type: "string",
     headerName: "First name",
     width: 150,
+    inputType: "text",
+    required: true,
   },
   {
     field: "lastName",
     type: "string",
     headerName: "Last name",
     width: 150,
+    inputType: "text",
+    required: true,
   },
   {
     field: "username",
     type: "string",
     headerName: "Username",
     width: 100,
+    inputType: "text",
+    required: true,
   },
   {
     field: "email",
     type: "string",
     headerName: "Email",
     width: 200,
+    inputType: "email",
+    required: true,
+  },
+  {
+    field: "password",
+    headerName: "Password",
+    inputType: "password",
+    required: true,
+  },
+  {
+    field: "confirmPassword",
+    headerName: "Confirm Password",
+    inputType: "password",
+    required: true,
   },
   {
     field: "createdAt",
@@ -57,11 +83,26 @@ const columns: GridColDef[] = [
     headerName: "Admin",
     width: 100,
     type: "boolean",
+    inputType: "checkbox",
+    required: false,
   },
 ];
 
+const hiddenColumns = {
+  password: false,
+  confirmPassword: false,
+};
+
 const Users = () => {
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState<boolean>(false);
+  const [formData, setFormData] = useState<{ [key: string]: any }>({
+    firstName: "",
+    lastName: "",
+    username: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+  });
   const { data, isLoading } = useGetRowsQuery("users");
 
   return (
@@ -76,9 +117,22 @@ const Users = () => {
       {isLoading ? (
         "Loading..."
       ) : (
-        <DataTable columns={columns} rows={data} slug="users" />
+        <DataTable
+          columns={columns}
+          rows={data}
+          slug="users"
+          hiddenColumns={hiddenColumns}
+        />
       )}
-      {open && <AddModal slug="user" columns={columns} setOpen={setOpen} />}
+      {open && (
+        <AddModal
+          slug="user"
+          columns={columns}
+          setOpen={setOpen}
+          formData={formData}
+          setFormData={setFormData}
+        />
+      )}
     </div>
   );
 };

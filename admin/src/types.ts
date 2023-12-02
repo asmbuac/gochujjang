@@ -24,3 +24,14 @@ export type Order = {
   amount?: number;
   address?: string;
 };
+
+export type User = {
+  avatar?: string;
+  firstName?: string;
+  lastName?: string;
+  username?: string;
+  email?: string;
+  password?: string;
+  confirmPassword?: string;
+  isAdmin?: boolean;
+};

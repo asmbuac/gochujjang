@@ -42,7 +42,7 @@ export const api = createApi({
         method: "post",
       }),
       invalidatesTags: (result, error, { slug }) => [
-        { type: "list", id: slug },
+        { type: "list", id: slug === "auth/register" ? "users" : slug },
       ],
     }),
     updateRow: builder.mutation<
