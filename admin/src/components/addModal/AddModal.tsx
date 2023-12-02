@@ -28,9 +28,8 @@ const AddModal: React.FC<Props> = ({
   formData,
 }) => {
   const ref = useRef<HTMLDivElement>(null);
-  const [errorStatus, setErrorStatus] = useState<boolean>(false);
   const [errorMsg, setErrorMsg] = useState<string>("");
-  const [createItem, res] = useCreateRowMutation();
+  const [createItem, { isSuccess, error, reset }] = useCreateRowMutation();
 
   const resetForm = () => {
     const newForm = Object.fromEntries(
@@ -91,35 +90,30 @@ const AddModal: React.FC<Props> = ({
       }
     } else {
       if (formData.password !== formData.confirmPassword) {
-        setErrorStatus(true);
         setErrorMsg("Passwords do not match");
+        return;
       } else {
-        setErrorStatus(false);
         setErrorMsg("");
       }
     }
 
-    if (!errorStatus) {
-      createItem({
-        data: formData,
-        slug: slug === "user" ? "auth/register" : `${slug}s`,
-      });
-    }
+    createItem({
+      data: formData,
+      slug: slug === "user" ? "auth/register" : `${slug}s`,
+    });
   };
 
-  if (res.isSuccess) {
-    res.reset();
-    resetForm();
-    setOpen(false);
-  } else if (res.isError) {
-    setErrorStatus(true);
-    const errMsg =
-      res.error.data instanceof Object
-        ? JSON.stringify(res.error.data)
-        : res.error.data;
-    setErrorMsg(errMsg);
-    res.reset();
-  }
+  useEffect(() => {
+    if (error) {
+      const errMsg =
+        error.data instanceof Object ? JSON.stringify(error.data) : error.data;
+      setErrorMsg(errMsg);
+    } else if (isSuccess) {
+      reset();
+      resetForm();
+      setOpen(false);
+    }
+  }, [error, isSuccess, reset]);
 
   useEffect(() => {
     const checkIfClickedOutside = (e: MouseEvent) => {
