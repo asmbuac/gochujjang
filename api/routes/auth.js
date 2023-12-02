@@ -14,6 +14,8 @@ router.post("/register", async (req, res) => {
     ).toString(),
     firstName: req.body.firstName,
     lastName: req.body.lastName,
+    avatar: req.body?.avatar,
+    isAdmin: req.body?.isAdmin,
   });
 
   try {
