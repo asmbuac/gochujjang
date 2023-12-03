@@ -1,10 +1,14 @@
 import styled from "styled-components";
 import { mobile } from "../responsive";
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { deleteCart } from "../redux/cartSlice";
 import { publicRequest } from "../requestMethods";
-import { useCreateOrderMutation } from "../redux/orderApi";
+import {
+  useCreateOrderMutation,
+  useGetOrderBySessionQuery,
+} from "../redux/orderApi";
+import { useLocation } from "react-router-dom";
 
 const Container = styled.div`
   width: 100%;
@@ -39,41 +43,43 @@ function Success() {
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart);
   const userId = useSelector((state) => state.auth.currentUser?._id);
-  const url = new URL(window.location);
-  const sessionId = url.searchParams.get("session_id");
-  const [session, setSession] = useState({});
-  const [createOrder] = useCreateOrderMutation();
-
-  const getSession = async () => {
-    try {
-      const res = await publicRequest.get(`/checkout/${sessionId}`);
-      setSession(res.data);
-    } catch (err) {
-      console.error(err);
-    }
-  };
+  const sessionId = useLocation().search.slice(12);
+  const { data } = useGetOrderBySessionQuery(sessionId);
+  const [createOrder, { isSuccess, reset }] = useCreateOrderMutation();
 
   useEffect(() => {
-    getSession();
-    if (session.status === "complete") {
-      const products = cart.products.map(({ _id, quantity }) => ({
-        product: _id,
-        quantity,
-      }));
-      const address = session?.shipping_details?.address;
-      const fullAddress = `${address?.line1}, ${address?.city}, ${address?.state} ${address?.postal_code}`;
-      createOrder({
-        userId,
-        products,
-        amount: cart.total,
-        address: fullAddress ? fullAddress : "",
-        sessionId,
-      });
+    if (data?.length > 0) {
+      return;
     }
-    if (cart.products.length > 0) {
-      dispatch(deleteCart());
-    }
-  }, [sessionId]);
+
+    const makeOrder = async () => {
+      try {
+        const res = await publicRequest.get(`/checkout/${sessionId}`);
+        const session = res.data;
+        if (session?.status === "complete") {
+          const products = cart.products.map(({ _id, quantity }) => ({
+            product: _id,
+            quantity,
+          }));
+          const address = session?.shipping_details?.address;
+          const fullAddress = `${address?.line1}, ${address?.city}, ${address?.state} ${address?.postal_code}`;
+          createOrder({
+            userId,
+            products,
+            amount: parseFloat(cart.total.toFixed(2)),
+            address: fullAddress?.length > 0 ? fullAddress : "",
+            sessionId,
+          });
+          if (cart.products.length > 0) {
+            dispatch(deleteCart());
+          }
+        }
+      } catch (err) {
+        console.error(err);
+      }
+    };
+    makeOrder();
+  }, [sessionId, data]);
 
   return (
     <Container>

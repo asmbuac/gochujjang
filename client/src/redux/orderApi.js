@@ -18,8 +18,11 @@ export const orderApi = createApi({
     getOrders: builder.query({
       query: (userId) => `/orders/user/${userId}`,
     }),
-    getOrder: builder.query({
+    getOrderById: builder.query({
       query: (id) => `/orders/${id}`,
+    }),
+    getOrderBySession: builder.query({
+      query: (id) => `/orders/session/${id}`,
     }),
     createOrder: builder.mutation({
       query: (data) => ({
@@ -31,5 +34,9 @@ export const orderApi = createApi({
   }),
 });
 
-export const { useGetOrdersQuery, useGetOrderQuery, useCreateOrderMutation } =
-  orderApi;
+export const {
+  useGetOrdersQuery,
+  useGetOrderByIdQuery,
+  useGetOrderBySessionQuery,
+  useCreateOrderMutation,
+} = orderApi;
