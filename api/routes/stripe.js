@@ -7,7 +7,7 @@ const Cart = require("../models/Cart");
 router.post("/", async (req, res) => {
   const cart = req.body.cart;
 
-  const cartItems = cart.products.map(
+  const cartItems = cart?.products?.map(
     ({ _id, title, image, price, quantity }) => ({
       price_data: {
         currency: "usd",
