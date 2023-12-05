@@ -103,7 +103,7 @@ const Footer = () => {
   return (
     <Container>
       <Left>
-        <Logo>GochuJjang</Logo>
+        <Logo>Jjang</Logo>
         <Description>
           Lorem ipsum dolor sit amet, consectetur adipisicing elit. Earum ut
           facere esse dolores ullam culpa, ab inventore itaque, tenetur ducimus

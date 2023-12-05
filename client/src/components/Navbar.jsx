@@ -155,7 +155,7 @@ const Navbar = () => {
         <Center>
           <NavbarLink to="/" display="flex">
             <Logo src="/src/assets/logo.png" />
-            <BrandName>GochuJjang</BrandName>
+            <BrandName>Jjang</BrandName>
           </NavbarLink>
         </Center>
         <Right>

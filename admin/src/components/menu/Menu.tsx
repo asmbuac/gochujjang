@@ -18,7 +18,7 @@ const Menu = () => {
       <div className="top">
         <div className="brand">
           <img src="/src/assets/logo.png" alt="" />
-          <span>GochuJjang</span>
+          <span>Jjang</span>
         </div>
         {menu.map((item) => (
           <div className="item" key={item.id}>

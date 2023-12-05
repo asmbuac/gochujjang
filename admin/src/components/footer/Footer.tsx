@@ -3,7 +3,7 @@ import "./footer.scss";
 const Footer = () => {
   return (
     <div className="footer">
-      <span>© GochuJjang Admin Dashboard</span>
+      <span>© Jjang Admin Dashboard</span>
     </div>
   );
 };
