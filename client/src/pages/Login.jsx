@@ -3,6 +3,7 @@ import { mobile } from "../responsive";
 import { useState } from "react";
 import { login } from "../redux/apiCalls";
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 
 const Container = styled.div`
   width: 100%;
@@ -11,7 +12,7 @@ const Container = styled.div`
       rgba(255, 255, 255, 0.5),
       rgba(255, 255, 255, 0.5)
     ),
-    url("https://images.pexels.com/photos/6984650/pexels-photo-6984650.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940")
+    url("https://res.heraldm.com/content/image/2022/08/24/20220824000086_0.jpg")
       center;
   background-size: cover;
   display: flex;
@@ -64,11 +65,12 @@ const Input = styled.input`
 
 const Button = styled.button`
   margin: 15px 0px 10px 0px;
-  width: 40%;
+  width: 100%;
   border: none;
   padding: 15px 20px;
   background-color: #7487bf;
   color: white;
+  font-weight: 600;
   cursor: pointer;
   transition: all 300ms ease;
 
@@ -92,13 +94,17 @@ const LinkContainer = styled.div`
   justify-content: space-around;
 `;
 
-const Link = styled.a`
+const LoginLink = styled(Link)`
   margin: 10px 0px;
   font-size: 12px;
   text-decoration: underline;
   text-underline-position: under;
   cursor: pointer;
   transition: all 300ms ease;
+
+  &:visited {
+    color: black;
+  }
 
   &:hover {
     color: #7487bf;
@@ -139,8 +145,8 @@ const Login = () => {
           </Button>
           {error && <Error>Something went wrong...</Error>}
           <LinkContainer>
-            <Link>FORGOT PASSWORD?</Link>
-            <Link>CREATE A NEW ACCOUNT</Link>
+            <LoginLink to="">FORGOT PASSWORD?</LoginLink>
+            <LoginLink to="/register">CREATE A NEW ACCOUNT</LoginLink>
           </LinkContainer>
         </Form>
       </Wrapper>

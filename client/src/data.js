@@ -17,7 +17,7 @@ export const sliderItems = [
   },
   {
     id: 3,
-    img: "https://i.ibb.co/cXFnLLV/3.png",
+    img: "https://www.nme.com/wp-content/uploads/2023/07/newjeans-eta-live.jpg",
     title: "LOUNGEWEAR LOVE",
     description:
       "DON'T COMPROMISE ON STYLE! GET FLAT 30% OFF FOR NEW ARRIVALS.",

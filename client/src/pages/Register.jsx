@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { mobile } from "../responsive";
+import { Link } from "react-router-dom";
 
 const Container = styled.div`
   width: 100%;
@@ -8,7 +9,7 @@ const Container = styled.div`
       rgba(255, 255, 255, 0.5),
       rgba(255, 255, 255, 0.5)
     ),
-    url("https://images.pexels.com/photos/6984661/pexels-photo-6984661.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940")
+    url("https://media.allure.com/photos/636539c37a5b9d68f388697d/16:9/w_2240,c_limit/LE%20SSERAFIM%20interview%20lede.jpg")
       center;
   background-size: cover;
   display: flex;
@@ -82,11 +83,12 @@ const Description = styled.p`
 
 const Button = styled.button`
   margin-bottom: 10px;
-  width: 40%;
+  width: 100%;
   border: none;
   padding: 15px 20px;
   background-color: rosybrown;
   color: white;
+  font-weight: 600;
   cursor: pointer;
   transition: all 300ms ease;
 
@@ -101,11 +103,15 @@ const LinkContainer = styled.p`
   font-size: 12px;
 `;
 
-const Link = styled.a`
+const LoginLink = styled(Link)`
   text-decoration: underline;
   text-underline-position: under;
   cursor: pointer;
   transition: all 300ms ease;
+
+  &:visited {
+    color: black;
+  }
 
   &:hover {
     color: #804d4d;
@@ -135,7 +141,7 @@ const Register = () => {
           <Button>CREATE</Button>
         </Form>
         <LinkContainer>
-          ALREADY HAVE AN ACCOUNT? <Link>SIGN IN</Link>
+          ALREADY HAVE AN ACCOUNT? <LoginLink to="/login">SIGN IN</LoginLink>
         </LinkContainer>
       </Wrapper>
     </Container>
