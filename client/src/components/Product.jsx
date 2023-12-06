@@ -8,7 +8,24 @@ import { mobile } from "../responsive";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { addProduct } from "../redux/cartSlice";
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
+
+const Info = styled.div`
+  opacity: 0;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.15);
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  cursor: pointer;
+  transition: all 400ms ease;
+`;
 
 const Container = styled.div`
   flex: 1;
@@ -42,23 +59,6 @@ const Image = styled.img`
   z-index: 2;
 
   ${mobile({ height: "65%" })}
-`;
-
-const Info = styled.div`
-  opacity: 0;
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  top: 0;
-  left: 0;
-  background-color: rgba(0, 0, 0, 0.15);
-  z-index: 3;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  cursor: pointer;
-  transition: all 400ms ease;
 `;
 
 const Icon = styled.div`
