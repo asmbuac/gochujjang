@@ -3,8 +3,8 @@ const mongoose = require("mongoose");
 const OrderSchema = new mongoose.Schema(
   {
     userId: {
-      type: String,
-      required: true,
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
     },
     products: [
       {
@@ -20,6 +20,10 @@ const OrderSchema = new mongoose.Schema(
     ],
     amount: {
       type: Number,
+      required: true,
+    },
+    email: {
+      type: String,
       required: true,
     },
     address: {
