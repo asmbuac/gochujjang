@@ -89,7 +89,7 @@ const DataTable: React.FC<Props> = ({ columns, rows, slug, hiddenColumns }) => {
       {open && (
         <EditModal
           slug={slug.slice(0, -1)}
-          columns={columns}
+          columns={columns.filter((item) => item.hasOwnProperty("required"))}
           setOpen={setOpen}
           setFormData={setFormData}
           formData={formData}

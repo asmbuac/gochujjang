@@ -3,6 +3,8 @@ import { HighlightOff } from "@mui/icons-material";
 import { ChangeEvent, useEffect, useRef } from "react";
 import { ColumnInfo } from "../../types";
 import { useUpdateRowMutation } from "../../redux/apiSlice";
+import { useSelector } from "react-redux";
+import { RootState } from "../../redux/store";
 
 type Props = {
   slug: string;
@@ -19,6 +21,9 @@ const EditModal: React.FC<Props> = ({
   formData,
   setFormData,
 }) => {
+  const user = useSelector(
+    (state: RootState) => state.auth.currentUser.username
+  );
   const ref = useRef<HTMLDivElement>(null);
   const [editItem, { isSuccess, error, reset }] = useUpdateRowMutation();
 
@@ -74,7 +79,12 @@ const EditModal: React.FC<Props> = ({
           }}
         >
           {columns
-            .filter((item) => item.hasOwnProperty("required"))
+            .filter((item) => {
+              return (
+                (slug === "user" && formData?.username === user) ||
+                (item.field !== "password" && item.field !== "confirmPassword")
+              );
+            })
             .map((column) => (
               <div
                 className="item"
