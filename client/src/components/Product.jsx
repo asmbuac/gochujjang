@@ -5,24 +5,10 @@ import {
 } from "@mui/icons-material";
 import styled from "styled-components";
 import { mobile } from "../responsive";
-import { Link } from "react-router-dom";
-
-const Info = styled.div`
-  opacity: 0;
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  top: 0;
-  left: 0;
-  background-color: rgba(0, 0, 0, 0.15);
-  z-index: 3;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  cursor: pointer;
-  transition: all 400ms ease;
-`;
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { addProduct } from "../redux/cartSlice";
+import { useEffect, useRef } from "react";
 
 const Container = styled.div`
   flex: 1;
@@ -58,6 +44,23 @@ const Image = styled.img`
   ${mobile({ height: "65%" })}
 `;
 
+const Info = styled.div`
+  opacity: 0;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.15);
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  cursor: pointer;
+  transition: all 400ms ease;
+`;
+
 const Icon = styled.div`
   width: 40px;
   height: 40px;
@@ -88,13 +91,27 @@ const ProductLink = styled(Link)`
 `;
 
 const Product = ({ item }) => {
+  const ref = useRef();
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const addToCart = () => {
+    dispatch(addProduct({ ...item, quantity: 1, color: "", size: "" }));
+  };
+
+  const checkIfClickedOutside = (e) => {
+    if (ref.current && e.target.contains(ref.current)) {
+      navigate(`/product/${item._id}`);
+    }
+  };
+
   return (
     <Container>
       <Circle />
       <Image src={item.image} />
-      <Info>
+      <Info ref={ref} onClick={checkIfClickedOutside}>
         <Icon>
-          <ShoppingCartOutlined />
+          <ShoppingCartOutlined onClick={addToCart} />
         </Icon>
         <Icon>
           <ProductLink to={`/product/${item._id}`}>
