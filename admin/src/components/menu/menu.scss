@@ -10,7 +10,6 @@
     .brand {
       display: flex;
       align-items: center;
-      font-weight: bold;
       gap: 5px;
       padding: 20px;
       margin-bottom: 10px;
@@ -21,7 +20,8 @@
       }
 
       span {
-        font-size: 18px;
+        font-family: "Audiowide";
+        font-size: 24px;
       }
     }
 
@@ -50,6 +50,11 @@
         }
       }
     }
+  }
+
+  svg {
+    height: 20px;
+    width: 20px;
   }
 
   .logout {
