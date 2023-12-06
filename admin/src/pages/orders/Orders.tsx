@@ -13,15 +13,29 @@ const columns: ColumnInfo[] = [
     field: "userId",
     type: "string",
     headerName: "User ID",
-    width: 225,
     inputType: "text",
-    required: true,
+    required: false,
   },
   {
     field: "sessionId",
     type: "string",
     headerName: "Session ID",
     width: 250,
+    inputType: "text",
+    required: true,
+  },
+  {
+    field: "email",
+    type: "string",
+    headerName: "Email",
+    width: 225,
+    inputType: "text",
+    required: true,
+  },
+  {
+    field: "address",
+    type: "string",
+    headerName: "Address",
     inputType: "text",
     required: true,
   },
@@ -41,13 +55,6 @@ const columns: ColumnInfo[] = [
     valueFormatter: (params: GridValueFormatterParams) => `$${params.value}`,
   },
   {
-    field: "address",
-    type: "string",
-    headerName: "Address",
-    inputType: "text",
-    required: true,
-  },
-  {
     field: "status",
     type: "string",
     headerName: "Status",
@@ -63,6 +70,7 @@ const columns: ColumnInfo[] = [
 ];
 
 const hiddenColumns = {
+  userId: false,
   address: false,
   products: false,
 };
