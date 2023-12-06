@@ -43,4 +43,9 @@ const OrderSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
+OrderSchema.pre(/^(find|findOne|findById)$/, function (next) {
+  this.populate("userId").populate("products.product");
+  next();
+});
+
 module.exports = mongoose.model("Order", OrderSchema);

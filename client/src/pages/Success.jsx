@@ -69,6 +69,7 @@ function Success() {
             amount: parseFloat(cart.total.toFixed(2)),
             address: fullAddress?.length > 0 ? fullAddress : "",
             sessionId,
+            email: session?.customer_details.email,
           });
           if (cart.products.length > 0) {
             dispatch(deleteCart());
