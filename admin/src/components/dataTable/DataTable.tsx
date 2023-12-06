@@ -13,6 +13,8 @@ import {
   PageviewOutlined,
 } from "@mui/icons-material";
 import { useDeleteRowMutation } from "../../redux/apiSlice";
+import { useState } from "react";
+import EditModal from "../editModal/EditModal";
 
 type Props = {
   columns: GridColDef[];
@@ -22,6 +24,8 @@ type Props = {
 };
 
 const DataTable: React.FC<Props> = ({ columns, rows, slug, hiddenColumns }) => {
+  const [open, setOpen] = useState<boolean>(false);
+  const [formData, setFormData] = useState<{ [key: string]: any }>({});
   const [deleteRow] = useDeleteRowMutation();
 
   const handleDelete = (slug: string, id: string) => {
@@ -38,7 +42,14 @@ const DataTable: React.FC<Props> = ({ columns, rows, slug, hiddenColumns }) => {
           <Link to={`/${slug}/${params.row._id}`}>
             <PageviewOutlined className="view" />
           </Link>
-          <EditOutlined className="edit" />
+          <EditOutlined
+            className="edit"
+            onClick={() => {
+              const { createdAt, updatedAt, ...others } = params.row;
+              setFormData(others);
+              setOpen(true);
+            }}
+          />
           <DeleteOutline
             className="delete"
             onClick={() => handleDelete(slug, params.row._id)}
@@ -75,6 +86,15 @@ const DataTable: React.FC<Props> = ({ columns, rows, slug, hiddenColumns }) => {
         disableColumnFilter
         disableColumnSelector
       />
+      {open && (
+        <EditModal
+          slug={slug.slice(0, -1)}
+          columns={columns}
+          setOpen={setOpen}
+          setFormData={setFormData}
+          formData={formData}
+        />
+      )}
     </div>
   );
 };
