@@ -20,6 +20,15 @@ export const splitString = (data: any, property: string) => {
   }
 };
 
+export const parseProducts = (formData: Product & Order & User) => {
+  if (formData.products instanceof Array) {
+    formData.products = formData.products.map((product) => {
+      const splitProduct = (product as string).split(" ");
+      return { product: splitProduct[0], quantity: splitProduct[1] };
+    });
+  }
+};
+
 const AddModal: React.FC<Props> = ({
   slug,
   columns,
@@ -81,13 +90,7 @@ const AddModal: React.FC<Props> = ({
       splitString(formData, "size");
     } else if (slug === "order") {
       splitString(formData, "products");
-
-      if (formData.products instanceof Array) {
-        formData.products = formData.products.map((product) => {
-          const splitProduct = (product as string).split(" ");
-          return { product: splitProduct[0], quantity: splitProduct[1] };
-        });
-      }
+      parseProducts(formData);
     } else {
       if (formData.password !== formData.confirmPassword) {
         setErrorMsg("Passwords do not match");
@@ -110,8 +113,7 @@ const AddModal: React.FC<Props> = ({
       setErrorMsg(errMsg);
     } else if (isSuccess) {
       reset();
-      resetForm();
-      setOpen(false);
+      closeModal();
     }
   }, [error, isSuccess, reset]);
 
