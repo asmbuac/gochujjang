@@ -2,8 +2,10 @@ import {
   DataGrid,
   GridColDef,
   GridColumnVisibilityModel,
+  GridRenderCellParams,
   GridRowsProp,
   GridToolbar,
+  GridTreeNodeWithRender,
 } from "@mui/x-data-grid";
 import "./dataTable.scss";
 import { Link } from "react-router-dom";
@@ -32,6 +34,22 @@ const DataTable: React.FC<Props> = ({ columns, rows, slug, hiddenColumns }) => {
     deleteRow({ slug, id });
   };
 
+  const openEditModel = (
+    params: GridRenderCellParams<any, any, any, GridTreeNodeWithRender>
+  ) => {
+    const { createdAt, updatedAt, ...others } = params.row;
+    if (slug === "orders") {
+      others.products = others.products
+        .map(
+          (item: { [key: string]: any }) =>
+            `${item.product._id} ${item.quantity}`
+        )
+        .join(", ");
+    }
+    setFormData(others);
+    setOpen(true);
+  };
+
   const actionColumn: GridColDef = {
     field: "actions",
     type: "actions",
@@ -44,11 +62,7 @@ const DataTable: React.FC<Props> = ({ columns, rows, slug, hiddenColumns }) => {
           </Link>
           <EditOutlined
             className="edit"
-            onClick={() => {
-              const { createdAt, updatedAt, ...others } = params.row;
-              setFormData(others);
-              setOpen(true);
-            }}
+            onClick={() => openEditModel(params)}
           />
           <DeleteOutline
             className="delete"
