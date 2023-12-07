@@ -68,7 +68,7 @@ const AddModal: React.FC<Props> = ({
   };
 
   const handleChange = (
-    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
   ) => {
     const name = e.target.name;
     const value =
@@ -171,6 +171,16 @@ const AddModal: React.FC<Props> = ({
                     required={column.required}
                     placeholder={column.placeholder || column.headerName}
                   />
+                ) : column.inputType === "select" ? (
+                  <div className="select">
+                    <select name={column.field} onChange={handleChange}>
+                      <option value="pending" selected>
+                        pending
+                      </option>
+                      <option value="en route">en route</option>
+                      <option value="complete">complete</option>
+                    </select>
+                  </div>
                 ) : (
                   <input
                     type={column.inputType}
