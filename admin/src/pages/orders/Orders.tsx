@@ -58,6 +58,8 @@ const columns: ColumnInfo[] = [
     field: "status",
     type: "string",
     headerName: "Status",
+    inputType: "select",
+    required: false,
   },
   {
     field: "createdAt",
