@@ -44,7 +44,7 @@ const OrderSchema = new mongoose.Schema(
 );
 
 OrderSchema.pre(/^(find|findOne|findById)$/, function (next) {
-  this.populate("userId").populate("products.product");
+  this.populate("products.product");
   next();
 });
 

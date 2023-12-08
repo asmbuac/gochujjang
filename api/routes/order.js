@@ -84,7 +84,7 @@ router.delete("/:id", verifyTokenAndAdmin, async (req, res) => {
 // GET ORDER BY ID
 router.get("/:id", verifyTokenAndAuthorization, async (req, res) => {
   try {
-    const order = await Order.findById(req.params.id);
+    const order = await Order.findById(req.params.id).populate("userId");
     res.status(200).json(order);
   } catch (err) {
     res.status(500).json(err);
@@ -94,7 +94,9 @@ router.get("/:id", verifyTokenAndAuthorization, async (req, res) => {
 // GET ORDER BY SESSION ID
 router.get("/session/:sessionId", async (req, res) => {
   try {
-    const order = await Order.findOne({ sessionId: req.params.sessionId });
+    const order = await Order.findOne({
+      sessionId: req.params.sessionId,
+    }).populate("userId");
     res.status(200).json(order);
   } catch (err) {
     res.status(500).json(err);
