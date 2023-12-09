@@ -173,10 +173,12 @@ const AddModal: React.FC<Props> = ({
                   />
                 ) : column.inputType === "select" ? (
                   <div className="select">
-                    <select name={column.field} onChange={handleChange}>
-                      <option value="pending" selected>
-                        pending
-                      </option>
+                    <select
+                      name={column.field}
+                      onChange={handleChange}
+                      defaultValue="pending"
+                    >
+                      <option value="pending">pending</option>
                       <option value="en route">en route</option>
                       <option value="complete">complete</option>
                     </select>

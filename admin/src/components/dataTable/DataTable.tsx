@@ -17,9 +17,10 @@ import {
 import { useDeleteRowMutation } from "../../redux/apiSlice";
 import { useState } from "react";
 import EditModal from "../editModal/EditModal";
+import { ColumnInfo } from "../../types";
 
 type Props = {
-  columns: GridColDef[];
+  columns: ColumnInfo[];
   rows: GridRowsProp;
   slug: string;
   hiddenColumns?: GridColumnVisibilityModel;
@@ -37,7 +38,7 @@ const DataTable: React.FC<Props> = ({ columns, rows, slug, hiddenColumns }) => {
   const openEditModel = (
     params: GridRenderCellParams<any, any, any, GridTreeNodeWithRender>
   ) => {
-    const { createdAt, updatedAt, ...others } = params.row;
+    const { createdAt, updatedAt, __v, password, ...others } = params.row;
     if (slug === "orders") {
       others.products = others.products
         .map(
@@ -103,7 +104,7 @@ const DataTable: React.FC<Props> = ({ columns, rows, slug, hiddenColumns }) => {
       {open && (
         <EditModal
           slug={slug.slice(0, -1)}
-          columns={columns.filter((item) => item.hasOwnProperty("required"))}
+          columns={columns}
           setOpen={setOpen}
           setFormData={setFormData}
           formData={formData}

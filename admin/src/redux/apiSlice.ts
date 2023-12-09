@@ -1,5 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import type { RootState } from "./store";
+import { Order, Product, User } from "../types";
 
 export const api = createApi({
   reducerPath: "api",
@@ -46,8 +47,8 @@ export const api = createApi({
       ],
     }),
     updateRow: builder.mutation<
-      object,
-      { slug: string; id: string; data: object }
+      Product | Order | User,
+      { slug: string; id: string; data: Product | Order | User }
     >({
       query: ({ slug, id, data }) => ({
         url: `/${slug}/${id}`,

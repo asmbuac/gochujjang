@@ -1,10 +1,11 @@
 import "./editModal.scss";
-import { HighlightOff } from "@mui/icons-material";
-import { ChangeEvent, useEffect, useRef } from "react";
+import { ErrorOutline, HighlightOff } from "@mui/icons-material";
+import { ChangeEvent, useEffect, useRef, useState } from "react";
 import { ColumnInfo } from "../../types";
 import { useUpdateRowMutation } from "../../redux/apiSlice";
 import { useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
+import { parseProducts, splitString } from "../addModal/AddModal";
 
 type Props = {
   slug: string;
@@ -25,10 +26,11 @@ const EditModal: React.FC<Props> = ({
     (state: RootState) => state.auth.currentUser.username
   );
   const ref = useRef<HTMLDivElement>(null);
+  const [errorMsg, setErrorMsg] = useState<string>("");
   const [editItem, { isSuccess, error, reset }] = useUpdateRowMutation();
 
   const handleChange = (
-    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
   ) => {
     const name = e.target.name;
     const value =
@@ -41,6 +43,36 @@ const EditModal: React.FC<Props> = ({
       [name]: value,
     }));
   };
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (slug === "product") {
+      splitString(formData, "color");
+      splitString(formData, "categories");
+      splitString(formData, "size");
+    } else if (slug === "order") {
+      splitString(formData, "products");
+      parseProducts(formData);
+    }
+
+    editItem({
+      data: formData,
+      slug: `${slug}s`,
+      id: formData._id,
+    });
+  };
+
+  useEffect(() => {
+    if (error) {
+      const errMsg =
+        error.data instanceof Object ? JSON.stringify(error.data) : error.data;
+      setErrorMsg(errMsg);
+    } else if (isSuccess) {
+      setErrorMsg("");
+      reset();
+      setOpen(false);
+    }
+  }, [error, isSuccess, reset]);
 
   useEffect(() => {
     const checkIfClickedOutside = (e: MouseEvent) => {
@@ -72,19 +104,18 @@ const EditModal: React.FC<Props> = ({
           }}
         />
         <h1>Edit {slug}</h1>
-        <form
-          onSubmit={(e) => {
-            e.preventDefault();
-            console.log("Clicked submit");
-          }}
-        >
+        {errorMsg.length > 0 && (
+          <div className="error">
+            <ErrorOutline />
+            <span>{errorMsg}</span>
+          </div>
+        )}
+        <form onSubmit={handleSubmit}>
           {columns
-            .filter((item) => {
-              return (
-                (slug === "user" && formData?.username === user) ||
-                (item.field !== "password" && item.field !== "confirmPassword")
-              );
-            })
+            .filter(
+              (item) =>
+                item.hasOwnProperty("required") && item.inputType !== "password"
+            )
             .map((column) => (
               <div
                 className="item"
@@ -93,11 +124,7 @@ const EditModal: React.FC<Props> = ({
                   width: column.inputType === "textarea" ? "100%" : "45%",
                 }}
               >
-                <label htmlFor={column.field}>
-                  {column.headerName === "Password"
-                    ? "New Password"
-                    : column.headerName}
-                </label>
+                <label htmlFor={column.field}>{column.headerName}</label>
                 {column.inputType === "textarea" ? (
                   <textarea
                     name={column.field}
@@ -106,6 +133,18 @@ const EditModal: React.FC<Props> = ({
                     onChange={handleChange}
                     placeholder={column.placeholder || column.headerName}
                   />
+                ) : column.inputType === "select" ? (
+                  <div className="select">
+                    <select
+                      name={column.field}
+                      onChange={handleChange}
+                      defaultValue={formData[column.field]}
+                    >
+                      <option value="pending">pending</option>
+                      <option value="en route">en route</option>
+                      <option value="complete">complete</option>
+                    </select>
+                  </div>
                 ) : (
                   <input
                     type={column.inputType}
