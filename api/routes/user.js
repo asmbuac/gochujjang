@@ -51,7 +51,16 @@ router.put("/:id", verifyTokenAndAuthorization, async (req, res) => {
     );
     res.status(200).json(updatedUser);
   } catch (err) {
-    res.status(500).json(err);
+    if (err.code === 11000) {
+      const duplicateField = Object.keys(err.keyValue)[0];
+      const errMsg =
+        duplicateField === "username"
+          ? "Username already exists"
+          : "Email already exists";
+      res.status(400).json(errMsg);
+    } else {
+      res.status(400).json(err);
+    }
   }
 });
 

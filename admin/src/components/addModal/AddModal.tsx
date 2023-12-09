@@ -196,6 +196,8 @@ const AddModal: React.FC<Props> = ({
                         ? 0.01
                         : undefined
                     }
+                    min={column.inputType === "number" ? 0.01 : undefined}
+                    max={column.inputType === "number" ? 99999.99 : undefined}
                   />
                 )}
               </div>

@@ -3,8 +3,6 @@ import { ErrorOutline, HighlightOff } from "@mui/icons-material";
 import { ChangeEvent, useEffect, useRef, useState } from "react";
 import { ColumnInfo } from "../../types";
 import { useUpdateRowMutation } from "../../redux/apiSlice";
-import { useSelector } from "react-redux";
-import { RootState } from "../../redux/store";
 import { parseProducts, splitString } from "../addModal/AddModal";
 
 type Props = {
@@ -22,9 +20,6 @@ const EditModal: React.FC<Props> = ({
   formData,
   setFormData,
 }) => {
-  const user = useSelector(
-    (state: RootState) => state.auth.currentUser.username
-  );
   const ref = useRef<HTMLDivElement>(null);
   const [errorMsg, setErrorMsg] = useState<string>("");
   const [editItem, { isSuccess, error, reset }] = useUpdateRowMutation();
@@ -160,6 +155,8 @@ const EditModal: React.FC<Props> = ({
                         ? 0.01
                         : undefined
                     }
+                    min={column.inputType === "number" ? 0.01 : undefined}
+                    max={column.inputType === "number" ? 99999.99 : undefined}
                     checked={
                       column.inputType === "checkbox"
                         ? formData[column.field]
