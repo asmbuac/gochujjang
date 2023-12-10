@@ -36,7 +36,10 @@ export const api = createApi({
         { type: "list", id: slug },
       ],
     }),
-    createRow: builder.mutation<object, { slug: string; data: object }>({
+    createRow: builder.mutation<
+      Product | Order | User,
+      { slug: string; data: Product | Order | User }
+    >({
       query: ({ slug, data }) => ({
         url: `/${slug}`,
         body: data,

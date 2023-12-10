@@ -1,5 +1,4 @@
 import {
-  GridColDef,
   GridRenderCellParams,
   GridValueFormatterParams,
 } from "@mui/x-data-grid";

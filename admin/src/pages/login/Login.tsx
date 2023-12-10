@@ -6,8 +6,8 @@ import axios from "axios";
 import { Dispatch } from "@reduxjs/toolkit";
 
 const Login = () => {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+  const [username, setUsername] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
   const dispatch = useDispatch();
 
   const login = async (
