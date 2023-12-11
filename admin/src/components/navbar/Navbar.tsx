@@ -6,8 +6,12 @@ import {
   SettingsOutlined,
 } from "@mui/icons-material";
 import "./navbar.scss";
+import { useSelector } from "react-redux";
+import { RootState } from "../../redux/store";
 
 const Navbar = () => {
+  const user = useSelector((state: RootState) => state.auth.currentUser);
+
   return (
     <div className="navbar">
       <div className="icons">
@@ -19,11 +23,8 @@ const Navbar = () => {
           <span>1</span>
         </div>
         <div className="user">
-          <img
-            src="https://media.licdn.com/dms/image/C4E03AQHEHCSHtBJMQQ/profile-displayphoto-shrink_800_800/0/1661277175020?e=1705536000&v=beta&t=xCeST-m10o-habV9cJXpARmIeSj_wTNGix6Qqy8zMu4"
-            alt=""
-          />
-          <span>Shayne</span>
+          <img src={user.avatar || "/src/assets/noavatar.png"} alt="" />
+          <span>{user.firstName}</span>
         </div>
         <SettingsOutlined className="icon" />
       </div>

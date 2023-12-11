@@ -107,11 +107,19 @@
         textarea,
         select {
           padding: 10px;
-          background-color: transparent;
-          color: white;
+          background-color: $soft-bg;
+          color: $main-color;
           outline: none;
-          border: 1px solid $soft-color;
-          border-radius: 3px;
+          border: none;
+          border-radius: 5px;
+
+          &:focus {
+            outline: 2px solid #7487bf;
+          }
+
+          &::placeholder {
+            color: rgba(255, 255, 255, 0.3);
+          }
         }
 
         input[type="checkbox"] {
@@ -151,8 +159,8 @@
         width: 100%;
         padding: 10px;
         margin-top: 20px;
+        border: 2px solid #6187ff;
         border-radius: 5px;
-        border: none;
         cursor: pointer;
         font-weight: bold;
         color: $main-color;
@@ -160,6 +168,7 @@
 
         &:hover {
           background-color: #4774ff;
+          border-color: #4774ff;
         }
       }
     }

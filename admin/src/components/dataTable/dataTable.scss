@@ -13,16 +13,21 @@
 
     .MuiInput-root {
       color: $main-color;
+      background-color: $soft-bg;
+      padding: 5px 10px;
+      border: none;
+      border-radius: 999px;
 
       &::before {
-        border-color: $soft-bg;
+        border: none;
       }
 
       &:hover:before {
-        border-color: $main-color;
+        border: none;
       }
+
       &::after {
-        border-color: #86a4ff;
+        border: none;
       }
     }
 
