@@ -19,7 +19,7 @@ const Navbar = () => {
         <GridView className="icon" />
         <CropFreeSharp className="icon" />
         <div className="notifications">
-          <NotificationsOutlined className="icon" />
+          <NotificationsOutlined />
           <span>1</span>
         </div>
         <div className="user">
