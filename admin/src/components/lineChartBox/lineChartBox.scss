@@ -18,10 +18,29 @@
       gap: 20px;
     }
 
+    @include xl {
+      flex: 2;
+    }
+
     .title {
       display: flex;
       align-items: center;
       gap: 10px;
+
+      svg {
+        @include xl {
+          display: none;
+        }
+
+        @include xxl {
+          height: 20px;
+          width: 20px;
+        }
+
+        @include lg {
+          display: block;
+        }
+      }
     }
 
     span {
