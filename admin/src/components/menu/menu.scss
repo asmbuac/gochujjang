@@ -1,4 +1,5 @@
 @import "../../styles/variables.scss";
+@import "../../styles/responsive.scss";
 
 .menu {
   height: 100vh;
@@ -10,6 +11,7 @@
     .brand {
       display: flex;
       align-items: center;
+      justify-content: center;
       gap: 5px;
       padding: 20px;
       margin-bottom: 10px;
@@ -22,6 +24,14 @@
       span {
         font-family: "Audiowide";
         font-size: 24px;
+
+        @include lg {
+          display: none;
+        }
+      }
+
+      @include lg {
+        padding: 20px 0px;
       }
     }
 
@@ -31,11 +41,19 @@
       gap: 10px;
       margin-bottom: 20px;
 
+      @include lg {
+        margin-bottom: 10px;
+      }
+
       .title {
         font-size: 12px;
         font-weight: 200;
         color: $soft-color;
         text-transform: uppercase;
+
+        @include lg {
+          display: none;
+        }
       }
 
       .listItem {
@@ -47,6 +65,12 @@
 
         &:hover {
           background-color: $soft-bg;
+        }
+
+        .listItemTitle {
+          @include lg {
+            display: none;
+          }
         }
       }
     }
@@ -68,6 +92,12 @@
     &:hover {
       background-color: $soft-bg;
       cursor: pointer;
+    }
+
+    span {
+      @include lg {
+        display: none;
+      }
     }
   }
 }

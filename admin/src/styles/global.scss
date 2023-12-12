@@ -1,4 +1,5 @@
 @import "./variables.scss";
+@import "./responsive.scss";
 @import url("https://fonts.googleapis.com/css2?family=Audiowide&display=swap");
 
 * {
@@ -25,6 +26,10 @@ a {
   background-color: $main-bg;
   width: 250px;
   padding: 0px 20px;
+
+  @include lg {
+    width: max-content;
+  }
 }
 
 .contentContainer {
