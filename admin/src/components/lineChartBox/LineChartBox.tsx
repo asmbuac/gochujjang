@@ -24,7 +24,7 @@ const LineChartBox = (props: Props) => {
         </div>
         <h1>{props.number}</h1>
         <Link to="/" style={{ color: props.color }}>
-          View all
+          <span>View all</span>
         </Link>
       </div>
       <div className="chartInfo">
