@@ -7,7 +7,7 @@ import { ColumnInfo } from "../../types";
 import { useGetRowsQuery } from "../../redux/apiSlice";
 import { GridValueFormatterParams } from "@mui/x-data-grid";
 
-const columns: ColumnInfo[] = [
+export const columns: ColumnInfo[] = [
   { field: "_id", headerName: "Order ID", width: 225 },
   {
     field: "userId",

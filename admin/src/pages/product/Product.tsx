@@ -7,7 +7,7 @@ const Product = () => {
 
   return (
     <div className="product">
-      <Single {...singleProduct} />
+      <Single {...singleProduct} slug="product" />
     </div>
   );
 };

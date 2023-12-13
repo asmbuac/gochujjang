@@ -10,7 +10,7 @@ import {
 import { useGetRowsQuery } from "../../redux/apiSlice";
 import { ColumnInfo } from "../../types";
 
-const columns: ColumnInfo[] = [
+export const columns: ColumnInfo[] = [
   { field: "_id", headerName: "ID", width: 75 },
   {
     field: "image",

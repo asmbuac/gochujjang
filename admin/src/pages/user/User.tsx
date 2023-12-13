@@ -7,7 +7,7 @@ const User = () => {
 
   return (
     <div className="user">
-      <Single {...singleUser} />
+      <Single {...singleUser} slug="user" />
     </div>
   );
 };

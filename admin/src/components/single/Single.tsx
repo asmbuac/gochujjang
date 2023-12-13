@@ -8,6 +8,12 @@ import {
   YAxis,
 } from "recharts";
 import "./single.scss";
+import { useState } from "react";
+import EditModal from "../editModal/EditModal";
+import { ColumnInfo } from "../../types";
+import { columns as productColumns } from "../../pages/products/Products";
+import { columns as orderColumns } from "../../pages/orders/Orders";
+import { columns as userColumns } from "../../pages/users/Users";
 
 type Props = {
   id: number;
@@ -25,9 +31,23 @@ type Props = {
     time: string;
     text: string;
   }[];
+  slug: string;
 };
 
 const Single = (props: Props) => {
+  const [open, setOpen] = useState<boolean>(false);
+  const [formData, setFormData] = useState<{ [key: string]: any }>({});
+  const [columns, setColumns] = useState<ColumnInfo[]>([]);
+
+  const handleClick = () => {
+    props.slug === "product"
+      ? setColumns(productColumns)
+      : props.slug === "order"
+      ? setColumns(orderColumns)
+      : setColumns(userColumns);
+    setOpen(true);
+  };
+
   return (
     <div className="single">
       <div className="view">
@@ -35,7 +55,7 @@ const Single = (props: Props) => {
           <div className="topInfo">
             {props.img && <img src={props.img} alt="" />}
             <h1>{props.title}</h1>
-            <button>Update</button>
+            <button onClick={handleClick}>Update</button>
           </div>
           <div className="details">
             {Object.entries(props.info).map((item) => (
@@ -85,6 +105,15 @@ const Single = (props: Props) => {
           </ul>
         )}
       </div>
+      {open && (
+        <EditModal
+          slug={props.slug}
+          columns={columns}
+          setOpen={setOpen}
+          formData={formData}
+          setFormData={setFormData}
+        />
+      )}
     </div>
   );
 };
