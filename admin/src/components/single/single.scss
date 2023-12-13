@@ -1,8 +1,13 @@
 @import "../../styles/variables.scss";
+@import "../../styles/responsive.scss";
 
 .single {
   display: flex;
   gap: 20px;
+
+  @include xl {
+    flex-direction: column;
+  }
 
   .view {
     flex: 1;
@@ -17,15 +22,28 @@
         align-items: center;
         gap: 20px;
 
+        @include sm {
+          flex-direction: column;
+        }
+
         img {
           width: 100px;
           height: 100px;
           border-radius: 20px;
           object-fit: cover;
+
+          @include sm {
+            width: 90px;
+            height: 90px;
+          }
         }
 
         h1 {
           font-weight: 500;
+
+          @include sm {
+            font-size: 24px;
+          }
         }
 
         button {
@@ -38,6 +56,10 @@
           font-weight: bold;
           cursor: pointer;
 
+          @include sm {
+            font-size: 12px;
+          }
+
           &:hover {
             background-color: #d8505b;
           }
@@ -46,6 +68,10 @@
 
       .details {
         font-size: 18px;
+
+        @include sm {
+          font-size: 16px;
+        }
 
         .item {
           margin: 30px 0px;
@@ -66,6 +92,10 @@
       background-color: $main-bg;
       border-radius: 10px;
       padding: 20px;
+
+      @include sm {
+        display: none;
+      }
     }
   }
 
@@ -77,6 +107,10 @@
 
     h2 {
       margin-bottom: 20px;
+
+      @include sm {
+        font-size: 20px;
+      }
     }
 
     ul {
@@ -104,12 +138,24 @@
           padding: 15px;
           background-color: #f45b6810;
 
+          @include md {
+            min-width: 250px;
+          }
+
           p {
             margin-bottom: 5px;
+
+            @include sm {
+              font-size: 14px;
+            }
           }
 
           time {
             font-size: 12px;
+
+            @include sm {
+              font-size: 11px;
+            }
           }
         }
       }
