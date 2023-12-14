@@ -68,6 +68,7 @@ export const api = createApi({
       }),
       invalidatesTags: (result, error, { slug }) => [
         { type: "list", id: slug },
+        { type: "details", id: slug },
       ],
     }),
   }),
