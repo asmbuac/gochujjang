@@ -10,7 +10,7 @@ import {
 import "./single.scss";
 import { useState } from "react";
 import EditModal from "../editModal/EditModal";
-import { ColumnInfo } from "../../types";
+import { ColumnInfo, Order, Product, User } from "../../types";
 import { columns as productColumns } from "../../pages/products/Products";
 import { columns as orderColumns } from "../../pages/orders/Orders";
 import { columns as userColumns } from "../../pages/users/Users";
@@ -32,6 +32,7 @@ type Props = {
     text: string;
   }[];
   slug: string;
+  data: Product & Order & User;
 };
 
 const Single = (props: Props) => {
@@ -45,6 +46,16 @@ const Single = (props: Props) => {
       : props.slug === "order"
       ? setColumns(orderColumns)
       : setColumns(userColumns);
+    const { createdAt, updatedAt, __v, password, ...others } = props.data;
+    if (props.slug === "order") {
+      others.products = others.products
+        ?.map(
+          (item: { [key: string]: any }) =>
+            `${item.product._id} ${item.quantity}`
+        )
+        .join(", ");
+    }
+    setFormData(others);
     setOpen(true);
   };
 
@@ -53,17 +64,33 @@ const Single = (props: Props) => {
       <div className="view">
         <div className="info">
           <div className="topInfo">
-            {props.img && <img src={props.img} alt="" />}
-            <h1>{props.title}</h1>
+            {props.data.avatar ? (
+              <img src={props.data.avatar} alt="" />
+            ) : (
+              props.data.image && <img src={props.data.image} alt="" />
+            )}
+            <h1>
+              {props.slug === "user"
+                ? `${props.data.firstName} ${props.data.lastName}`
+                : props.title}
+            </h1>
             <button onClick={handleClick}>Update</button>
           </div>
           <div className="details">
-            {Object.entries(props.info).map((item) => (
-              <div className="item" key={item[0]}>
-                <span className="itemTitle">{item[0]}:</span>
-                <span className="itemValue">{item[1]}</span>
-              </div>
-            ))}
+            {Object.entries(props.data)
+              .filter((item) => item[0] !== "__v" && item[0] !== "avatar")
+              .map((item) => (
+                <div className="item" key={item[0]}>
+                  <span className="itemTitle">{item[0]}:</span>
+                  <span className="itemValue">
+                    {typeof item[1] === "boolean"
+                      ? item[1] === true
+                        ? "yes"
+                        : "no"
+                      : item[1]}
+                  </span>
+                </div>
+              ))}
           </div>
         </div>
         {props.chart && (

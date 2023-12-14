@@ -17,7 +17,7 @@ export const api = createApi({
     },
   }),
   refetchOnMountOrArgChange: 30,
-  tagTypes: ["list"],
+  tagTypes: ["list", "details"],
   endpoints: (builder) => ({
     getRows: builder.query<object[], string>({
       query: (slug) => `/${slug}`,
@@ -25,6 +25,14 @@ export const api = createApi({
         return error
           ? [{ type: "list", id: slug, error: true }]
           : [{ type: "list", id: slug }];
+      },
+    }),
+    getRow: builder.query<object[], { slug: string; id: string }>({
+      query: ({ slug, id }) => `/${slug}/${id}`,
+      providesTags: (result, error, { slug }) => {
+        return error
+          ? [{ type: "details", id: slug, error: true }]
+          : [{ type: "details", id: slug }];
       },
     }),
     deleteRow: builder.mutation<String, { slug: string; id: string }>({
@@ -67,6 +75,7 @@ export const api = createApi({
 
 export const {
   useGetRowsQuery,
+  useGetRowQuery,
   useDeleteRowMutation,
   useCreateRowMutation,
   useUpdateRowMutation,

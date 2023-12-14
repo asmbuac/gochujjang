@@ -1,13 +1,20 @@
+import { useLocation } from "react-router-dom";
 import Single from "../../components/single/Single";
 import { singleUser } from "../../data";
 import "./user.scss";
+import { useGetRowQuery } from "../../redux/apiSlice";
 
 const User = () => {
-  // Fetch data and send to Single component
+  const id = useLocation().pathname.split("/").pop();
+  const { data, isLoading } = useGetRowQuery({ slug: "users", id });
 
   return (
     <div className="user">
-      <Single {...singleUser} slug="user" />
+      {isLoading ? (
+        "Loading..."
+      ) : (
+        <Single {...singleUser} data={data} slug="user" />
+      )}
     </div>
   );
 };
