@@ -35,6 +35,15 @@ type Props = {
   data: Product & Order & User;
 };
 
+const splitTitle = (title: string) => {
+  return title.split("").reduce((res, char, i) => {
+    const nextChar = title[i + 1];
+    return (
+      res + char + (nextChar && nextChar.toUpperCase() === nextChar ? " " : "")
+    );
+  });
+};
+
 const Single = (props: Props) => {
   const [open, setOpen] = useState<boolean>(false);
   const [formData, setFormData] = useState<{ [key: string]: any }>({});
@@ -81,12 +90,16 @@ const Single = (props: Props) => {
               .filter((item) => item[0] !== "__v" && item[0] !== "avatar")
               .map((item) => (
                 <div className="item" key={item[0]}>
-                  <span className="itemTitle">{item[0]}:</span>
+                  <span className="itemTitle">
+                    {item[0] === "_id" ? "ID" : splitTitle(item[0])}:
+                  </span>
                   <span className="itemValue">
                     {typeof item[1] === "boolean"
                       ? item[1] === true
                         ? "yes"
                         : "no"
+                      : item[0] === "createdAt" || item[0] === "updatedAt"
+                      ? new Date(item[1]).toLocaleString()
                       : item[1]}
                   </span>
                 </div>
