@@ -35,6 +35,8 @@ type Props = {
   data: Product & Order & User;
 };
 
+const excludedKeys = new Set(["__v", "avatar", "image"]);
+
 const splitTitle = (title: string) => {
   return title.split("").reduce((res, char, i) => {
     const nextChar = title[i + 1];
@@ -42,6 +44,23 @@ const splitTitle = (title: string) => {
       res + char + (nextChar && nextChar.toUpperCase() === nextChar ? " " : "")
     );
   });
+};
+
+const transformValue = (item: [string, any]): string => {
+  const [key, value] = item;
+
+  switch (true) {
+    case typeof value === "boolean":
+      return value ? "yes" : "no";
+    case key === "createdAt" || key === "updatedAt":
+      return new Date(value).toLocaleString();
+    case Array.isArray(value):
+      return value.join(", ");
+    case typeof value === "number":
+      return `$${value}`;
+    default:
+      return value;
+  }
 };
 
 const Single = (props: Props) => {
@@ -87,21 +106,17 @@ const Single = (props: Props) => {
           </div>
           <div className="details">
             {Object.entries(props.data)
-              .filter((item) => item[0] !== "__v" && item[0] !== "avatar")
+              .filter(
+                (item) =>
+                  !excludedKeys.has(item[0]) &&
+                  !(Array.isArray(item[1]) && item[1].length === 0)
+              )
               .map((item) => (
                 <div className="item" key={item[0]}>
                   <span className="itemTitle">
                     {item[0] === "_id" ? "ID" : splitTitle(item[0])}:
                   </span>
-                  <span className="itemValue">
-                    {typeof item[1] === "boolean"
-                      ? item[1] === true
-                        ? "yes"
-                        : "no"
-                      : item[0] === "createdAt" || item[0] === "updatedAt"
-                      ? new Date(item[1]).toLocaleString()
-                      : item[1]}
-                  </span>
+                  <span className="itemValue">{transformValue(item)}</span>
                 </div>
               ))}
           </div>

@@ -1,13 +1,20 @@
+import { useLocation } from "react-router-dom";
 import Single from "../../components/single/Single";
 import { singleProduct } from "../../data";
 import "./product.scss";
+import { useGetRowQuery } from "../../redux/apiSlice";
 
 const Product = () => {
-  // Fetch data and send to Single component
+  const id = useLocation().pathname.split("/").pop();
+  const { data, isLoading } = useGetRowQuery({ slug: "products", id });
 
   return (
     <div className="product">
-      <Single {...singleProduct} slug="product" />
+      {isLoading ? (
+        "Loading"
+      ) : (
+        <Single {...singleProduct} data={data} slug="product" />
+      )}
     </div>
   );
 };
