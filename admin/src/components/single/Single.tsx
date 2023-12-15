@@ -75,11 +75,11 @@ const Single = (props: Props) => {
       ? setColumns(orderColumns)
       : setColumns(userColumns);
     const { createdAt, updatedAt, __v, password, ...others } = props.data;
-    if (props.slug === "order") {
+    if (props.slug === "order" && Array.isArray(others.products)) {
       others.products = others.products
         ?.map(
-          (item: { [key: string]: any }) =>
-            `${item.product._id} ${item.quantity}`
+          (item: { [key: string]: any } | string) =>
+            typeof item === "object" && `${item.product._id} ${item.quantity}`
         )
         .join(", ");
     }

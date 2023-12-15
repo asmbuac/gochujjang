@@ -7,6 +7,7 @@ export type ColumnInfo = GridColDef & {
 };
 
 export type Product = {
+  _id?: string;
   title?: string;
   description?: string;
   image?: string;
@@ -15,17 +16,25 @@ export type Product = {
   color?: string | string[];
   price?: number;
   inStock?: boolean;
+  createdAt?: string;
+  updatedAt?: string;
+  __v?: number;
 };
 
 export type Order = {
+  _id?: string;
   userId?: string;
   sessionId?: string;
   products?: object[] | string[] | string;
   amount?: number;
   address?: string;
+  createdAt?: string;
+  updatedAt?: string;
+  __v?: number;
 };
 
 export type User = {
+  _id?: string;
   avatar?: string;
   firstName?: string;
   lastName?: string;
@@ -34,4 +43,7 @@ export type User = {
   password?: string;
   confirmPassword?: string;
   isAdmin?: boolean;
+  createdAt?: string;
+  updatedAt?: string;
+  __v?: number;
 };
