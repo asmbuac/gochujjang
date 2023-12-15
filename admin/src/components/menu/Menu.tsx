@@ -2,11 +2,12 @@ import { Link } from "react-router-dom";
 import "./menu.scss";
 import { menu } from "../../data";
 import { Logout } from "@mui/icons-material";
-import { useDispatch } from "react-redux";
 import { logout } from "../../redux/authSlice";
+import { useAppDispatch, useAppSelector } from "../../hooks";
 
 const Menu = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
+  const userId = useAppSelector((state) => state.auth.currentUser._id);
 
   const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
     e.preventDefault();
@@ -24,7 +25,11 @@ const Menu = () => {
           <div className="item" key={item.id}>
             <span className="title">{item.title}</span>
             {item.listItems.map((listItem) => (
-              <Link to={listItem.url} className="listItem" key={listItem.id}>
+              <Link
+                to={listItem.url || `/users/${userId}`}
+                className="listItem"
+                key={listItem.id}
+              >
                 <listItem.icon />
                 <span className="listItemTitle">{listItem.title}</span>
               </Link>

@@ -14,12 +14,11 @@ import Login from "./pages/login/Login";
 import "./styles/global.scss";
 import User from "./pages/user/User";
 import Product from "./pages/product/Product";
-import { useSelector } from "react-redux";
-import { RootState } from "./redux/store";
 import Orders from "./pages/orders/Orders";
+import { useAppSelector } from "./hooks";
 
 export default function App() {
-  const user = useSelector((state: RootState) => state.auth.currentUser);
+  const user = useAppSelector((state) => state.auth.currentUser);
 
   const Layout = () => {
     return (

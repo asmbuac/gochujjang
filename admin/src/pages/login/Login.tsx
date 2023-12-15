@@ -1,14 +1,14 @@
 import { useState } from "react";
 import "./login.scss";
-import { useDispatch } from "react-redux";
 import { loginFailure, loginStart, loginSuccess } from "../../redux/authSlice";
 import axios from "axios";
 import { Dispatch } from "@reduxjs/toolkit";
+import { useAppDispatch } from "../../hooks";
 
 const Login = () => {
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const login = async (
     dispatch: Dispatch,

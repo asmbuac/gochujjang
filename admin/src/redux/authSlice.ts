@@ -1,6 +1,15 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { PayloadAction, createSlice } from "@reduxjs/toolkit";
+import { User } from "../types";
 
-const initialState = {
+type UserType = User & { token: string };
+
+interface AuthState {
+  currentUser: null | UserType;
+  isFetching: boolean;
+  error: boolean;
+}
+
+const initialState: AuthState = {
   currentUser: null,
   isFetching: false,
   error: false,
@@ -13,7 +22,7 @@ const authSlice = createSlice({
     loginStart: (state) => {
       state.isFetching = true;
     },
-    loginSuccess: (state, action) => {
+    loginSuccess: (state, action: PayloadAction<UserType>) => {
       state.isFetching = false;
       state.currentUser = action.payload;
     },
