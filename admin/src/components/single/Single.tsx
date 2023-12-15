@@ -16,10 +16,6 @@ import { columns as orderColumns } from "../../pages/orders/Orders";
 import { columns as userColumns } from "../../pages/users/Users";
 
 type Props = {
-  id: number;
-  img?: string;
-  title: string;
-  info: object;
   chart?: {
     dataKeys: {
       name: string;
@@ -100,7 +96,7 @@ const Single = (props: Props) => {
             <h1>
               {props.slug === "user"
                 ? `${props.data.firstName} ${props.data.lastName}`
-                : props.title}
+                : props.data.title}
             </h1>
             <button onClick={handleClick}>Update</button>
           </div>
