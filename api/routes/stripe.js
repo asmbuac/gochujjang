@@ -1,7 +1,5 @@
 const router = require("express").Router();
 const stripe = require("stripe")(process.env.STRIPE_KEY);
-const Order = require("../models/Order");
-const Cart = require("../models/Cart");
 
 // CREATE SESSION
 router.post("/", async (req, res) => {
