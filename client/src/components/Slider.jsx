@@ -6,11 +6,11 @@ import { mobile } from "../responsive";
 
 const Container = styled.div`
   width: 100%;
-  height: calc(100vh - 130px);
+  height: 500px;
   display: flex;
   position: relative;
   overflow: hidden;
-  ${mobile({ height: "calc(100vh - 99px)" })}
+  ${mobile({ height: "250px" })}
 `;
 
 const Arrow = styled.div`
@@ -41,7 +41,7 @@ const Wrapper = styled.div`
 
 const Slide = styled.div`
   width: 100vw;
-  height: 100vh;
+  height: 100%;
   display: flex;
   align-items: center;
   background-color: #${(props) => props.bg};
@@ -56,7 +56,9 @@ const ImgContainer = styled.div`
 `;
 
 const Image = styled.img`
+  height: 100%;
   width: 100%;
+  object-fit: cover;
 `;
 
 const InfoContainer = styled.div`

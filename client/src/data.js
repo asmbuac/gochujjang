@@ -1,27 +1,25 @@
 export const sliderItems = [
   {
     id: 1,
-    img: "https://i.ibb.co/XsdmR2c/1.png",
-    title: "SUMMER SALE",
+    img: "https://www.nme.com/wp-content/uploads/2023/07/newjeans-eta-live.jpg",
+    title: "NEWJEANS",
+    description: "SHOP EVERYTHING NEWJEANS!",
+    bg: "fbf0f4",
+  },
+  {
+    id: 2,
+    img: "https://nolae.eu/cdn/shop/articles/nct-nct-dream-wayv-und-kunftige-aktivitaten-807514_1200x600_crop_center.jpg?v=1636981967",
+    title: "NCT",
     description:
       "DON'T COMPROMISE ON STYLE! GET FLAT 30% OFF FOR NEW ARRIVALS.",
     bg: "e7eaf4",
   },
   {
-    id: 2,
-    img: "https://i.ibb.co/DG69bQ4/2.png",
-    title: "AUTUMN COLLECTION",
-    description:
-      "DON'T COMPROMISE ON STYLE! GET FLAT 30% OFF FOR NEW ARRIVALS.",
-    bg: "fcf1ed",
-  },
-  {
     id: 3,
-    img: "https://www.nme.com/wp-content/uploads/2023/07/newjeans-eta-live.jpg",
-    title: "LOUNGEWEAR LOVE",
-    description:
-      "DON'T COMPROMISE ON STYLE! GET FLAT 30% OFF FOR NEW ARRIVALS.",
-    bg: "fbf0f4",
+    img: "https://6.soompi.io/wp-content/uploads/image/20231209001612_ATEEZ-4.jpg?s=900x600&e=t",
+    title: "ATEEZ",
+    description: "SPECIAL PRE-ORDER GIFT",
+    bg: "fcf1ed",
   },
 ];
 
