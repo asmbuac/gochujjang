@@ -41,4 +41,24 @@ router.get("/", async (req, res) => {
   }
 });
 
+// GET SLIDE
+router.get("/:id", async (req, res) => {
+  try {
+    const slide = await Slide.findById(req.params.id);
+    res.status(200).json(slide);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
+// DELETE SLIDE
+router.delete("/:id", verifyTokenAndAdmin, async (req, res) => {
+  try {
+    await Slide.findByIdAndDelete(req.params.id);
+    res.status(200).json("Slide has been deleted");
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
 module.exports = router;
