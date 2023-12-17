@@ -9,6 +9,7 @@ import Register from "./pages/Register";
 import Login from "./pages/Login";
 import Cart from "./pages/Cart";
 import Success from "./pages/Success";
+import Wishlist from "./pages/Wishlist";
 import Newsletter from "./components/Newsletter";
 import Footer from "./components/Footer";
 import { useEffect } from "react";
@@ -48,6 +49,7 @@ const App = () => {
         <Route path="/product/:id" element={<Product />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/success" element={<Success />} />
+        <Route path="/wishlist" element={<Wishlist />} />
       </Routes>
       <Newsletter />
       <Footer />
