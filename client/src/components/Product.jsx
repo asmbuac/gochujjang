@@ -1,4 +1,5 @@
 import {
+  Favorite,
   FavoriteBorderOutlined,
   Search,
   ShoppingCartOutlined,
@@ -8,7 +9,8 @@ import { mobile } from "../responsive";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { addProduct } from "../redux/cartSlice";
-import { useRef } from "react";
+import { useContext, useRef } from "react";
+import { WishlistContext } from "../App";
 
 const Info = styled.div`
   opacity: 0;
@@ -94,6 +96,7 @@ const Product = ({ item }) => {
   const ref = useRef();
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const wishlist = useContext(WishlistContext);
 
   const addToCart = () => {
     dispatch(addProduct({ ...item, quantity: 1, color: "", size: "" }));
@@ -119,7 +122,7 @@ const Product = ({ item }) => {
           </ProductLink>
         </Icon>
         <Icon>
-          <FavoriteBorderOutlined />
+          {wishlist.has(item._id) ? <Favorite /> : <FavoriteBorderOutlined />}
         </Icon>
       </Info>
     </Container>
