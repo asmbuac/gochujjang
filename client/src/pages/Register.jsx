@@ -6,6 +6,7 @@ import { login } from "../redux/apiCalls";
 import { useCreateWishlistMutation } from "../redux/wishlistApi";
 import { useDispatch } from "react-redux";
 import { publicRequest } from "../requestMethods";
+import { ErrorOutline } from "@mui/icons-material";
 
 const Container = styled.div`
   width: 100%;
@@ -39,6 +40,18 @@ const Wrapper = styled.div`
 const Title = styled.h1`
   font-size: 24px;
   font-weight: 300;
+`;
+
+const Error = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 10px;
+  color: tomato;
+`;
+
+const ErrorMsg = styled.span`
+  font-weight: 600;
 `;
 
 const Form = styled.form`
@@ -124,32 +137,52 @@ const LoginLink = styled(Link)`
 `;
 
 const Register = () => {
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [username, setUsername] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
+  const [formData, setFormData] = useState({
+    firstName: "",
+    lastName: "",
+    username: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+  });
+  const [errorMsg, setErrorMsg] = useState("");
   const [createWishlist] = useCreateWishlistMutation();
   const dispatch = useDispatch();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (formData.password !== formData.confirmPassword) {
+      setErrorMsg("Passwords do not match");
+      return;
+    } else {
+      setErrorMsg("");
+    }
+
     try {
-      const res = await publicRequest.post("/auth/register", {
-        firstName,
-        lastName,
-        username,
-        email,
-        password,
-      });
+      const res = await publicRequest.post("/auth/register", formData);
+
       if (res.data) {
+        const { username, password } = formData;
         await login(dispatch, { username, password });
         createWishlist({ userId: res.data._id });
+        setFormData({
+          firstName: "",
+          lastName: "",
+          username: "",
+          email: "",
+          password: "",
+          confirmPassword: "",
+        });
       }
     } catch (err) {
-      console.error(err);
+      setErrorMsg(err.response?.data || err);
     }
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
   return (
@@ -157,54 +190,60 @@ const Register = () => {
       <Logo src="src/assets/logo.png" />
       <Wrapper>
         <Title>CREATE AN ACCOUNT</Title>
+        {errorMsg.length > 0 && (
+          <Error>
+            <ErrorOutline />
+            <ErrorMsg>{errorMsg}</ErrorMsg>
+          </Error>
+        )}
         <Form onSubmit={handleSubmit}>
           <Input
             placeholder="First Name"
             type="text"
             name="firstName"
             required
-            value={firstName}
-            onChange={(e) => setFirstName(e.target.value)}
+            value={formData.firstName}
+            onChange={handleChange}
           />
           <Input
             placeholder="Last Name"
             type="text"
             name="lastName"
             required
-            value={lastName}
-            onChange={(e) => setLastName(e.target.value)}
+            value={formData.lastName}
+            onChange={handleChange}
           />
           <Input
             placeholder="Username"
             type="text"
             name="username"
             required
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
+            value={formData.username}
+            onChange={handleChange}
           />
           <Input
             placeholder="Email"
             type="email"
             name="email"
             required
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            value={formData.email}
+            onChange={handleChange}
           />
           <Input
             placeholder="Password"
             type="password"
             name="password"
             required
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            value={formData.password}
+            onChange={handleChange}
           />
           <Input
             placeholder="Confirm Password"
             type="password"
             name="confirmPassword"
             required
-            value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
+            value={formData.confirmPassword}
+            onChange={handleChange}
           />
           <Agreement>
             <Checkbox type="checkbox" required />
