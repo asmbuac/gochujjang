@@ -122,7 +122,11 @@ const Product = ({ item }) => {
           </ProductLink>
         </Icon>
         <Icon>
-          {wishlist.has(item._id) ? <Favorite /> : <FavoriteBorderOutlined />}
+          {wishlist && wishlist.has(item._id) ? (
+            <Favorite />
+          ) : (
+            <FavoriteBorderOutlined />
+          )}
         </Icon>
       </Info>
     </Container>

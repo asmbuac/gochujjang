@@ -6,13 +6,13 @@ export const login = async (dispatch, user) => {
   dispatch(loginStart());
   try {
     const res = await publicRequest.post("/auth/login", user);
-    const carRes = await publicRequest.get(`/carts/${res.data._id}`, {
+    const cartRes = await publicRequest.get(`/carts/${res.data._id}`, {
       headers: {
         token: `Bearer ${res.data.token}`,
       },
     });
-    if (carRes.data) {
-      const cartItems = carRes.data.products.map(({ product, quantity }) => ({
+    if (cartRes.data) {
+      const cartItems = cartRes.data.products.map(({ product, quantity }) => ({
         ...product,
         quantity,
       }));

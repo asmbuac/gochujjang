@@ -1,6 +1,11 @@
 import styled from "styled-components";
 import { mobile } from "../responsive";
 import { Link } from "react-router-dom";
+import { useState } from "react";
+import { login } from "../redux/apiCalls";
+import { useCreateWishlistMutation } from "../redux/wishlistApi";
+import { useDispatch } from "react-redux";
+import { publicRequest } from "../requestMethods";
 
 const Container = styled.div`
   width: 100%;
@@ -119,18 +124,88 @@ const LoginLink = styled(Link)`
 `;
 
 const Register = () => {
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [createWishlist] = useCreateWishlistMutation();
+  const dispatch = useDispatch();
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const res = await publicRequest.post("/auth/register", {
+        firstName,
+        lastName,
+        username,
+        email,
+        password,
+      });
+      if (res.data) {
+        await login(dispatch, { username, password });
+        createWishlist({ userId: res.data._id });
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   return (
     <Container>
       <Logo src="src/assets/logo.png" />
       <Wrapper>
         <Title>CREATE AN ACCOUNT</Title>
-        <Form>
-          <Input placeholder="First Name" type="text" required />
-          <Input placeholder="Last Name" type="text" required />
-          <Input placeholder="Username" type="text" required />
-          <Input placeholder="Email" type="email" required />
-          <Input placeholder="Password" type="password" required />
-          <Input placeholder="Confirm Password" type="password" required />
+        <Form onSubmit={handleSubmit}>
+          <Input
+            placeholder="First Name"
+            type="text"
+            name="firstName"
+            required
+            value={firstName}
+            onChange={(e) => setFirstName(e.target.value)}
+          />
+          <Input
+            placeholder="Last Name"
+            type="text"
+            name="lastName"
+            required
+            value={lastName}
+            onChange={(e) => setLastName(e.target.value)}
+          />
+          <Input
+            placeholder="Username"
+            type="text"
+            name="username"
+            required
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+          />
+          <Input
+            placeholder="Email"
+            type="email"
+            name="email"
+            required
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          <Input
+            placeholder="Password"
+            type="password"
+            name="password"
+            required
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          <Input
+            placeholder="Confirm Password"
+            type="password"
+            name="confirmPassword"
+            required
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
+          />
           <Agreement>
             <Checkbox type="checkbox" required />
             <Description>
