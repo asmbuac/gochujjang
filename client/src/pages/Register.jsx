@@ -34,12 +34,10 @@ const Logo = styled.img`
 `;
 
 const Wrapper = styled.div`
-  width: 40%;
   max-width: 450px;
   padding: 20px;
   margin: 0px 10px 20px 10px;
   background-color: white;
-  ${md({ width: "75%" })}
 `;
 
 const Title = styled.h1`
