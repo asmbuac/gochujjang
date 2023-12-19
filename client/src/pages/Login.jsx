@@ -4,6 +4,9 @@ import { useState } from "react";
 import { login } from "../redux/apiCalls";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { SvgIcon } from "@mui/material";
+import VisibilityIcon from "@mui/icons-material/Visibility";
+import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 
 const Container = styled.div`
   width: 100%;
@@ -45,7 +48,7 @@ const Form = styled.form`
   flex-direction: column;
 `;
 
-const Input = styled.input`
+const UsernameInput = styled.input`
   flex: 1;
   min-width: 40%;
   margin: 10px 0px 5px 0px;
@@ -55,11 +58,47 @@ const Input = styled.input`
   font-size: 16px;
 
   &:focus {
-    border: 1px solid black;
+    border-color: black;
   }
 
   &::placeholder {
     color: darkgray;
+  }
+`;
+
+const PasswordContainer = styled.div`
+  flex: 1;
+  min-width: 40%;
+  margin: 10px 0px 5px 0px;
+  padding: 10px;
+  border: 1px solid darkgray;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  &:focus-within {
+    border-color: black;
+  }
+`;
+
+const PasswordInput = styled.input`
+  width: 100%;
+  border: none;
+  outline: none;
+  font-size: 16px;
+
+  &::placeholder {
+    color: darkgray;
+  }
+`;
+
+const Icon = styled(SvgIcon)`
+  height: 20px !important;
+  width: 20px !important;
+  color: darkgray;
+
+  &:hover {
+    cursor: pointer;
   }
 `;
 
@@ -114,6 +153,7 @@ const LoginLink = styled(Link)`
 const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const dispatch = useDispatch();
   const { isFetching, error } = useSelector((state) => state.auth);
 
@@ -128,18 +168,31 @@ const Login = () => {
       <Wrapper>
         <Title>SIGN IN</Title>
         <Form>
-          <Input
+          <UsernameInput
             placeholder="Username or Email"
             type="text"
             required
             onChange={(e) => setUsername(e.target.value)}
           />
-          <Input
-            placeholder="Password"
-            type="password"
-            required
-            onChange={(e) => setPassword(e.target.value)}
-          />
+          <PasswordContainer>
+            <PasswordInput
+              placeholder="Password"
+              type={showPassword ? "text" : "password"}
+              required
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            {showPassword ? (
+              <Icon
+                component={VisibilityIcon}
+                onClick={() => setShowPassword(false)}
+              />
+            ) : (
+              <Icon
+                component={VisibilityOffIcon}
+                onClick={() => setShowPassword(true)}
+              />
+            )}
+          </PasswordContainer>
           <Button onClick={handleClick} disabled={isFetching}>
             LOGIN
           </Button>
