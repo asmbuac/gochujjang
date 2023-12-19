@@ -10,7 +10,7 @@ import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 
 const Container = styled.div`
   width: 100%;
-  height: calc(100vh - 130px);
+  min-height: calc(100vh - 130px);
   background: linear-gradient(
       rgba(255, 255, 255, 0.5),
       rgba(255, 255, 255, 0.5)
@@ -22,7 +22,7 @@ const Container = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  ${mobile({ height: "calc(100vh - 100px)" })}
+  ${mobile({ minHeight: "calc(100vh - 100px)" })}
 `;
 
 const Logo = styled.img`
@@ -31,10 +31,8 @@ const Logo = styled.img`
 `;
 
 const Wrapper = styled.div`
-  width: 25%;
   padding: 20px;
   background-color: white;
-  ${mobile({ width: "75%" })}
 `;
 
 const Title = styled.h1`
@@ -45,17 +43,18 @@ const Title = styled.h1`
 
 const Form = styled.form`
   display: flex;
-  flex-direction: column;
+  flex-wrap: wrap;
+  max-width: 300px;
 `;
 
 const UsernameInput = styled.input`
-  flex: 1;
-  min-width: 40%;
+  width: 100%;
   margin: 10px 0px 5px 0px;
   padding: 10px;
   border: 1px solid darkgray;
   outline: none;
   font-size: 16px;
+  ${mobile({ fontSize: "14px" })}
 
   &:focus {
     border-color: black;
@@ -67,8 +66,7 @@ const UsernameInput = styled.input`
 `;
 
 const PasswordContainer = styled.div`
-  flex: 1;
-  min-width: 40%;
+  width: 100%;
   margin: 10px 0px 5px 0px;
   padding: 10px;
   border: 1px solid darkgray;
@@ -86,6 +84,7 @@ const PasswordInput = styled.input`
   border: none;
   outline: none;
   font-size: 16px;
+  ${mobile({ fontSize: "14px" })}
 
   &::placeholder {
     color: darkgray;
@@ -96,6 +95,7 @@ const Icon = styled(SvgIcon)`
   height: 20px !important;
   width: 20px !important;
   color: darkgray;
+  ${mobile({ height: "18px !important", width: "18px !important" })}
 
   &:hover {
     cursor: pointer;
@@ -131,6 +131,8 @@ const LinkContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-around;
+  width: 100%;
+  text-align: center;
 `;
 
 const LoginLink = styled(Link)`

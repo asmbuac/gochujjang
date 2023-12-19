@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { mobile } from "../responsive";
+import { mobile, md } from "../responsive";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { login } from "../redux/apiCalls";
@@ -13,7 +13,7 @@ import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 
 const Container = styled.div`
   width: 100%;
-  height: calc(100vh - 130px);
+  min-height: calc(100vh - 130px);
   background: linear-gradient(
       rgba(255, 255, 255, 0.5),
       rgba(255, 255, 255, 0.5)
@@ -25,19 +25,21 @@ const Container = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  ${mobile({ height: "calc(100vh - 100px)" })}
+  ${mobile({ minHeight: "calc(100vh - 100px)" })}
 `;
 
 const Logo = styled.img`
   width: 60px;
-  margin-bottom: 20px;
+  margin: 20px 0px;
 `;
 
 const Wrapper = styled.div`
   width: 40%;
+  max-width: 450px;
   padding: 20px;
+  margin: 0px 10px 20px 10px;
   background-color: white;
-  ${mobile({ width: "75%" })}
+  ${md({ width: "75%" })}
 `;
 
 const Title = styled.h1`
@@ -50,7 +52,7 @@ const Error = styled.div`
   align-items: center;
   gap: 10px;
   margin-top: 10px;
-  color: tomato;
+  color: red;
 `;
 
 const ErrorMsg = styled.span`
@@ -102,6 +104,7 @@ const PasswordInput = styled.input`
   border: none;
   outline: none;
   font-size: 16px;
+  ${mobile({ fontSize: "14px" })}
 
   &::placeholder {
     color: darkgray;
@@ -112,6 +115,7 @@ const Icon = styled(SvgIcon)`
   height: 20px !important;
   width: 20px !important;
   color: darkgray;
+  ${mobile({ height: "18px !important", width: "18px !important" })}
 
   &:hover {
     cursor: pointer;
