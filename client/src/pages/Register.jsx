@@ -7,6 +7,9 @@ import { useCreateWishlistMutation } from "../redux/wishlistApi";
 import { useDispatch } from "react-redux";
 import { publicRequest } from "../requestMethods";
 import { ErrorOutline } from "@mui/icons-material";
+import { SvgIcon } from "@mui/material";
+import VisibilityIcon from "@mui/icons-material/Visibility";
+import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 
 const Container = styled.div`
   width: 100%;
@@ -69,7 +72,7 @@ const Input = styled.input`
   font-size: 16px;
 
   &:focus {
-    border: 1px solid black;
+    border-color: black;
   }
 
   &::placeholder {
@@ -77,6 +80,42 @@ const Input = styled.input`
   }
 
   ${mobile({ fontSize: "14px" })}
+`;
+
+const PasswordContainer = styled.div`
+  flex: 1;
+  min-width: 40%;
+  margin: 20px 10px 0px 0px;
+  padding: 10px;
+  border: 1px solid darkgray;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  &:focus-within {
+    border-color: black;
+  }
+`;
+
+const PasswordInput = styled.input`
+  width: 100%;
+  border: none;
+  outline: none;
+  font-size: 16px;
+
+  &::placeholder {
+    color: darkgray;
+  }
+`;
+
+const Icon = styled(SvgIcon)`
+  height: 20px !important;
+  width: 20px !important;
+  color: darkgray;
+
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 const Agreement = styled.span`
@@ -146,6 +185,8 @@ const Register = () => {
     confirmPassword: "",
   });
   const [errorMsg, setErrorMsg] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [createWishlist] = useCreateWishlistMutation();
   const dispatch = useDispatch();
 
@@ -174,6 +215,8 @@ const Register = () => {
           password: "",
           confirmPassword: "",
         });
+        setShowPassword(false);
+        setShowConfirmPassword(false);
       }
     } catch (err) {
       setErrorMsg(err.response?.data || err);
@@ -229,22 +272,48 @@ const Register = () => {
             value={formData.email}
             onChange={handleChange}
           />
-          <Input
-            placeholder="Password"
-            type="password"
-            name="password"
-            required
-            value={formData.password}
-            onChange={handleChange}
-          />
-          <Input
-            placeholder="Confirm Password"
-            type="password"
-            name="confirmPassword"
-            required
-            value={formData.confirmPassword}
-            onChange={handleChange}
-          />
+          <PasswordContainer>
+            <PasswordInput
+              placeholder="Password"
+              type={showPassword ? "text" : "password"}
+              name="password"
+              required
+              value={formData.password}
+              onChange={handleChange}
+            />
+            {showPassword ? (
+              <Icon
+                component={VisibilityIcon}
+                onClick={() => setShowPassword(false)}
+              />
+            ) : (
+              <Icon
+                component={VisibilityOffIcon}
+                onClick={() => setShowPassword(true)}
+              />
+            )}
+          </PasswordContainer>
+          <PasswordContainer>
+            <PasswordInput
+              placeholder="Confirm Password"
+              type={showConfirmPassword ? "text" : "password"}
+              name="confirmPassword"
+              required
+              value={formData.confirmPassword}
+              onChange={handleChange}
+            />
+            {showConfirmPassword ? (
+              <Icon
+                component={VisibilityIcon}
+                onClick={() => setShowConfirmPassword(false)}
+              />
+            ) : (
+              <Icon
+                component={VisibilityOffIcon}
+                onClick={() => setShowConfirmPassword(true)}
+              />
+            )}
+          </PasswordContainer>
           <Agreement>
             <Checkbox type="checkbox" required />
             <Description>

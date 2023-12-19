@@ -154,12 +154,21 @@ const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const [errorMsg, setErrorMsg] = useState("");
   const dispatch = useDispatch();
   const { isFetching, error } = useSelector((state) => state.auth);
 
-  const handleClick = (e) => {
+  const handleClick = async (e) => {
     e.preventDefault();
-    login(dispatch, { username, password });
+
+    const res = await login(dispatch, { username, password });
+    if (!res) {
+      setUsername("");
+      setPassword("");
+      setShowPassword(false);
+    } else {
+      setErrorMsg(res.response?.data);
+    }
   };
 
   return (
@@ -172,6 +181,7 @@ const Login = () => {
             placeholder="Username or Email"
             type="text"
             required
+            value={username}
             onChange={(e) => setUsername(e.target.value)}
           />
           <PasswordContainer>
@@ -179,6 +189,7 @@ const Login = () => {
               placeholder="Password"
               type={showPassword ? "text" : "password"}
               required
+              value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
             {showPassword ? (
@@ -196,7 +207,7 @@ const Login = () => {
           <Button onClick={handleClick} disabled={isFetching}>
             LOGIN
           </Button>
-          {error && <Error>Something went wrong...</Error>}
+          {error && <Error>{errorMsg}</Error>}
           <LinkContainer>
             <LoginLink to="">FORGOT PASSWORD?</LoginLink>
             <LoginLink to="/register">CREATE A NEW ACCOUNT</LoginLink>

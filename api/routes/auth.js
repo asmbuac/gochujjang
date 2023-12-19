@@ -39,7 +39,9 @@ router.post("/register", async (req, res) => {
 router.post("/login", async (req, res) => {
   try {
     const user = await User.findOne({ username: req.body.username });
-    !user && res.status(400).json("User does not exist");
+    if (!user) {
+      return res.status(400).json("User does not exist");
+    }
 
     const hashedPassword = CryptoJS.AES.decrypt(
       user.password,
@@ -47,8 +49,9 @@ router.post("/login", async (req, res) => {
     );
     const ogPassword = hashedPassword.toString(CryptoJS.enc.Utf8);
 
-    ogPassword !== req.body.password &&
-      res.status(400).json("Incorrect password");
+    if (ogPassword !== req.body.password) {
+      return res.status(400).json("Incorrect password");
+    }
 
     const token = jwt.sign(
       {
