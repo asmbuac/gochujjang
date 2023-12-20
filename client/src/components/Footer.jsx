@@ -8,12 +8,13 @@ import {
   Email,
 } from "@mui/icons-material";
 import styled from "styled-components";
-import { mobile } from "../responsive";
+import { md } from "../responsive";
 
 const Container = styled.div`
   display: flex;
+  flex-wrap: wrap;
   padding: 20px 0px;
-  ${mobile({ flexDirection: "column", padding: "0px" })}
+  ${md({ padding: "0px" })}
 `;
 
 const Left = styled.div`
@@ -21,7 +22,7 @@ const Left = styled.div`
   display: flex;
   flex-direction: column;
   padding: 20px;
-  ${mobile({ padding: "40px 20px" })}
+  ${md({ flexBasis: "100%", padding: "40px 20px" })}
 `;
 
 const Logo = styled.h1`
@@ -57,7 +58,7 @@ const SocialIcon = styled.div`
 const Center = styled.div`
   flex: 1;
   padding: 20px;
-  ${mobile({ display: "none" })}
+  ${md({ backgroundColor: "#f5fafd", padding: "40px 20px" })}
 `;
 
 const Title = styled.h3`
@@ -68,12 +69,13 @@ const List = styled.ul`
   margin: 0;
   padding: 0;
   list-style: none;
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  column-gap: 20px;
 `;
 
 const ListItem = styled.li`
-  width: 50%;
+  width: 100%;
   margin-bottom: 10px;
   cursor: pointer;
 
@@ -86,7 +88,7 @@ const ListItem = styled.li`
 const Right = styled.div`
   flex: 1;
   padding: 20px;
-  ${mobile({ backgroundColor: "#f5fafd", padding: "40px 20px" })}
+  ${md({ backgroundColor: "#f5fafd", padding: "40px 20px" })}
 `;
 
 const ContactItem = styled.div`
@@ -96,7 +98,7 @@ const ContactItem = styled.div`
 `;
 
 const Payment = styled.img`
-  width: 50%;
+  height: 24px;
 `;
 
 const Footer = () => {

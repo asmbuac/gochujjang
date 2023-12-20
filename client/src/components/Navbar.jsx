@@ -27,7 +27,8 @@ const Container = styled.div`
 `;
 
 const Wrapper = styled.div`
-  padding: 10px 20px;
+  height: 100%;
+  padding: 0px 20px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -79,10 +80,11 @@ const NavbarLink = styled(NavLink)`
 
 const Logo = styled.img`
   height: 30px;
-  ${mobile({ height: "20px" })}
+  width: 30px;
+  ${mobile({ height: "20px", width: "20px" })}
 `;
 
-const BrandName = styled.h1`
+const BrandName = styled.h2`
   font-family: "Audiowide";
   ${mobile({ fontSize: "14px" })}
 `;

@@ -46,16 +46,6 @@ const Container = styled.div`
   ${mobile({ minWidth: "40vw", height: "20vh" })}
 `;
 
-const Circle = styled.div`
-  width: 200px;
-  height: 200px;
-  border-radius: 50%;
-  background-color: #f5fbfd;
-  position: absolute;
-
-  ${mobile({ width: "150px", height: "150px" })}
-`;
-
 const Image = styled.img`
   height: 75%;
   z-index: 2;
@@ -110,7 +100,6 @@ const Product = ({ item }) => {
 
   return (
     <Container>
-      <Circle />
       <Image src={item.image} />
       <Info ref={ref} onClick={checkIfClickedOutside}>
         <Icon>
