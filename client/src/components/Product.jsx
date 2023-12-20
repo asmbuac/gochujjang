@@ -20,7 +20,7 @@ const Info = styled.div`
   top: 0;
   left: 0;
   background-color: rgba(0, 0, 0, 0.15);
-  z-index: 3;
+  z-index: 2;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -30,10 +30,7 @@ const Info = styled.div`
 `;
 
 const Container = styled.div`
-  flex: 1;
-  margin: 5px;
-  min-width: 280px;
-  height: 350px;
+  max-width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -42,13 +39,11 @@ const Container = styled.div`
   &:hover ${Info} {
     opacity: 1;
   }
-
-  ${mobile({ minWidth: "40vw", height: "20vh" })}
 `;
 
 const Image = styled.img`
-  height: 75%;
-  z-index: 2;
+  width: 100%;
+  z-index: 1;
 
   ${mobile({ height: "65%" })}
 `;

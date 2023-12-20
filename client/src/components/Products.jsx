@@ -1,13 +1,17 @@
 import styled from "styled-components";
+import { md, lg, xl } from "../responsive";
 import Product from "./Product";
 import { useState, useEffect } from "react";
 import { useGetProductsQuery } from "../redux/productApi";
 
 const Container = styled.div`
   padding: 20px;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 30px;
+  ${xl({ gridTemplateColumns: "repeat(4, 1fr)" })}
+  ${lg({ gridTemplateColumns: "repeat(3, 1fr)" })}
+  ${md({ gridTemplateColumns: "repeat(2, 1fr)" })}
 `;
 
 const Products = ({ category, filters, sort }) => {
