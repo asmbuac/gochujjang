@@ -41,8 +41,35 @@ const ProductSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-ProductSchema.pre(/^find|^findById/, function (next) {
-  this.populate({ path: "artist", select: "name" });
+ProductSchema.pre("aggregate", function (next) {
+  this.pipeline().unshift(
+    {
+      $lookup: {
+        from: "artists",
+        localField: "artist",
+        foreignField: "_id",
+        as: "artist",
+      },
+    },
+    {
+      $unwind: {
+        path: "$artist",
+      },
+    },
+    {
+      $project: {
+        title: 1,
+        description: 1,
+        image: 1,
+        artist: "$artist.name",
+        categories: 1,
+        size: 1,
+        color: 1,
+        price: 1,
+        inStock: 1,
+      },
+    }
+  );
   next();
 });
 

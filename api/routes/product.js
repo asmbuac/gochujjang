@@ -44,7 +44,10 @@ router.delete("/:id", verifyTokenAndAdmin, async (req, res) => {
 // GET PRODUCT
 router.get("/:id", async (req, res) => {
   try {
-    const product = await Product.findById(req.params.id);
+    const product = await Product.findById(req.params.id).populate(
+      "artist",
+      "name"
+    );
     res.status(200).json(product);
   } catch (err) {
     res.status(500).json(err);
@@ -53,24 +56,47 @@ router.get("/:id", async (req, res) => {
 
 // GET ALL PRODUCTS
 router.get("/", async (req, res) => {
-  const qNew = req.query.new;
-  const qCategory = req.query.category;
-  try {
-    let products;
+  const { new: qNew, category: qCategory, artist: qArtist } = req.query;
 
-    if (qNew) {
-      products = await Product.find().sort({ createdAt: -1 }).limit(5);
-    } else if (qCategory) {
-      products = await Product.find({
-        categories: {
-          $regex: qCategory,
-          $options: "i",
+  try {
+    let pipeline = [];
+
+    if (qCategory) {
+      pipeline.push({
+        $match: {
+          categories: {
+            $regex: qCategory,
+            $options: "i",
+          },
         },
       });
-    } else {
-      products = await Product.find();
     }
-
+    if (qArtist) {
+      pipeline.push(
+        {
+          $match: {
+            artist: {
+              $regex: qArtist,
+              $options: "i",
+            },
+          },
+        },
+        {
+          $project: { artist: 0 },
+        }
+      );
+    }
+    if (qNew) {
+      pipeline.push(
+        {
+          $sort: { createdAt: -1 },
+        },
+        {
+          $limit: 6,
+        }
+      );
+    }
+    const products = await Product.aggregate(pipeline);
     res.status(200).json(products);
   } catch (err) {
     res.status(500).json(err);
