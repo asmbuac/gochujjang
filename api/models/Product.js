@@ -41,4 +41,9 @@ const ProductSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
+ProductSchema.pre(/^find|^findById/, function (next) {
+  this.populate({ path: "artist", select: "name" });
+  next();
+});
+
 module.exports = mongoose.model("Product", ProductSchema);
