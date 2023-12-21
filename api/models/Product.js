@@ -15,6 +15,11 @@ const ProductSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    artist: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Artist",
+      required: true,
+    },
     categories: {
       type: Array,
     },

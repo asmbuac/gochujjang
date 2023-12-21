@@ -10,6 +10,7 @@ const orderRoute = require("./routes/order");
 const stripeRoute = require("./routes/stripe");
 const slideRoute = require("./routes/slide");
 const wishlistRoute = require("./routes/wishlist");
+const artistRoute = require("./routes/artist");
 const cors = require("cors");
 
 mongoose
@@ -29,6 +30,7 @@ app.use("/api/orders", orderRoute);
 app.use("/api/checkout", stripeRoute);
 app.use("/api/slides", slideRoute);
 app.use("/api/wishlists", wishlistRoute);
+app.use("/api/artists", artistRoute);
 
 app.listen(process.env.PORT || 8000, () => {
   console.log("Backend server is running!");
