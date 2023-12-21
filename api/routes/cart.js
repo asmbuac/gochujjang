@@ -13,9 +13,9 @@ router.post("/", verifyToken, async (req, res) => {
 
   try {
     const savedCart = await cart.save();
-    res.status(200).json(savedCart);
+    res.status(201).json(savedCart);
   } catch (err) {
-    res.status(500).json(err);
+    res.status(400).json(err);
   }
 });
 
@@ -31,7 +31,7 @@ router.put("/:userId", verifyTokenAndAuthorization, async (req, res) => {
     );
     res.status(200).json(updatedCart);
   } catch (err) {
-    res.status(500).json(err);
+    res.status(400).json(err);
   }
 });
 

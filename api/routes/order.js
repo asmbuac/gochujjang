@@ -48,9 +48,9 @@ router.post("/", async (req, res) => {
 
   try {
     const savedOrder = await order.save();
-    res.status(200).json(savedOrder);
+    res.status(201).json(savedOrder);
   } catch (err) {
-    res.status(500).json(err);
+    res.status(400).json(err);
   }
 });
 
@@ -66,7 +66,7 @@ router.put("/:id", verifyTokenAndAdmin, async (req, res) => {
     );
     res.status(200).json(updatedOrder);
   } catch (err) {
-    res.status(500).json(err);
+    res.status(400).json(err);
   }
 });
 
