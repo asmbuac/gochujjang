@@ -28,6 +28,9 @@ const Container = styled.div`
 
 const Wrapper = styled.div`
   height: 100%;
+  max-width: 1600px;
+  margin-left: auto;
+  margin-right: auto;
   padding: 0px 20px;
   display: flex;
   align-items: center;

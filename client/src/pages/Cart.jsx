@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { mobile } from "../responsive";
+import { mobile, md, lg } from "../responsive";
 import { useSelector } from "react-redux";
 import CartItem from "../components/CartItem";
 import { publicRequest } from "../requestMethods";
@@ -7,6 +7,9 @@ import { publicRequest } from "../requestMethods";
 const Container = styled.div``;
 
 const Wrapper = styled.div`
+  max-width: 1600px;
+  margin-left: auto;
+  margin-right: auto;
   padding: 20px;
   ${mobile({ padding: "10px" })}
 `;
@@ -39,14 +42,20 @@ const TopButton = styled.button`
 `;
 
 const TopTexts = styled.div`
-  ${mobile({ display: "none" })}
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  column-gap: 20px;
+  row-gap: 10px;
+  ${mobile({ fontSize: "14px" })}
 `;
 
 const TopText = styled.span`
   text-decoration: underline;
   text-underline-position: under;
   cursor: pointer;
-  margin: 0px 10px;
   transition: all 300ms ease;
 
   &:hover {
@@ -57,7 +66,7 @@ const TopText = styled.span`
 const Bottom = styled.div`
   display: flex;
   justify-content: space-between;
-  ${mobile({ flexDirection: "column", marginBottom: "10px" })}
+  ${lg({ flexDirection: "column", marginBottom: "10px" })}
 `;
 
 const Info = styled.div`

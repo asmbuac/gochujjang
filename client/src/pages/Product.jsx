@@ -10,6 +10,9 @@ import { useGetProductQuery } from "../redux/productApi";
 const Container = styled.div``;
 
 const Wrapper = styled.div`
+  max-width: 1600px;
+  margin-left: auto;
+  margin-right: auto;
   padding: 50px;
   display: flex;
   ${mobile({ padding: "10px", flexDirection: "column" })}
@@ -24,8 +27,8 @@ const ImgContainer = styled.div`
 
 const Image = styled.img`
   max-width: 100%;
-  height: 60vh;
-  ${mobile({ height: "40vh" })}
+  width: 60vh;
+  ${mobile({ width: "40vh" })}
 `;
 
 const InfoContainer = styled.div`

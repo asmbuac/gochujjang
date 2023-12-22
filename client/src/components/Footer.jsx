@@ -11,6 +11,9 @@ import styled from "styled-components";
 import { md } from "../responsive";
 
 const Container = styled.div`
+  max-width: 1600px;
+  margin-left: auto;
+  margin-right: auto;
   display: flex;
   flex-wrap: wrap;
   padding: 20px 0px;

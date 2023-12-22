@@ -5,6 +5,9 @@ import { useState, useEffect } from "react";
 import { useGetProductsQuery } from "../redux/productApi";
 
 const Container = styled.div`
+  max-width: 1600px;
+  margin-left: auto;
+  margin-right: auto;
   padding: 20px;
   display: grid;
   grid-template-columns: repeat(6, 1fr);

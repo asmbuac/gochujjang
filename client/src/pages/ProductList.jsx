@@ -4,7 +4,11 @@ import { mobile } from "../responsive";
 import { useLocation } from "react-router-dom";
 import { useState } from "react";
 
-const Container = styled.div``;
+const Container = styled.div`
+  max-width: 1600px;
+  margin-left: auto;
+  margin-right: auto;
+`;
 
 const Title = styled.h1`
   margin: 20px;
@@ -38,7 +42,7 @@ const Option = styled.option``;
 
 const ProductList = () => {
   const location = useLocation();
-  const category = location.pathname.split("/")[2];
+  const category = location.pathname.split("/")[2].split("%20").join(" ");
   const [filters, setFilters] = useState({});
   const [sort, setSort] = useState("newest");
 

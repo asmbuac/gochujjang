@@ -3,7 +3,11 @@ import { useGetWishlistQuery } from "../redux/wishlistApi";
 import { useSelector } from "react-redux";
 import Product from "../components/Product";
 
-const Container = styled.div``;
+const Container = styled.div`
+  max-width: 1600px;
+  margin-left: auto;
+  margin-right: auto;
+`;
 
 const Title = styled.h1`
   margin: 20px;

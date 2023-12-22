@@ -11,8 +11,10 @@ import {
 import { useLocation } from "react-router-dom";
 
 const Container = styled.div`
-  width: 100%;
   height: 40vh;
+  max-width: 1600px;
+  margin-left: auto;
+  margin-right: auto;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -87,7 +89,7 @@ function Success() {
       <Logo src="src/assets/logo.png" />
       <Button>Successful</Button>
       <SuccessMsg>
-        Your order is being prepared. Thanks for choosing K-SHOP!
+        Your order is being prepared. Thanks for choosing Jjang!
       </SuccessMsg>
     </Container>
   );
