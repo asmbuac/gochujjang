@@ -4,9 +4,11 @@ import {
   AccountCircleOutlined,
   Search,
   ShoppingCartOutlined,
+  Close,
+  Menu,
 } from "@mui/icons-material";
 import styled from "styled-components";
-import { mobile } from "../responsive";
+import { mobile, md, lg } from "../responsive";
 import { NavLink } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { logout } from "../redux/authSlice";
@@ -16,6 +18,8 @@ import {
   useGetCartQuery,
   useUpdateCartMutation,
 } from "../redux/cartApi";
+import { useState } from "react";
+import { SvgIcon } from "@mui/material";
 
 const Container = styled.div`
   height: 60px;
@@ -36,21 +40,77 @@ const Wrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  ${mobile({ padding: "10px 0px" })}
+  position: relative;
+  ${mobile({ padding: "0px 10px" })}
 `;
 
 const Left = styled.div`
-  flex: 1;
-  display: flex;
-  align-items: center;
-  column-gap: 25px;
-  ${mobile({ flex: 1.5, justifyContent: "center", columnGap: "10px" })}
+  flex: 3;
 `;
 
-const Input = styled.input`
-  border: none;
-  outline: none;
-  ${mobile({ width: "50px" })}
+const MenuIcon = styled(Menu)`
+  display: none !important;
+
+  ${lg({
+    display: "block !important",
+    cursor: "pointer",
+  })}
+  ${mobile({
+    height: "20px !important",
+    width: "20px !important",
+  })}
+`;
+
+const SliderContainer = styled.div`
+  ${lg({
+    width: (props) => props.open && "100%",
+    height: (props) => props.open && "calc(100vh + 30px)",
+    position: "absolute",
+    top: "-30px",
+    left: "0px",
+    backgroundColor: (props) =>
+      props.open ? "rgb(0, 0, 0, 0.3)" : "transparent",
+    transition: "all 500ms cubic-bezier(0.75, 0, 0.175, 1)",
+    zIndex: (props) => props.open && "99999",
+  })}
+`;
+
+const MenuContainer = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 25px;
+  position: static;
+
+  ${lg({
+    flexDirection: "column",
+    position: "absolute",
+    width: "340px",
+    maxWidth: "100%",
+    height: "100vh",
+    backgroundColor: "white",
+    top: "0px",
+    left: (props) => (props.open ? "0px" : "-400px"),
+    padding: "30px",
+    transition: "all 500ms cubic-bezier(0.67, 0.26, 0.18, 1)",
+    overflow: "hidden",
+  })}
+`;
+
+const CloseIconContainer = styled.div`
+  width: 100%;
+`;
+
+const CloseIcon = styled(Close)`
+  display: none !important;
+
+  ${lg({
+    display: "block !important",
+    cursor: "pointer",
+  })}
+  ${mobile({
+    height: "20px !important",
+    width: "20px !important",
+  })}
 `;
 
 const Center = styled.div`
@@ -72,35 +132,28 @@ const NavbarLink = styled(NavLink)`
 const Logo = styled.img`
   height: 30px;
   width: 30px;
-  ${mobile({ height: "20px", width: "20px" })}
+  ${mobile({ height: "24px", width: "24px" })}
 `;
 
 const BrandName = styled.h2`
   font-family: "Audiowide";
-  ${mobile({ fontSize: "14px" })}
+  ${mobile({ fontSize: "20px" })}
 `;
 
 const Right = styled.div`
-  flex: 1;
+  flex: 3;
   display: flex;
   align-items: center;
   justify-content: flex-end;
   column-gap: 25px;
-  ${mobile({ flex: 1.5, justifyContent: "center", columnGap: "10px" })}
-`;
 
-const SearchContainer = styled.div`
-  border: 0.5px solid lightgray;
-  display: flex;
-  align-items: center;
-  padding: 5px;
-  ${mobile({ marginLeft: "10px" })}
+  ${md({ columnGap: "15px" })}
 `;
 
 const Currency = styled.span`
   font-size: 14px;
   cursor: pointer;
-  ${mobile({ display: "none" })}
+  ${md({ display: "none" })}
 `;
 
 const MenuItem = styled(NavLink)`
@@ -109,12 +162,31 @@ const MenuItem = styled(NavLink)`
   text-decoration: none;
   color: black;
   transition: all 300ms ease;
-  ${mobile({ fontSize: "12px" })}
+  display: ${(props) => props.hideOnLarge && "none"};
+
+  ${lg({
+    width: (props) => props.width && "100%",
+    textAlign: (props) => props.align && "left",
+    display: (props) => props.hideOnLarge && "flex",
+    alignItems: "center",
+    gap: "10px",
+    fontWeight: (props) => props.hideOnLarge && "bold",
+  })}
+  ${mobile({
+    display: (props) => props.hide && "none",
+  })}
 
   &:hover {
     text-decoration: underline;
     text-underline-position: under;
   }
+`;
+
+const Icon = styled(SvgIcon)`
+  ${mobile({
+    height: "20px !important",
+    width: "20px !important",
+  })}
 `;
 
 const CartBadge = styled(Badge)`
@@ -125,6 +197,7 @@ const CartBadge = styled(Badge)`
 `;
 
 const Navbar = () => {
+  const [open, setOpen] = useState(false);
   const quantity = useSelector((state) => state.cart.quantity);
   const user = useSelector((state) => state.auth.currentUser);
   const storeCart = useSelector((state) => state.cart.products);
@@ -152,11 +225,46 @@ const Navbar = () => {
     <Container>
       <Wrapper>
         <Left>
-          <MenuItem to="/products">ALL</MenuItem>
-          <MenuItem to="/products/pre-orders">PRE-ORDERS</MenuItem>
-          <MenuItem to="/products/albums">ALBUMS</MenuItem>
-          <MenuItem to="/products/light sticks">LIGHT STICKS</MenuItem>
-          <MenuItem to="/artists">ALL ARTISTS</MenuItem>
+          <MenuIcon onClick={() => setOpen(true)} />
+          <SliderContainer open={open}>
+            <MenuContainer open={open}>
+              {open && (
+                <CloseIconContainer open={open}>
+                  <CloseIcon onClick={() => setOpen(false)} />
+                </CloseIconContainer>
+              )}
+              <MenuItem to="/products" width="100%" align="left">
+                ALL
+              </MenuItem>
+              <MenuItem to="/products/pre-orders" width="100%" align="left">
+                PRE-ORDERS
+              </MenuItem>
+              <MenuItem to="/products/albums" width="100%" align="left">
+                ALBUMS
+              </MenuItem>
+              <MenuItem to="/products/light sticks" width="100%" align="left">
+                LIGHT STICKS
+              </MenuItem>
+              <MenuItem to="/artists" width="100%" align="left">
+                ALL ARTISTS
+              </MenuItem>
+              {open && user ? (
+                <MenuItem to="/" onClick={handleLogout} hideOnLarge={true}>
+                  LOGOUT
+                </MenuItem>
+              ) : (
+                <MenuItem
+                  to="/login"
+                  hideOnLarge={true}
+                  width="100%"
+                  align="left"
+                >
+                  <Icon component={AccountCircleOutlined} />
+                  MY ACCOUNT
+                </MenuItem>
+              )}
+            </MenuContainer>
+          </SliderContainer>
         </Left>
         <Center>
           <NavbarLink to="/" display="flex">
@@ -165,28 +273,23 @@ const Navbar = () => {
           </NavbarLink>
         </Center>
         <Right>
-          <SearchContainer>
-            <Input placeholder="Search" />
-            <Search
-              style={{ color: "gray", fontSize: 16, cursor: "pointer" }}
-            />
-          </SearchContainer>
           <Currency>USD</Currency>
+          <Icon component={Search} />
           {user ? (
-            <MenuItem to="/" onClick={handleLogout}>
+            <MenuItem to="/" onClick={handleLogout} hide={true}>
               LOGOUT
             </MenuItem>
           ) : (
-            <MenuItem to="/login">
-              <AccountCircleOutlined />
+            <MenuItem to="/login" hide={true}>
+              <Icon component={AccountCircleOutlined} />
             </MenuItem>
           )}
           <MenuItem to="/wishlist">
-            <FavoriteBorder />
+            <Icon component={FavoriteBorder} />
           </MenuItem>
           <MenuItem to="/cart">
             <CartBadge badgeContent={quantity}>
-              <ShoppingCartOutlined />
+              <Icon component={ShoppingCartOutlined} />
             </CartBadge>
           </MenuItem>
         </Right>
