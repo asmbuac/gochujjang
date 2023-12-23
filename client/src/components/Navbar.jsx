@@ -18,7 +18,7 @@ import {
   useGetCartQuery,
   useUpdateCartMutation,
 } from "../redux/cartApi";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { SvgIcon } from "@mui/material";
 
 const Container = styled.div`
@@ -63,22 +63,22 @@ const MenuIcon = styled(Menu)`
 
 const SliderContainer = styled.div`
   ${lg({
-    width: (props) => props.open && "100%",
-    height: (props) => props.open && "calc(100vh + 30px)",
+    width: "100%",
+    height: "100vh",
     position: "absolute",
     top: "-30px",
     left: "0px",
     backgroundColor: (props) =>
       props.open ? "rgb(0, 0, 0, 0.3)" : "transparent",
     transition: "all 500ms cubic-bezier(0.75, 0, 0.175, 1)",
-    zIndex: (props) => props.open && "99999",
+    zIndex: (props) => (props.open ? "99999" : "-99999"),
   })}
 `;
 
 const MenuContainer = styled.div`
   display: flex;
   align-items: center;
-  gap: 25px;
+  justify-content: space-between;
   position: static;
 
   ${lg({
@@ -86,7 +86,7 @@ const MenuContainer = styled.div`
     position: "absolute",
     width: "340px",
     maxWidth: "100%",
-    height: "100vh",
+    height: "calc(100vh - 60px)",
     backgroundColor: "white",
     top: "0px",
     left: (props) => (props.open ? "0px" : "-400px"),
@@ -96,8 +96,19 @@ const MenuContainer = styled.div`
   })}
 `;
 
-const CloseIconContainer = styled.div`
+const LinkContainer = styled.div`
   width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 25px;
+
+  ${lg({ flexDirection: "column" })}
+`;
+
+const CloseIconContainer = styled.div`
+  display: none;
+
+  ${lg({ display: "block", width: "100%" })}
 `;
 
 const CloseIcon = styled(Close)`
@@ -110,6 +121,17 @@ const CloseIcon = styled(Close)`
   ${mobile({
     height: "20px !important",
     width: "20px !important",
+  })}
+`;
+
+const AccountContainer = styled.div`
+  display: none;
+
+  ${lg({
+    display: "flex",
+    flexDirection: "column",
+    gap: "25px",
+    width: "100%",
   })}
 `;
 
@@ -162,15 +184,13 @@ const MenuItem = styled(NavLink)`
   text-decoration: none;
   color: black;
   transition: all 300ms ease;
-  display: ${(props) => props.hideOnLarge && "none"};
 
   ${lg({
-    width: (props) => props.width && "100%",
     textAlign: (props) => props.align && "left",
-    display: (props) => props.hideOnLarge && "flex",
+    width: (props) => props.width,
+    display: "flex",
     alignItems: "center",
     gap: "10px",
-    fontWeight: (props) => props.hideOnLarge && "bold",
   })}
   ${mobile({
     display: (props) => props.hide && "none",
@@ -221,6 +241,15 @@ const Navbar = () => {
     dispatch(logout());
   };
 
+  useEffect(() => {
+    if (open) {
+      document.body.style.overflow = "hidden";
+    }
+    return () => {
+      document.body.style.overflow = "unset";
+    };
+  }, [open]);
+
   return (
     <Container>
       <Wrapper>
@@ -228,41 +257,71 @@ const Navbar = () => {
           <MenuIcon onClick={() => setOpen(true)} />
           <SliderContainer open={open}>
             <MenuContainer open={open}>
-              {open && (
-                <CloseIconContainer open={open}>
+              <LinkContainer>
+                <CloseIconContainer>
                   <CloseIcon onClick={() => setOpen(false)} />
                 </CloseIconContainer>
-              )}
-              <MenuItem to="/products" width="100%" align="left">
-                ALL
-              </MenuItem>
-              <MenuItem to="/products/pre-orders" width="100%" align="left">
-                PRE-ORDERS
-              </MenuItem>
-              <MenuItem to="/products/albums" width="100%" align="left">
-                ALBUMS
-              </MenuItem>
-              <MenuItem to="/products/light sticks" width="100%" align="left">
-                LIGHT STICKS
-              </MenuItem>
-              <MenuItem to="/artists" width="100%" align="left">
-                ALL ARTISTS
-              </MenuItem>
-              {open && user ? (
-                <MenuItem to="/" onClick={handleLogout} hideOnLarge={true}>
-                  LOGOUT
-                </MenuItem>
-              ) : (
                 <MenuItem
-                  to="/login"
-                  hideOnLarge={true}
+                  to="/products"
                   width="100%"
                   align="left"
+                  onClick={() => setOpen(false)}
+                >
+                  ALL
+                </MenuItem>
+                <MenuItem
+                  to="/products/pre-orders"
+                  width="100%"
+                  align="left"
+                  onClick={() => setOpen(false)}
+                >
+                  PRE-ORDERS
+                </MenuItem>
+                <MenuItem
+                  to="/products/albums"
+                  width="100%"
+                  align="left"
+                  onClick={() => setOpen(false)}
+                >
+                  ALBUMS
+                </MenuItem>
+                <MenuItem
+                  to="/products/light sticks"
+                  width="100%"
+                  align="left"
+                  onClick={() => setOpen(false)}
+                >
+                  LIGHT STICKS
+                </MenuItem>
+                <MenuItem
+                  to="/artists"
+                  width="100%"
+                  align="left"
+                  onClick={() => setOpen(false)}
+                >
+                  ALL ARTISTS
+                </MenuItem>
+              </LinkContainer>
+              <AccountContainer>
+                <MenuItem
+                  to={user ? "/account" : "/login"}
+                  align="left"
+                  onClick={() => setOpen(false)}
                 >
                   <Icon component={AccountCircleOutlined} />
-                  MY ACCOUNT
+                  ACCOUNT
                 </MenuItem>
-              )}
+                {user && (
+                  <MenuItem
+                    to="/"
+                    onClick={handleLogout}
+                    align="left"
+                    onClick={() => setOpen(false)}
+                  >
+                    LOGOUT
+                  </MenuItem>
+                )}
+              </AccountContainer>
             </MenuContainer>
           </SliderContainer>
         </Left>
@@ -275,15 +334,9 @@ const Navbar = () => {
         <Right>
           <Currency>USD</Currency>
           <Icon component={Search} />
-          {user ? (
-            <MenuItem to="/" onClick={handleLogout} hide={true}>
-              LOGOUT
-            </MenuItem>
-          ) : (
-            <MenuItem to="/login" hide={true}>
-              <Icon component={AccountCircleOutlined} />
-            </MenuItem>
-          )}
+          <MenuItem to={user ? "/account" : "/login"} hide={true}>
+            <Icon component={AccountCircleOutlined} />
+          </MenuItem>
           <MenuItem to="/wishlist">
             <Icon component={FavoriteBorder} />
           </MenuItem>
