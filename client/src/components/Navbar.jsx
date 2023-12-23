@@ -1,6 +1,7 @@
 import Badge from "@mui/material/Badge";
 import {
   FavoriteBorder,
+  AccountCircleOutlined,
   Search,
   ShoppingCartOutlined,
 } from "@mui/icons-material";
@@ -42,21 +43,8 @@ const Left = styled.div`
   flex: 1;
   display: flex;
   align-items: center;
-`;
-
-const Language = styled.span`
-  font-size: 14px;
-  cursor: pointer;
-  ${mobile({ display: "none" })}
-`;
-
-const SearchContainer = styled.div`
-  border: 0.5px solid lightgray;
-  display: flex;
-  align-items: center;
-  margin-left: 25px;
-  padding: 5px;
-  ${mobile({ marginLeft: "10px" })}
+  column-gap: 25px;
+  ${mobile({ flex: 1.5, justifyContent: "center", columnGap: "10px" })}
 `;
 
 const Input = styled.input`
@@ -101,7 +89,22 @@ const Right = styled.div`
   ${mobile({ flex: 1.5, justifyContent: "center", columnGap: "10px" })}
 `;
 
+const SearchContainer = styled.div`
+  border: 0.5px solid lightgray;
+  display: flex;
+  align-items: center;
+  padding: 5px;
+  ${mobile({ marginLeft: "10px" })}
+`;
+
+const Currency = styled.span`
+  font-size: 14px;
+  cursor: pointer;
+  ${mobile({ display: "none" })}
+`;
+
 const MenuItem = styled(NavLink)`
+  text-align: center;
   font-size: 14px;
   text-decoration: none;
   color: black;
@@ -149,13 +152,11 @@ const Navbar = () => {
     <Container>
       <Wrapper>
         <Left>
-          <Language>EN</Language>
-          <SearchContainer>
-            <Input placeholder="Search" />
-            <Search
-              style={{ color: "gray", fontSize: 16, cursor: "pointer" }}
-            />
-          </SearchContainer>
+          <MenuItem to="/products">ALL</MenuItem>
+          <MenuItem to="/products/pre-orders">PRE-ORDERS</MenuItem>
+          <MenuItem to="/products/albums">ALBUMS</MenuItem>
+          <MenuItem to="/products/light sticks">LIGHT STICKS</MenuItem>
+          <MenuItem to="/artists">ALL ARTISTS</MenuItem>
         </Left>
         <Center>
           <NavbarLink to="/" display="flex">
@@ -164,15 +165,21 @@ const Navbar = () => {
           </NavbarLink>
         </Center>
         <Right>
+          <SearchContainer>
+            <Input placeholder="Search" />
+            <Search
+              style={{ color: "gray", fontSize: 16, cursor: "pointer" }}
+            />
+          </SearchContainer>
+          <Currency>USD</Currency>
           {user ? (
             <MenuItem to="/" onClick={handleLogout}>
               LOGOUT
             </MenuItem>
           ) : (
-            <>
-              <MenuItem to="/register">REGISTER</MenuItem>
-              <MenuItem to="/login">SIGN IN</MenuItem>
-            </>
+            <MenuItem to="/login">
+              <AccountCircleOutlined />
+            </MenuItem>
           )}
           <MenuItem to="/wishlist">
             <FavoriteBorder />
