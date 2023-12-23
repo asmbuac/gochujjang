@@ -18,7 +18,7 @@ import {
   useGetCartQuery,
   useUpdateCartMutation,
 } from "../redux/cartApi";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { SvgIcon } from "@mui/material";
 
 const Container = styled.div`
@@ -218,6 +218,7 @@ const CartBadge = styled(Badge)`
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
+  const ref = useRef();
   const quantity = useSelector((state) => state.cart.quantity);
   const user = useSelector((state) => state.auth.currentUser);
   const storeCart = useSelector((state) => state.cart.products);
@@ -242,6 +243,19 @@ const Navbar = () => {
   };
 
   useEffect(() => {
+    const checkIfClickedOutside = (e) => {
+      if (ref.current && !ref.current.contains(e.target)) {
+        setOpen(false);
+      }
+    };
+
+    document.addEventListener("click", checkIfClickedOutside, true);
+    return () => {
+      document.removeEventListener("click", checkIfClickedOutside);
+    };
+  }, [setOpen]);
+
+  useEffect(() => {
     if (open) {
       document.body.style.overflow = "hidden";
     }
@@ -256,7 +270,7 @@ const Navbar = () => {
         <Left>
           <MenuIcon onClick={() => setOpen(true)} />
           <SliderContainer open={open}>
-            <MenuContainer open={open}>
+            <MenuContainer open={open} ref={ref}>
               <LinkContainer>
                 <CloseIconContainer>
                   <CloseIcon onClick={() => setOpen(false)} />
