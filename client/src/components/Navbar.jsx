@@ -4,21 +4,12 @@ import {
   AccountCircleOutlined,
   Search,
   ShoppingCartOutlined,
-  Close,
   Menu,
 } from "@mui/icons-material";
 import styled from "styled-components";
 import { mobile, md, lg } from "../responsive";
 import { NavLink } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
-import { logout } from "../redux/authSlice";
-import { deleteCart } from "../redux/cartSlice";
-import {
-  useCreateCartMutation,
-  useGetCartQuery,
-  useUpdateCartMutation,
-} from "../redux/cartApi";
-import { useState, useEffect, useRef } from "react";
+import { useSelector } from "react-redux";
 import { SvgIcon } from "@mui/material";
 
 const Container = styled.div`
@@ -40,7 +31,6 @@ const Wrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  position: relative;
   ${mobile({ padding: "0px 10px" })}
 `;
 
@@ -61,78 +51,26 @@ const MenuIcon = styled(Menu)`
   })}
 `;
 
-const SliderContainer = styled.div`
-  ${lg({
-    width: "100%",
-    height: "100vh",
-    position: "absolute",
-    top: "-30px",
-    left: "0px",
-    backgroundColor: (props) =>
-      props.open ? "rgb(0, 0, 0, 0.3)" : "transparent",
-    transition: "all 500ms cubic-bezier(0.75, 0, 0.175, 1)",
-    zIndex: (props) => (props.open ? "99999" : "-99999"),
-  })}
-`;
-
 const MenuContainer = styled.div`
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  position: static;
+  column-gap: 25px;
 
-  ${lg({
-    flexDirection: "column",
-    position: "absolute",
-    width: "340px",
-    maxWidth: "100%",
-    height: "calc(100vh - 60px)",
-    backgroundColor: "white",
-    top: "0px",
-    left: (props) => (props.open ? "0px" : "-400px"),
-    padding: "30px",
-    transition: "all 500ms cubic-bezier(0.67, 0.26, 0.18, 1)",
-    overflow: "hidden",
-  })}
+  ${lg({ display: "none" })}
 `;
 
-const LinkContainer = styled.div`
-  width: 100%;
-  display: flex;
-  align-items: center;
-  gap: 25px;
+const MenuItem = styled(NavLink)`
+  text-align: center;
+  font-size: 14px;
+  text-decoration: none;
+  color: black;
+  transition: all 300ms ease;
+  ${mobile({ fontSize: "12px" })}
 
-  ${lg({ flexDirection: "column" })}
-`;
-
-const CloseIconContainer = styled.div`
-  display: none;
-
-  ${lg({ display: "block", width: "100%" })}
-`;
-
-const CloseIcon = styled(Close)`
-  display: none !important;
-
-  ${lg({
-    display: "block !important",
-    cursor: "pointer",
-  })}
-  ${mobile({
-    height: "20px !important",
-    width: "20px !important",
-  })}
-`;
-
-const AccountContainer = styled.div`
-  display: none;
-
-  ${lg({
-    display: "flex",
-    flexDirection: "column",
-    gap: "25px",
-    width: "100%",
-  })}
+  &:hover {
+    text-decoration: underline;
+    text-underline-position: under;
+  }
 `;
 
 const Center = styled.div`
@@ -178,30 +116,6 @@ const Currency = styled.span`
   ${md({ display: "none" })}
 `;
 
-const MenuItem = styled(NavLink)`
-  text-align: center;
-  font-size: 14px;
-  text-decoration: none;
-  color: black;
-  transition: all 300ms ease;
-
-  ${lg({
-    textAlign: (props) => props.align && "left",
-    width: (props) => props.width,
-    display: "flex",
-    alignItems: "center",
-    gap: "10px",
-  })}
-  ${mobile({
-    display: (props) => props.hide && "none",
-  })}
-
-  &:hover {
-    text-decoration: underline;
-    text-underline-position: under;
-  }
-`;
-
 const Icon = styled(SvgIcon)`
   ${mobile({
     height: "20px !important",
@@ -216,128 +130,22 @@ const CartBadge = styled(Badge)`
   }
 `;
 
-const Navbar = () => {
-  const [open, setOpen] = useState(false);
-  const ref = useRef();
+const Navbar = ({ setOpen }) => {
   const quantity = useSelector((state) => state.cart.quantity);
   const user = useSelector((state) => state.auth.currentUser);
-  const storeCart = useSelector((state) => state.cart.products);
-  const { data: cartData } = useGetCartQuery(user?._id);
-  const [createCart] = useCreateCartMutation();
-  const [updateCart] = useUpdateCartMutation();
-  const dispatch = useDispatch();
-
-  const handleLogout = async () => {
-    if (storeCart.length > 0) {
-      const products = storeCart.map(({ _id, quantity }) => ({
-        product: _id,
-        quantity,
-      }));
-
-      await (cartData
-        ? updateCart({ id: user?._id, data: { products } })
-        : createCart({ userId: user?._id, products }));
-    }
-    dispatch(deleteCart());
-    dispatch(logout());
-  };
-
-  useEffect(() => {
-    const checkIfClickedOutside = (e) => {
-      if (ref.current && !ref.current.contains(e.target)) {
-        setOpen(false);
-      }
-    };
-
-    document.addEventListener("click", checkIfClickedOutside, true);
-    return () => {
-      document.removeEventListener("click", checkIfClickedOutside);
-    };
-  }, [setOpen]);
-
-  useEffect(() => {
-    if (open) {
-      document.body.style.overflow = "hidden";
-    }
-    return () => {
-      document.body.style.overflow = "unset";
-    };
-  }, [open]);
 
   return (
     <Container>
       <Wrapper>
         <Left>
           <MenuIcon onClick={() => setOpen(true)} />
-          <SliderContainer open={open}>
-            <MenuContainer open={open} ref={ref}>
-              <LinkContainer>
-                <CloseIconContainer>
-                  <CloseIcon onClick={() => setOpen(false)} />
-                </CloseIconContainer>
-                <MenuItem
-                  to="/products"
-                  width="100%"
-                  align="left"
-                  onClick={() => setOpen(false)}
-                >
-                  ALL
-                </MenuItem>
-                <MenuItem
-                  to="/products/pre-orders"
-                  width="100%"
-                  align="left"
-                  onClick={() => setOpen(false)}
-                >
-                  PRE-ORDERS
-                </MenuItem>
-                <MenuItem
-                  to="/products/albums"
-                  width="100%"
-                  align="left"
-                  onClick={() => setOpen(false)}
-                >
-                  ALBUMS
-                </MenuItem>
-                <MenuItem
-                  to="/products/light sticks"
-                  width="100%"
-                  align="left"
-                  onClick={() => setOpen(false)}
-                >
-                  LIGHT STICKS
-                </MenuItem>
-                <MenuItem
-                  to="/artists"
-                  width="100%"
-                  align="left"
-                  onClick={() => setOpen(false)}
-                >
-                  ALL ARTISTS
-                </MenuItem>
-              </LinkContainer>
-              <AccountContainer>
-                <MenuItem
-                  to={user ? "/account" : "/login"}
-                  align="left"
-                  onClick={() => setOpen(false)}
-                >
-                  <Icon component={AccountCircleOutlined} />
-                  ACCOUNT
-                </MenuItem>
-                {user && (
-                  <MenuItem
-                    to="/"
-                    onClick={handleLogout}
-                    align="left"
-                    onClick={() => setOpen(false)}
-                  >
-                    LOGOUT
-                  </MenuItem>
-                )}
-              </AccountContainer>
-            </MenuContainer>
-          </SliderContainer>
+          <MenuContainer>
+            <MenuItem to="/products">ALL</MenuItem>
+            <MenuItem to="/products/pre-orders">PRE-ORDERS</MenuItem>
+            <MenuItem to="/products/albums">ALBUMS</MenuItem>
+            <MenuItem to="/products/light sticks">LIGHT STICKS</MenuItem>
+            <MenuItem to="/artists">ALL ARTISTS</MenuItem>
+          </MenuContainer>
         </Left>
         <Center>
           <NavbarLink to="/" display="flex">

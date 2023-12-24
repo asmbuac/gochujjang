@@ -15,11 +15,18 @@ import Footer from "./components/Footer";
 import { createContext, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useGetWishlistQuery } from "./redux/wishlistApi";
+import styled from "styled-components";
+import NavDrawer from "./components/NavDrawer";
 
 export const WishlistContext = createContext(null);
 
+const Container = styled.div`
+  position: relative;
+`;
+
 const App = () => {
   const [wishlist, setWishlist] = useState(null);
+  const [open, setOpen] = useState(false);
   const user = useSelector((state) => state.auth.currentUser);
   const { pathname } = useLocation();
   const { data } = useGetWishlistQuery(user?._id);
@@ -38,9 +45,10 @@ const App = () => {
   }, [pathname]);
 
   return (
-    <>
+    <Container>
       <Announcement />
-      <Navbar />
+      <Navbar setOpen={setOpen} />
+      <NavDrawer open={open} setOpen={setOpen} />
       <Marquee />
       <WishlistContext.Provider value={wishlist}>
         <Routes>
@@ -65,7 +73,7 @@ const App = () => {
       </WishlistContext.Provider>
       <Newsletter />
       <Footer />
-    </>
+    </Container>
   );
 };
 
