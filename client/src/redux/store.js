@@ -5,6 +5,7 @@ import { cartApi } from "./cartApi";
 import { productApi } from "./productApi";
 import { orderApi } from "./orderApi";
 import { wishlistApi } from "./wishlistApi";
+import { artistApi } from "./artistApi";
 import {
   persistStore,
   persistReducer,
@@ -31,6 +32,7 @@ const rootReducer = combineReducers({
   [productApi.reducerPath]: productApi.reducer,
   [orderApi.reducerPath]: orderApi.reducer,
   [wishlistApi.reducerPath]: wishlistApi.reducer,
+  [artistApi.reducerPath]: artistApi.reducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
@@ -46,7 +48,8 @@ export const store = configureStore({
       .concat(cartApi.middleware)
       .concat(productApi.middleware)
       .concat(orderApi.middleware)
-      .concat(wishlistApi.middleware),
+      .concat(wishlistApi.middleware)
+      .concat(artistApi.middleware),
 });
 
 export let persistor = persistStore(store);
