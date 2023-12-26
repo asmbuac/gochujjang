@@ -117,6 +117,8 @@ const Currency = styled.span`
 `;
 
 const Icon = styled(SvgIcon)`
+  cursor: pointer;
+
   ${mobile({
     height: "20px !important",
     width: "20px !important",

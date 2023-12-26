@@ -10,6 +10,7 @@ import Login from "./pages/Login";
 import Cart from "./pages/Cart";
 import Success from "./pages/Success";
 import Wishlist from "./pages/Wishlist";
+import ArtistList from "./pages/ArtistList";
 import Newsletter from "./components/Newsletter";
 import Footer from "./components/Footer";
 import { createContext, useEffect, useState } from "react";
@@ -69,6 +70,7 @@ const App = () => {
           <Route path="/cart" element={<Cart />} />
           <Route path="/success" element={<Success />} />
           <Route path="/wishlist" element={<Wishlist />} />
+          <Route path="/artists" element={<ArtistList />} />
         </Routes>
       </WishlistContext.Provider>
       <Newsletter />
