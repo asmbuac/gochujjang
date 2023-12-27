@@ -7,7 +7,7 @@ export const artistApi = createApi({
   }),
   endpoints: (builder) => ({
     getArtists: builder.query({
-      query: () => "/",
+      query: (type) => (type ? `?type=${type}` : "/"),
     }),
   }),
 });

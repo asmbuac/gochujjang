@@ -21,21 +21,22 @@ const FilterContainer = styled.div`
 `;
 
 const Filter = styled.div`
-  margin: 20px;
-  ${mobile({ width: "0px 20px", display: "flex", flexDirection: "column" })}
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  ${mobile({ flexDirection: "column", gap: "10px" })}
 `;
 
 const FilterText = styled.span`
   font-size: 20px;
   font-weight: 600;
-  margin-right: 20px;
-  ${mobile({ marginRight: "0px" })}
+  ${mobile({ fontSize: "16px" })}
 `;
 
 const Select = styled.select`
   padding: 10px;
-  margin-right: 20px;
-  ${mobile({ margin: "10px 0px" })}
+  ${mobile({ fontSize: "12px", width: "100%" })}
 `;
 
 const Option = styled.option``;
