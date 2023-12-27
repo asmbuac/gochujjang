@@ -11,7 +11,7 @@ const Container = styled.div`
 `;
 
 const Title = styled.h1`
-  margin: 20px;
+  padding: 20px;
   text-transform: uppercase;
 `;
 

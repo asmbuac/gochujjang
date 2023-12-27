@@ -7,17 +7,17 @@ const Container = styled.div`
   max-width: 1600px;
   margin-left: auto;
   margin-right: auto;
-  padding: 20px;
   display: flex;
   flex-direction: column;
 `;
 
 const Title = styled.h1`
-  margin-bottom: 20px;
+  padding: 20px;
   text-transform: uppercase;
 `;
 
 const FilterContainer = styled.div`
+  padding: 20px;
   display: flex;
   align-items: center;
   gap: 20px;
