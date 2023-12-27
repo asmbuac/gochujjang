@@ -4,7 +4,7 @@ import { useGetArtistsQuery } from "../redux/artistApi";
 import Artist from "./Artist";
 
 const Container = styled.div`
-  padding: 20px;
+  padding: 20px 0px;
   display: grid;
   grid-template-columns: repeat(6, 1fr);
   gap: 30px;
@@ -15,7 +15,6 @@ const Container = styled.div`
 
 const Artists = () => {
   const { data: artists } = useGetArtistsQuery();
-  console.log(artists);
 
   return (
     <Container>

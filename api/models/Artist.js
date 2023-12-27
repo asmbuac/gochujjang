@@ -12,6 +12,9 @@ const ArtistSchema = new mongoose.Schema({
   },
   logo: {
     type: String,
+  },
+  type: {
+    type: String,
     required: true,
   },
 });

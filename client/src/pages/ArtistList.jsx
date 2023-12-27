@@ -13,6 +13,7 @@ const Wrapper = styled.div`
 `;
 
 const Title = styled.h1`
+  margin-bottom: 20px;
   text-transform: uppercase;
 `;
 
