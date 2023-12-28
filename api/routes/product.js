@@ -96,6 +96,7 @@ router.get("/", async (req, res) => {
         }
       );
     }
+
     const products = await Product.aggregate(pipeline);
     res.status(200).json(products);
   } catch (err) {

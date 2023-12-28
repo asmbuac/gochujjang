@@ -43,15 +43,34 @@ router.delete("/:id", verifyTokenAndAdmin, async (req, res) => {
 
 // GET ALL ARTISTS
 router.get("/", async (req, res) => {
-  const type = req.query.type;
+  let { type, name } = req.query;
+  if (type && !Array.isArray(type)) {
+    type = [type];
+  }
 
   try {
-    let artists;
+    let pipeline = [];
 
-    type
-      ? (artists = await Artist.find({ type }))
-      : (artists = await Artist.find());
+    if (type) {
+      pipeline.push({
+        $match: { type: { $in: type } },
+      });
+    }
+    if (name) {
+      pipeline.push({
+        $match: {
+          name: {
+            $regex: name,
+            $options: "i",
+          },
+        },
+      });
+    }
+    if (!pipeline.length) {
+      pipeline.push({ $match: {} });
+    }
 
+    const artists = await Artist.aggregate(pipeline);
     res.status(200).json(artists);
   } catch (err) {
     res.status(500).json(err);
