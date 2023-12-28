@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import Artists from "../components/Artists";
-import { mobile } from "../responsive";
+import { mobile, md } from "../responsive";
 import { useState } from "react";
 import { Search } from "@mui/icons-material";
 
@@ -56,7 +56,7 @@ const SearchIcon = styled(Search)`
 const FilterText = styled.span`
   font-size: 20px;
   font-weight: 600;
-  ${mobile({ fontSize: "16px" })}
+  ${md({ display: "none" })}
 `;
 
 const Select = styled.select`
