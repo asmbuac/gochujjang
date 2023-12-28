@@ -13,8 +13,8 @@ const Container = styled.div`
   ${md({ gridTemplateColumns: "repeat(2, 1fr)" })}
 `;
 
-const Artists = ({ filter }) => {
-  const { data: artists } = useGetArtistsQuery(filter);
+const Artists = ({ filters }) => {
+  const { data: artists } = useGetArtistsQuery(filters);
 
   return (
     <Container>

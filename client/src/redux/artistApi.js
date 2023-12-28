@@ -7,7 +7,26 @@ export const artistApi = createApi({
   }),
   endpoints: (builder) => ({
     getArtists: builder.query({
-      query: (type) => (type ? `?type=${type}` : "/"),
+      query: ({ type, name }) => {
+        let params = "?";
+
+        if (type) {
+          if (Array.isArray(type)) {
+            params += `type=${type[0]}`;
+            for (const item of type.slice(1)) {
+              params += `&type=${item}`;
+            }
+          } else {
+            params += `type=${type}`;
+          }
+        }
+        if (name) {
+          type && (params += "&");
+          params += `name=${name}`;
+        }
+
+        return params;
+      },
     }),
   }),
 });

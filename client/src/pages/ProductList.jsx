@@ -37,6 +37,7 @@ const FilterText = styled.span`
 
 const Select = styled.select`
   padding: 10px;
+  border-radius: 0px;
   ${mobile({ fontSize: "12px", width: "100%" })}
 `;
 

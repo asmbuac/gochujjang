@@ -70,7 +70,10 @@ router.get("/", async (req, res) => {
       pipeline.push({ $match: {} });
     }
 
-    const artists = await Artist.aggregate(pipeline);
+    pipeline.push({ $sort: { name: 1 } });
+    const artists = await Artist.aggregate(pipeline, {
+      collation: { locale: "en" },
+    });
     res.status(200).json(artists);
   } catch (err) {
     res.status(500).json(err);
