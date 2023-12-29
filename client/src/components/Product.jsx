@@ -7,10 +7,11 @@ import {
 import styled from "styled-components";
 import { mobile } from "../responsive";
 import { Link, useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addProduct } from "../redux/cartSlice";
 import { useContext, useRef } from "react";
 import { WishlistContext } from "../App";
+import { useUpdateWishlistMutation } from "../redux/wishlistApi";
 
 const Info = styled.div`
   opacity: 0;
@@ -82,9 +83,30 @@ const Product = ({ item }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const wishlist = useContext(WishlistContext);
+  const userId = useSelector((state) => state.auth.currentUser?._id);
+  const [updateWishlist] = useUpdateWishlistMutation();
 
   const addToCart = () => {
     dispatch(addProduct({ ...item, quantity: 1, color: "", size: "" }));
+  };
+
+  const addToWishlist = () => {
+    updateWishlist({
+      userId,
+      data: {
+        products: [...wishlist, item._id],
+      },
+    });
+  };
+
+  const removeFromWishlist = () => {
+    wishlist.delete(item._id);
+    updateWishlist({
+      userId,
+      data: {
+        products: [...wishlist],
+      },
+    });
   };
 
   const checkIfClickedOutside = (e) => {
@@ -107,9 +129,9 @@ const Product = ({ item }) => {
         </Icon>
         <Icon>
           {wishlist && wishlist.has(item._id) ? (
-            <Favorite />
+            <Favorite onClick={removeFromWishlist} />
           ) : (
-            <FavoriteBorderOutlined />
+            <FavoriteBorderOutlined onClick={addToWishlist} />
           )}
         </Icon>
       </Info>
