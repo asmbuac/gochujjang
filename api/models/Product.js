@@ -67,6 +67,7 @@ ProductSchema.pre("aggregate", function (next) {
         color: 1,
         price: 1,
         inStock: 1,
+        createdAt: 1,
       },
     }
   );
