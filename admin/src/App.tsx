@@ -16,6 +16,7 @@ import User from "./pages/user/User";
 import Product from "./pages/product/Product";
 import Orders from "./pages/orders/Orders";
 import { useAppSelector } from "./hooks";
+import Artists from "./pages/artists/Artists";
 
 export default function App() {
   const user = useAppSelector((state) => state.auth.currentUser);
@@ -57,6 +58,10 @@ export default function App() {
         {
           path: "orders",
           element: <Orders />,
+        },
+        {
+          path: "artists",
+          element: <Artists />,
         },
         {
           path: "users/:id",
