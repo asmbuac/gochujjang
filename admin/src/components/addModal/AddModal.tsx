@@ -171,7 +171,7 @@ const AddModal: React.FC<Props> = ({
                     required={column.required}
                     placeholder={column.placeholder || column.headerName}
                   />
-                ) : column.inputType === "select" ? (
+                ) : column.inputType === "select" && slug === "order" ? (
                   <div className="select">
                     <select
                       name={column.field}
@@ -181,6 +181,23 @@ const AddModal: React.FC<Props> = ({
                       <option value="pending">pending</option>
                       <option value="en route">en route</option>
                       <option value="complete">complete</option>
+                    </select>
+                  </div>
+                ) : column.inputType === "select" && slug === "artist" ? (
+                  <div className="select">
+                    <select
+                      name={column.field}
+                      onChange={handleChange}
+                      defaultValue=""
+                    >
+                      <option value="" disabled>
+                        Select a type
+                      </option>
+                      <option value="girl-group">Girl Group</option>
+                      <option value="boy-group">Boy Group</option>
+                      <option value="co-ed-group">Co-Ed Group</option>
+                      <option value="female-solo">Female Solo</option>
+                      <option value="male-solo">Male Solo</option>
                     </select>
                   </div>
                 ) : (

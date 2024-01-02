@@ -38,7 +38,7 @@ export const columns: ColumnInfo[] = [
     type: "string",
     headerName: "Type",
     width: 250,
-    inputType: "text",
+    inputType: "select",
     required: true,
   },
 ];

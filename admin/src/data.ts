@@ -10,6 +10,7 @@ import {
   TextSnippetOutlined,
   PaidOutlined,
   PercentOutlined,
+  GroupsOutlined,
 } from "@mui/icons-material";
 
 export const menu = [
@@ -51,6 +52,12 @@ export const menu = [
         title: "Orders",
         url: "/orders",
         icon: AssignmentOutlined,
+      },
+      {
+        id: 3,
+        title: "Artists",
+        url: "/artists",
+        icon: GroupsOutlined,
       },
     ],
   },

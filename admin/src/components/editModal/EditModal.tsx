@@ -128,7 +128,7 @@ const EditModal: React.FC<Props> = ({
                     onChange={handleChange}
                     placeholder={column.placeholder || column.headerName}
                   />
-                ) : column.inputType === "select" ? (
+                ) : column.inputType === "select" && slug === "order" ? (
                   <div className="select">
                     <select
                       name={column.field}
@@ -138,6 +138,20 @@ const EditModal: React.FC<Props> = ({
                       <option value="pending">pending</option>
                       <option value="en route">en route</option>
                       <option value="complete">complete</option>
+                    </select>
+                  </div>
+                ) : column.inputType === "select" && slug === "artist" ? (
+                  <div className="select">
+                    <select
+                      name={column.field}
+                      onChange={handleChange}
+                      defaultValue={formData[column.field]}
+                    >
+                      <option value="girl-group">Girl Group</option>
+                      <option value="boy-group">Boy Group</option>
+                      <option value="co-ed-group">Co-Ed Group</option>
+                      <option value="female-solo">Female Solo</option>
+                      <option value="male-solo">Male Solo</option>
                     </select>
                   </div>
                 ) : (
