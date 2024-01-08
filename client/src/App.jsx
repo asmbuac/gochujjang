@@ -18,6 +18,7 @@ import { useSelector } from "react-redux";
 import { useGetWishlistQuery } from "./redux/wishlistApi";
 import styled from "styled-components";
 import NavDrawer from "./components/NavDrawer";
+import SearchDrawer from "./components/SearchDrawer";
 
 export const WishlistContext = createContext(null);
 
@@ -50,6 +51,7 @@ const App = () => {
       <Announcement />
       <Navbar setOpen={setOpen} />
       <NavDrawer open={open} setOpen={setOpen} />
+      {/* <SearchDrawer /> */}
       <Marquee />
       <WishlistContext.Provider value={wishlist}>
         <Routes>
