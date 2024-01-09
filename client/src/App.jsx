@@ -28,7 +28,8 @@ const Container = styled.div`
 
 const App = () => {
   const [wishlist, setWishlist] = useState(null);
-  const [open, setOpen] = useState(false);
+  const [navOpen, setNavOpen] = useState(false);
+  const [searchOpen, setSearchOpen] = useState(false);
   const user = useSelector((state) => state.auth.currentUser);
   const { pathname } = useLocation();
   const { data } = useGetWishlistQuery(user?._id);
@@ -49,9 +50,9 @@ const App = () => {
   return (
     <Container>
       <Announcement />
-      <Navbar setOpen={setOpen} />
-      <NavDrawer open={open} setOpen={setOpen} />
-      {/* <SearchDrawer /> */}
+      <Navbar setNavOpen={setNavOpen} setSearchOpen={setSearchOpen} />
+      <NavDrawer open={navOpen} setOpen={setNavOpen} />
+      <SearchDrawer open={searchOpen} setOpen={setSearchOpen} />
       <Marquee />
       <WishlistContext.Provider value={wishlist}>
         <Routes>

@@ -8,8 +8,11 @@ const Container = styled.div`
   position: fixed;
   top: 0px;
   left: 0px;
-  background-color: rgb(0, 0, 0, 0.3);
+  background-color: ${(props) =>
+    props.open ? "rgb(0, 0, 0, 0.3)" : "transparent"};
+  visibility: ${(props) => !props.open && "hidden"};
   z-index: 99999;
+  transition: all 600ms ease-in-out;
 `;
 
 const Wrapper = styled.div`
@@ -19,7 +22,8 @@ const Wrapper = styled.div`
   background-color: white;
   position: absolute;
   top: 0px;
-  right: 0px;
+  right: ${(props) => (props.open ? "0px" : "-500px")};
+  transition: all 600ms cubic-bezier(0.75, 0, 0.175, 1);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -51,7 +55,9 @@ const SearchInput = styled.input`
   font-size: 18px;
 `;
 
-const CloseIcon = styled(Close)``;
+const CloseIcon = styled(Close)`
+  cursor: pointer;
+`;
 
 const ProductsContainer = styled.div`
   width: calc(100% - 60px);
@@ -149,16 +155,16 @@ const Button = styled.button`
   }
 `;
 
-const SearchDrawer = () => {
+const SearchDrawer = ({ open, setOpen }) => {
   return (
-    <Container>
-      <Wrapper>
+    <Container open={open}>
+      <Wrapper open={open}>
         <SearchContainer>
           <InputContainer>
             <SearchIcon />
             <SearchInput />
           </InputContainer>
-          <CloseIcon />
+          <CloseIcon onClick={() => setOpen(false)} />
         </SearchContainer>
         <ProductsContainer>
           <Product>
@@ -170,7 +176,7 @@ const SearchDrawer = () => {
                 <Price>$11.70</Price>
               </Details>
             </Info>
-            <Overlay to="/products"></Overlay>
+            <Overlay to="/products" onClick={() => setOpen(false)}></Overlay>
           </Product>
           <Product>
             <Info to="/products">
@@ -181,11 +187,11 @@ const SearchDrawer = () => {
                 <Price>$11.70</Price>
               </Details>
             </Info>
-            <Overlay to="/products"></Overlay>
+            <Overlay to="/products" onClick={() => setOpen(false)}></Overlay>
           </Product>
         </ProductsContainer>
         <ButtonContainer>
-          <Button>View All Results</Button>
+          <Button onClick={() => setOpen(false)}>View All Results</Button>
         </ButtonContainer>
       </Wrapper>
     </Container>

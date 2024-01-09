@@ -132,7 +132,7 @@ const CartBadge = styled(Badge)`
   }
 `;
 
-const Navbar = ({ setOpen }) => {
+const Navbar = ({ setNavOpen, setSearchOpen }) => {
   const quantity = useSelector((state) => state.cart.quantity);
   const user = useSelector((state) => state.auth.currentUser);
 
@@ -140,7 +140,7 @@ const Navbar = ({ setOpen }) => {
     <Container>
       <Wrapper>
         <Left>
-          <MenuIcon onClick={() => setOpen(true)} />
+          <MenuIcon onClick={() => setNavOpen(true)} />
           <MenuContainer>
             <MenuItem to="/products">ALL</MenuItem>
             <MenuItem to="/products/pre-orders">PRE-ORDERS</MenuItem>
@@ -157,7 +157,7 @@ const Navbar = ({ setOpen }) => {
         </Center>
         <Right>
           <Currency>USD</Currency>
-          <Icon component={Search} />
+          <Icon component={Search} onClick={() => setSearchOpen(true)} />
           <MenuItem to={user ? "/account" : "/login"} hide={true}>
             <Icon component={AccountCircleOutlined} />
           </MenuItem>

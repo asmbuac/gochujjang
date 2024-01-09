@@ -20,8 +20,9 @@ const Container = styled.div`
   left: 0px;
   background-color: ${(props) =>
     props.open ? "rgb(0, 0, 0, 0.3)" : "transparent"};
-  transition: all 500ms cubic-bezier(0.75, 0, 0.175, 1);
-  z-index: ${(props) => (props.open ? "99999" : "-99999")};
+  visibility: ${(props) => !props.open && "hidden"};
+  z-index: 99999;
+  transition: all 600ms ease-in-out;
 `;
 
 const Wrapper = styled.div`
@@ -37,7 +38,7 @@ const Wrapper = styled.div`
   max-width: 100%;
   height: calc(100vh - 60px);
   padding: 30px;
-  transition: all 500ms cubic-bezier(0.67, 0.26, 0.18, 1);
+  transition: all 600ms cubic-bezier(0.75, 0, 0.175, 1);
 `;
 
 const MenuContainer = styled.div`
