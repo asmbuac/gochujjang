@@ -1,4 +1,5 @@
 import { Close, Search } from "@mui/icons-material";
+import { useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
@@ -156,13 +157,37 @@ const Button = styled.button`
 `;
 
 const SearchDrawer = ({ open, setOpen }) => {
+  const ref = useRef();
+
+  useEffect(() => {
+    const checkIfClickedOutside = (e) => {
+      if (ref.current && !ref.current.contains(e.target)) {
+        setOpen(false);
+      }
+    };
+
+    document.addEventListener("click", checkIfClickedOutside, true);
+    return () => {
+      document.removeEventListener("click", checkIfClickedOutside);
+    };
+  }, [setOpen]);
+
+  useEffect(() => {
+    if (open) {
+      document.body.style.overflow = "hidden";
+    }
+    return () => {
+      document.body.style.overflow = "unset";
+    };
+  }, [open]);
+
   return (
     <Container open={open}>
-      <Wrapper open={open}>
+      <Wrapper open={open} ref={ref}>
         <SearchContainer>
           <InputContainer>
             <SearchIcon />
-            <SearchInput />
+            <SearchInput type="text" placeholder="What are you looking for?" />
           </InputContainer>
           <CloseIcon onClick={() => setOpen(false)} />
         </SearchContainer>
@@ -176,7 +201,10 @@ const SearchDrawer = ({ open, setOpen }) => {
                 <Price>$11.70</Price>
               </Details>
             </Info>
-            <Overlay to="/products" onClick={() => setOpen(false)}></Overlay>
+            <Overlay
+              to="/product/658392da5fccef89a4bb19f1"
+              onClick={() => setOpen(false)}
+            ></Overlay>
           </Product>
           <Product>
             <Info to="/products">
@@ -187,7 +215,10 @@ const SearchDrawer = ({ open, setOpen }) => {
                 <Price>$11.70</Price>
               </Details>
             </Info>
-            <Overlay to="/products" onClick={() => setOpen(false)}></Overlay>
+            <Overlay
+              to="/product/658392da5fccef89a4bb19f1"
+              onClick={() => setOpen(false)}
+            ></Overlay>
           </Product>
         </ProductsContainer>
         <ButtonContainer>
