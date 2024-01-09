@@ -1,7 +1,8 @@
 import { Close, Search } from "@mui/icons-material";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { useGetProductsQuery } from "../redux/productApi";
 
 const Container = styled.div`
   width: 100vw;
@@ -158,6 +159,8 @@ const Button = styled.button`
 
 const SearchDrawer = ({ open, setOpen }) => {
   const ref = useRef();
+  const [query, setQuery] = useState("");
+  const { data: products, isLoading } = useGetProductsQuery(query);
 
   useEffect(() => {
     const checkIfClickedOutside = (e) => {
@@ -187,39 +190,36 @@ const SearchDrawer = ({ open, setOpen }) => {
         <SearchContainer>
           <InputContainer>
             <SearchIcon />
-            <SearchInput type="text" placeholder="What are you looking for?" />
+            <SearchInput
+              type="text"
+              placeholder="What are you looking for?"
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+            />
           </InputContainer>
           <CloseIcon onClick={() => setOpen(false)} />
         </SearchContainer>
         <ProductsContainer>
-          <Product>
-            <Info to="/products">
-              <Image src="https://kpopmerch.com/cdn/shop/files/blackpink-md-goods-blackpink-blackpink-the-game-coupon-card-35485463412917_1000x.jpg?v=1686551535" />
-              <Details>
-                <Artist>BLACKPINK</Artist>
-                <Title>BLACKPINK - BLACKPINK The Game Coupon Card</Title>
-                <Price>$11.70</Price>
-              </Details>
-            </Info>
-            <Overlay
-              to="/product/658392da5fccef89a4bb19f1"
-              onClick={() => setOpen(false)}
-            ></Overlay>
-          </Product>
-          <Product>
-            <Info to="/products">
-              <Image src="https://kpopmerch.com/cdn/shop/files/blackpink-md-goods-blackpink-blackpink-the-game-coupon-card-35485463412917_1000x.jpg?v=1686551535" />
-              <Details>
-                <Artist>BLACKPINK</Artist>
-                <Title>BLACKPINK - BLACKPINK The Game Coupon Card</Title>
-                <Price>$11.70</Price>
-              </Details>
-            </Info>
-            <Overlay
-              to="/product/658392da5fccef89a4bb19f1"
-              onClick={() => setOpen(false)}
-            ></Overlay>
-          </Product>
+          {!query.length
+            ? ""
+            : isLoading
+            ? "Loading"
+            : products?.map((product) => (
+                <Product>
+                  <Info>
+                    <Image src={product.image} />
+                    <Details>
+                      <Artist>{product.artist}</Artist>
+                      <Title>{product.title}</Title>
+                      <Price>${product.price}</Price>
+                    </Details>
+                  </Info>
+                  <Overlay
+                    to={`/product/${product._id}`}
+                    onClick={() => setOpen(false)}
+                  ></Overlay>
+                </Product>
+              ))}
         </ProductsContainer>
         <ButtonContainer>
           <Button onClick={() => setOpen(false)}>View All Results</Button>

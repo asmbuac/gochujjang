@@ -34,15 +34,15 @@ const Wrapper = styled.div`
   top: 0px;
   left: ${(props) => (props.open ? "0px" : "-400px")};
   background-color: white;
-  width: 340px;
-  max-width: 100%;
-  height: calc(100vh - 60px);
-  padding: 30px;
+  width: 90vw;
+  max-width: 400px;
+  height: 100%;
   transition: all 600ms cubic-bezier(0.75, 0, 0.175, 1);
 `;
 
 const MenuContainer = styled.div`
-  width: 100%;
+  width: calc(100% - 60px);
+  padding: 30px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -81,7 +81,8 @@ const MenuItem = styled(NavLink)`
 `;
 
 const AccountContainer = styled.div`
-  width: 100%;
+  width: calc(100% - 60px);
+  padding: 30px;
   display: flex;
   flex-direction: column;
   align-items: center;

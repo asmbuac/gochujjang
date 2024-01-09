@@ -108,6 +108,7 @@ const Right = styled.div`
   column-gap: 25px;
 
   ${md({ columnGap: "15px" })}
+  ${mobile({ columnGap: "10px" })}
 `;
 
 const Currency = styled.span`
@@ -158,7 +159,7 @@ const Navbar = ({ setNavOpen, setSearchOpen }) => {
         <Right>
           <Currency>USD</Currency>
           <Icon component={Search} onClick={() => setSearchOpen(true)} />
-          <MenuItem to={user ? "/account" : "/login"} hide={true}>
+          <MenuItem to={user ? "/account" : "/login"}>
             <Icon component={AccountCircleOutlined} />
           </MenuItem>
           <MenuItem to="/wishlist">

@@ -68,7 +68,7 @@ const Select = styled.select`
 const Option = styled.option``;
 
 const ArtistList = () => {
-  const [filters, setFilters] = useState({});
+  const [filters, setFilters] = useState({ name: "" });
   const handleFilters = (e) => {
     let { name, value, selectedOptions } = e.target;
     if (name === "type") {
