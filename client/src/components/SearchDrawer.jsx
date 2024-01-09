@@ -222,7 +222,9 @@ const SearchDrawer = ({ open, setOpen }) => {
               ))}
         </ProductsContainer>
         <ButtonContainer>
-          <Button onClick={() => setOpen(false)}>View All Results</Button>
+          <Link to={`/products/${query}`}>
+            <Button onClick={() => setOpen(false)}>View All Results</Button>
+          </Link>
         </ButtonContainer>
       </Wrapper>
     </Container>
