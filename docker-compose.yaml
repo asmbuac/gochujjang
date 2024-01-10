@@ -1,0 +1,41 @@
+volumes:
+  jjang-data:
+services:
+  api:
+    image: node:lts-bullseye
+    command: /bin/bash run.sh
+    working_dir: /app
+    environment:
+      MONGO_URL: ${MONGO_URL}
+      PASSWORD_KEY: ${PASSWORD_KEY}
+      JWT_KEY: ${JWT_KEY}
+      STRIPE_KEY: ${STRIPE_KEY}
+      PORT: 8000
+    ports:
+      - 8000:8000
+    volumes:
+      - ./api:/app
+  client:
+    image: node:lts-bullseye
+    command: /bin/bash run.sh
+    working_dir: /app
+    volumes:
+      - ./client:/app
+    ports:
+      - "3000:3000"
+    environment:
+      HOST: "0.0.0.0"
+      PUBLIC_URL: http://localhost:3000
+      REACT_APP_JJANG_API_HOST: http://localhost:8000
+  admin:
+    image: node:lts-bullseye
+    command: /bin/bash run.sh
+    working_dir: /app
+    volumes:
+      - ./admin:/app
+    ports:
+      - "3001:3001"
+    environment:
+      HOST: "0.0.0.0"
+      PUBLIC_URL: http://localhost:3001
+      REACT_APP_JJANG_API_HOST: http://localhost:8000

@@ -54,7 +54,7 @@ export const menu = [
         icon: AssignmentOutlined,
       },
       {
-        id: 3,
+        id: 4,
         title: "Artists",
         url: "/artists",
         icon: GroupsOutlined,
