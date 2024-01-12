@@ -160,7 +160,7 @@ const Button = styled.button`
 const SearchDrawer = ({ open, setOpen }) => {
   const ref = useRef();
   const [query, setQuery] = useState("");
-  const { data: products, isLoading } = useGetProductsQuery(query);
+  const { data: products, isLoading } = useGetProductsQuery({ title: query });
 
   useEffect(() => {
     const checkIfClickedOutside = (e) => {

@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import Products from "../components/Products";
 import { mobile } from "../responsive";
-import { useLocation } from "react-router-dom";
+import { useLocation, useSearchParams } from "react-router-dom";
 import { useState } from "react";
 
 const Container = styled.div`
@@ -45,7 +45,11 @@ const Option = styled.option``;
 
 const ProductList = () => {
   const location = useLocation();
-  const category = location.pathname.split("/")[2]?.split("%20").join(" ");
+  const category =
+    location.pathname.split("/")[2]?.split("%20").join(" ") || "";
+  const [searchParams, setSearchParams] = useSearchParams();
+  const artist = searchParams.get("artist") || "";
+  const title = searchParams.get("title") || "";
   const [filters, setFilters] = useState({});
   const [sort, setSort] = useState("newest");
 
@@ -99,7 +103,12 @@ const ProductList = () => {
           </Select>
         </Filter>
       </FilterContainer>
-      <Products category={category} filters={filters} sort={sort} />
+      <Products
+        category={category}
+        params={{ category, artist, title }}
+        filters={filters}
+        sort={sort}
+      />
     </Container>
   );
 };

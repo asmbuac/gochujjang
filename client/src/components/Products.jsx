@@ -14,8 +14,8 @@ const Container = styled.div`
   ${md({ gridTemplateColumns: "repeat(2, 1fr)" })}
 `;
 
-const Products = ({ category, filters, sort }) => {
-  const { data: products } = useGetProductsQuery(category);
+const Products = ({ category, params, filters, sort }) => {
+  const { data: products } = useGetProductsQuery(params);
   const [filteredProducts, setFilteredProducts] = useState([]);
 
   useEffect(() => {
