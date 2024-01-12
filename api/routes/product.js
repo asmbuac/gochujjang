@@ -56,11 +56,26 @@ router.get("/:id", async (req, res) => {
 
 // GET ALL PRODUCTS
 router.get("/", async (req, res) => {
-  const { new: qNew, category: qCategory, artist: qArtist } = req.query;
+  const {
+    new: qNew,
+    category: qCategory,
+    artist: qArtist,
+    title: qTitle,
+  } = req.query;
 
   try {
     let pipeline = [];
 
+    if (qTitle) {
+      pipeline.push({
+        $match: {
+          title: {
+            $regex: qTitle,
+            $options: "i",
+          },
+        },
+      });
+    }
     if (qCategory) {
       pipeline.push({
         $match: {
