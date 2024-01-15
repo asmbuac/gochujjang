@@ -2,6 +2,7 @@ import { Close, Search } from "@mui/icons-material";
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { mobile } from "../responsive";
 import { useGetProductsQuery } from "../redux/productApi";
 
 const Container = styled.div`
@@ -18,7 +19,7 @@ const Container = styled.div`
 `;
 
 const Wrapper = styled.div`
-  width: 90vw;
+  width: 100%;
   max-width: 500px;
   height: 100%;
   background-color: white;
@@ -48,17 +49,27 @@ const InputContainer = styled.div`
   gap: 10px;
 `;
 
-const SearchIcon = styled(Search)``;
+const SearchIcon = styled(Search)`
+  ${mobile({
+    height: "20px !important",
+    width: "20px !important",
+  })}
+`;
 
 const SearchInput = styled.input`
   width: 100%;
   border: none;
   outline: none;
   font-size: 18px;
+  ${mobile({ fontSize: "14px" })}
 `;
 
 const CloseIcon = styled(Close)`
   cursor: pointer;
+  ${mobile({
+    height: "20px !important",
+    width: "20px !important",
+  })}
 `;
 
 const ProductsContainer = styled.div`
@@ -99,14 +110,15 @@ const Product = styled.div`
 
 const Info = styled.div`
   display: flex;
+  align-items: center;
   gap: 20px;
 `;
 
 const Image = styled.img`
   width: 100px;
-  height: auto;
-  aspect-ratio: 1;
+  height: 100px;
   object-fit: cover;
+  ${mobile({ width: "80px", height: "80px" })}
 `;
 
 const Details = styled.div`
@@ -121,11 +133,13 @@ const Artist = styled.span`
   font-weight: 600;
   color: gray;
   letter-spacing: 1px;
+  ${mobile({ fontSize: "10px" })}
 `;
 
 const Title = styled.span`
   font-size: 14px;
   font-weight: 600;
+  ${mobile({ fontSize: "13px" })}
 `;
 
 const Price = styled.span`
@@ -133,6 +147,7 @@ const Price = styled.span`
   font-weight: 600;
   color: #7487bf;
   letter-spacing: 1px;
+  ${mobile({ fontSize: "16px" })}
 `;
 
 const ButtonContainer = styled.div`
@@ -151,6 +166,7 @@ const Button = styled.button`
   text-transform: uppercase;
   cursor: pointer;
   transition: all 200ms ease;
+  ${mobile({ fontSize: "12px" })}
 
   &:hover {
     background-color: #5c6c98;

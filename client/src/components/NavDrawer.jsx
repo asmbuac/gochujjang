@@ -34,7 +34,7 @@ const Wrapper = styled.div`
   top: 0px;
   left: ${(props) => (props.open ? "0px" : "-400px")};
   background-color: white;
-  width: 90vw;
+  width: 80vw;
   max-width: 400px;
   height: 100%;
   transition: all 600ms cubic-bezier(0.75, 0, 0.175, 1);
