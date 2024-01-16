@@ -19,6 +19,7 @@ import { useGetWishlistQuery } from "./redux/wishlistApi";
 import styled from "styled-components";
 import NavDrawer from "./components/NavDrawer";
 import SearchDrawer from "./components/SearchDrawer";
+import Account from "./pages/Account";
 
 export const WishlistContext = createContext(null);
 
@@ -74,6 +75,7 @@ const App = () => {
           <Route path="/success" element={<Success />} />
           <Route path="/wishlist" element={<Wishlist />} />
           <Route path="/artists" element={<ArtistList />} />
+          <Route path="/account" element={<Account />} />
         </Routes>
       </WishlistContext.Provider>
       <Newsletter />

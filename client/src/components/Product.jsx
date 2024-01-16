@@ -5,7 +5,6 @@ import {
   ShoppingCartOutlined,
 } from "@mui/icons-material";
 import styled from "styled-components";
-import { mobile } from "../responsive";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { addProduct } from "../redux/cartSlice";
@@ -45,8 +44,6 @@ const Container = styled.div`
 const Image = styled.img`
   width: 100%;
   z-index: 1;
-
-  ${mobile({ height: "65%" })}
 `;
 
 const Icon = styled.div`
