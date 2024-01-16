@@ -20,6 +20,8 @@ import styled from "styled-components";
 import NavDrawer from "./components/NavDrawer";
 import SearchDrawer from "./components/SearchDrawer";
 import Account from "./pages/Account";
+import Orders from "./pages/Orders";
+import AccountInfo from "./pages/AccountInfo";
 
 export const WishlistContext = createContext(null);
 
@@ -75,7 +77,13 @@ const App = () => {
           <Route path="/success" element={<Success />} />
           <Route path="/wishlist" element={<Wishlist />} />
           <Route path="/artists" element={<ArtistList />} />
-          <Route path="/account" element={<Account />} />
+          <Route
+            path="/account"
+            element={user ? <Account /> : <Navigate replace to="/login" />}
+          >
+            <Route index element={<AccountInfo />} />
+            <Route path="orders" element={<Orders />} />
+          </Route>
         </Routes>
       </WishlistContext.Provider>
       <Newsletter />
