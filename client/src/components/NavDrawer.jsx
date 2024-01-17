@@ -107,16 +107,18 @@ const NavDrawer = ({ open, setOpen }) => {
   const dispatch = useDispatch();
 
   const handleLogout = async () => {
+    let products;
     if (storeCart.length > 0) {
-      const products = storeCart.map(({ _id, quantity }) => ({
+      products = storeCart.map(({ _id, quantity }) => ({
         product: _id,
         quantity,
       }));
-
-      await (cartData
-        ? updateCart({ id: user?._id, data: { products } })
-        : createCart({ userId: user?._id, products }));
+    } else {
+      products = [];
     }
+    await (cartData
+      ? updateCart({ id: user?._id, data: { products } })
+      : createCart({ userId: user?._id, products }));
     dispatch(deleteCart());
     dispatch(logout());
     setOpen(false);

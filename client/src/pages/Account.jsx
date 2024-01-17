@@ -1,4 +1,5 @@
 import {
+  LogoutOutlined,
   ManageAccountsOutlined,
   ReceiptLongOutlined,
 } from "@mui/icons-material";
@@ -6,6 +7,14 @@ import { SvgIcon } from "@mui/material";
 import { NavLink, Outlet } from "react-router-dom";
 import styled from "styled-components";
 import { mobile, md } from "../responsive";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  useCreateCartMutation,
+  useGetCartQuery,
+  useUpdateCartMutation,
+} from "../redux/cartApi";
+import { deleteCart } from "../redux/cartSlice";
+import { logout } from "../redux/authSlice";
 
 const Container = styled.div`
   max-width: 1600px;
@@ -74,6 +83,30 @@ const Content = styled.div`
 `;
 
 const Account = () => {
+  const userId = useSelector((state) => state.auth.currentUser?._id);
+  const storeCart = useSelector((state) => state.cart.products);
+  const { data: cartData } = useGetCartQuery(userId);
+  const [createCart] = useCreateCartMutation();
+  const [updateCart] = useUpdateCartMutation();
+  const dispatch = useDispatch();
+
+  const handleLogout = async () => {
+    let products;
+    if (storeCart.length > 0) {
+      products = storeCart.map(({ _id, quantity }) => ({
+        product: _id,
+        quantity,
+      }));
+    } else {
+      products = [];
+    }
+    await (cartData
+      ? updateCart({ id: userId, data: { products } })
+      : createCart({ userId, products }));
+    dispatch(deleteCart());
+    dispatch(logout());
+  };
+
   return (
     <Container>
       <Nav>
@@ -84,6 +117,10 @@ const Account = () => {
         <NavItem to="/account/orders" end>
           <Icon component={ReceiptLongOutlined} />
           <ItemTitle>My Orders</ItemTitle>
+        </NavItem>
+        <NavItem to="/" onClick={handleLogout}>
+          <Icon component={LogoutOutlined} />
+          <ItemTitle>Logout</ItemTitle>
         </NavItem>
       </Nav>
       <Content>
