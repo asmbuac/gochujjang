@@ -20,36 +20,38 @@ const Info = styled.div`
   flex-direction: column;
 `;
 
-const Detail = styled.div`
-  display: flex;
-  flex-direction: column;
-  border-bottom: 1px solid #f0f0f0;
-  padding: 15px 0;
-`;
-
-const DetailTitle = styled.span`
-  font-size: 12px;
-  color: gray;
-`;
-
-const Data = styled.span``;
-
 const ResetPasswordButton = styled.button`
   margin-top: 15px;
   width: fit-content;
   padding: 10px;
+  cursor: pointer;
 `;
 
 const AccountInfo = () => {
   return (
     <>
-      <Title>My Info</Title>
+      <Title>My Account</Title>
       <Header>Contact Details</Header>
       <Info>
-        <AccountDetail field="name" data="Adrienne Shayne Buac" />
-        <AccountDetail field="email address" data="asmbuac@gmail.com" />
-        <AccountDetail field="username" data="asmbuac" />
-        <ResetPasswordButton>Reset password</ResetPasswordButton>
+        <AccountDetail
+          label="name"
+          field="name"
+          data={{ firstName: "Adrienne Shayne", lastName: "Buac" }}
+          type="text"
+        />
+        <AccountDetail
+          label="email address"
+          field="email"
+          data="asmbuac@gmail.com"
+          type="email"
+        />
+        <AccountDetail
+          label="username"
+          field="username"
+          data="asmbuac"
+          type="text"
+        />
+        <ResetPasswordButton type="button">Reset password</ResetPasswordButton>
       </Info>
     </>
   );

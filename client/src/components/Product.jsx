@@ -2,7 +2,7 @@ import {
   Favorite,
   FavoriteBorderOutlined,
   Search,
-  ShoppingCartOutlined,
+  AddShoppingCartOutlined,
 } from "@mui/icons-material";
 import styled from "styled-components";
 import { Link, useNavigate } from "react-router-dom";
@@ -117,7 +117,7 @@ const Product = ({ item }) => {
       <Image src={item.image} />
       <Info ref={ref} onClick={checkIfClickedOutside}>
         <Icon>
-          <ShoppingCartOutlined onClick={addToCart} />
+          <AddShoppingCartOutlined onClick={addToCart} />
         </Icon>
         <Icon>
           <ProductLink to={`/product/${item._id}`}>
