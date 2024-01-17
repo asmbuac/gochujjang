@@ -1,6 +1,9 @@
 import { EditOutlined } from "@mui/icons-material";
 import { useState } from "react";
 import styled from "styled-components";
+import { useDispatch, useSelector } from "react-redux";
+import axios from "axios";
+import { loginSuccess } from "../redux/authSlice";
 
 const Container = styled.div`
   display: flex;
@@ -86,11 +89,30 @@ const EditButton = styled(EditOutlined)`
 
 const AccountDetail = ({ label, field, data, type }) => {
   const [showForm, setShowForm] = useState(false);
+  const { _id: userId, token } = useSelector((state) => state.auth.currentUser);
+  const dispatch = useDispatch();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
-    console.table(Object.fromEntries(formData));
+    try {
+      const res = await axios.put(
+        `http://localhost:8000/api/users/${userId}`,
+        Object.fromEntries(formData),
+        {
+          headers: {
+            token: `Bearer ${token}`,
+          },
+        }
+      );
+
+      if (res.data) {
+        dispatch(loginSuccess({ ...res.data, token: token }));
+        setShowForm(false);
+      }
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   if (showForm) {

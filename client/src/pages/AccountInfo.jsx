@@ -1,6 +1,7 @@
 import { EditOutlined } from "@mui/icons-material";
 import styled from "styled-components";
 import AccountDetail from "../components/AccountDetail";
+import { useSelector } from "react-redux";
 
 const Title = styled.h1`
   margin-bottom: 30px;
@@ -28,6 +29,8 @@ const ResetPasswordButton = styled.button`
 `;
 
 const AccountInfo = () => {
+  const user = useSelector((state) => state.auth.currentUser);
+
   return (
     <>
       <Title>My Account</Title>
@@ -36,19 +39,19 @@ const AccountInfo = () => {
         <AccountDetail
           label="name"
           field="name"
-          data={{ firstName: "Adrienne Shayne", lastName: "Buac" }}
+          data={{ firstName: user?.firstName, lastName: user?.lastName }}
           type="text"
         />
         <AccountDetail
           label="email address"
           field="email"
-          data="asmbuac@gmail.com"
+          data={user?.email}
           type="email"
         />
         <AccountDetail
           label="username"
           field="username"
-          data="asmbuac"
+          data={user?.username}
           type="text"
         />
         <ResetPasswordButton type="button">Reset password</ResetPasswordButton>
