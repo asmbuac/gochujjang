@@ -17,7 +17,7 @@ import { deleteCart } from "../redux/cartSlice";
 import { logout } from "../redux/authSlice";
 
 const Container = styled.div`
-  max-width: 1600px;
+  max-width: 1200px;
   margin-left: auto;
   margin-right: auto;
   display: flex;
@@ -26,9 +26,6 @@ const Container = styled.div`
 
 const Nav = styled.div`
   padding: 20px 10px 20px 30px;
-  position: sticky;
-  top: 60px;
-  max-height: calc(100vh - 60px);
   width: 260px;
   display: flex;
   flex-direction: column;
@@ -72,8 +69,8 @@ const Icon = styled(SvgIcon)`
 const ItemTitle = styled.span``;
 
 const Content = styled.div`
-  max-width: calc(100% - 300px);
-  width: calc(100% - 300px);
+  max-width: 560px;
+  width: 100%;
   padding: 20px;
 
   ${md({

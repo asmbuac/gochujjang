@@ -62,55 +62,46 @@ const Button = styled.button`
 const ResetPassword = () => {
   const [showForm, setShowForm] = useState(false);
 
-  if (showForm) {
-    return (
-      <Form>
-        <InputContainer>
-          <Label htmlFor="oldPassword">Old Password</Label>
-          <Input
-            type="password"
-            id="oldPassword"
-            name="oldPassword"
-            defaultValue=""
-          />
-        </InputContainer>
-        <InputContainer>
-          <Label htmlFor="password">New Password</Label>
-          <Input
-            type="password"
-            id="password"
-            name="password"
-            defaultValue=""
-          />
-        </InputContainer>
-        <InputContainer>
-          <Label htmlFor="confirmPassword">Confirm New Password</Label>
-          <Input
-            type="password"
-            id="confirmPassword"
-            name="confirmPassword"
-            defaultValue=""
-          />
-        </InputContainer>
-        <ButtonContainer justify="right" margin="10px">
-          <Button
-            bc="black"
-            bg="white"
-            color="black"
-            type="button"
-            onClick={() => setShowForm(false)}
-          >
-            Cancel
-          </Button>
-          <Button bc="black" bg="black" color="white" type="submit">
-            Save
-          </Button>
-        </ButtonContainer>
-      </Form>
-    );
-  }
-
-  return (
+  return showForm ? (
+    <Form>
+      <InputContainer>
+        <Label htmlFor="oldPassword">Old Password</Label>
+        <Input
+          type="password"
+          id="oldPassword"
+          name="oldPassword"
+          defaultValue=""
+        />
+      </InputContainer>
+      <InputContainer>
+        <Label htmlFor="password">New Password</Label>
+        <Input type="password" id="password" name="password" defaultValue="" />
+      </InputContainer>
+      <InputContainer>
+        <Label htmlFor="confirmPassword">Confirm New Password</Label>
+        <Input
+          type="password"
+          id="confirmPassword"
+          name="confirmPassword"
+          defaultValue=""
+        />
+      </InputContainer>
+      <ButtonContainer justify="right" margin="10px">
+        <Button
+          bc="black"
+          bg="white"
+          color="black"
+          type="button"
+          onClick={() => setShowForm(false)}
+        >
+          Cancel
+        </Button>
+        <Button bc="black" bg="black" color="white" type="submit">
+          Save
+        </Button>
+      </ButtonContainer>
+    </Form>
+  ) : (
     <ButtonContainer
       margin="15px"
       style={{ color: "rosybrown", cursor: "pointer" }}
