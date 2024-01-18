@@ -1,7 +1,7 @@
-import { EditOutlined } from "@mui/icons-material";
 import styled from "styled-components";
 import AccountDetail from "../components/AccountDetail";
 import { useSelector } from "react-redux";
+import ResetPassword from "../components/ResetPassword";
 
 const Title = styled.h1`
   margin-bottom: 30px;
@@ -19,13 +19,6 @@ const Header = styled.h2`
 const Info = styled.div`
   display: flex;
   flex-direction: column;
-`;
-
-const ResetPasswordButton = styled.button`
-  margin-top: 15px;
-  width: fit-content;
-  padding: 10px;
-  cursor: pointer;
 `;
 
 const AccountInfo = () => {
@@ -54,7 +47,7 @@ const AccountInfo = () => {
           data={user?.username}
           type="text"
         />
-        <ResetPasswordButton type="button">Reset password</ResetPasswordButton>
+        <ResetPassword />
       </Info>
     </>
   );
