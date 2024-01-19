@@ -1,11 +1,29 @@
-import { RestartAltOutlined } from "@mui/icons-material";
-import { useState } from "react";
+import {
+  CheckCircleOutline,
+  ErrorOutline,
+  RestartAltOutlined,
+} from "@mui/icons-material";
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import styled from "styled-components";
 
 const Form = styled.form`
   margin-top: 15px;
   display: flex;
   flex-direction: column;
+`;
+
+const MsgContainer = styled.div`
+  margin: ${(props) => props.margin};
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: ${(props) => props.color};
+`;
+
+const Msg = styled.span`
+  font-weight: 600;
 `;
 
 const InputContainer = styled.div`
@@ -37,7 +55,7 @@ const ButtonContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: ${(props) => props.justify};
-  gap: 8px;
+  gap: 10px;
   margin-top: ${(props) => props.margin};
 `;
 
@@ -61,9 +79,49 @@ const Button = styled.button`
 
 const ResetPassword = () => {
   const [showForm, setShowForm] = useState(false);
+  const [errorMsg, setErrorMsg] = useState("");
+  const [successMsg, setSuccessMsg] = useState("");
+  const [tracker, setTracker] = useState(0);
+  const { _id: userId, token } = useSelector((state) => state.auth.currentUser);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+
+    try {
+      const res = await axios.put(
+        `http://localhost:8000/api/users/${userId}`,
+        Object.fromEntries(formData),
+        {
+          headers: {
+            token: `Bearer ${token}`,
+          },
+        }
+      );
+
+      if (res.data) {
+        setErrorMsg("");
+        setShowForm(false);
+        setSuccessMsg("You changed your password successfully!");
+        setTracker((prev) => prev + 1);
+      }
+    } catch (err) {
+      setErrorMsg(err.response?.data || "Something went wrong...");
+    }
+  };
+
+  useEffect(() => {
+    successMsg.length > 0 && setTimeout(() => setSuccessMsg(""), 5000);
+  }, [tracker]);
 
   return showForm ? (
-    <Form>
+    <Form onSubmit={handleSubmit}>
+      {errorMsg.length > 0 && (
+        <MsgContainer color="rosybrown" margin="0 0 15px">
+          <ErrorOutline />
+          <Msg>{errorMsg}</Msg>
+        </MsgContainer>
+      )}
       <InputContainer>
         <Label htmlFor="oldPassword">Old Password</Label>
         <Input
@@ -102,14 +160,22 @@ const ResetPassword = () => {
       </ButtonContainer>
     </Form>
   ) : (
-    <ButtonContainer
-      margin="15px"
-      style={{ color: "rosybrown", cursor: "pointer" }}
-      onClick={() => setShowForm(true)}
-    >
-      <RestartAltOutlined />
-      Reset Password
-    </ButtonContainer>
+    <>
+      {successMsg.length > 0 && (
+        <MsgContainer color="darkolivegreen" margin="15px 0 0">
+          <CheckCircleOutline />
+          <Msg>{successMsg}</Msg>
+        </MsgContainer>
+      )}
+      <ButtonContainer
+        margin="15px"
+        style={{ color: "rosybrown", cursor: "pointer" }}
+        onClick={() => setShowForm(true)}
+      >
+        <RestartAltOutlined />
+        Reset Password
+      </ButtonContainer>
+    </>
   );
 };
 

@@ -3,6 +3,7 @@ const {
   verifyTokenAndAuthorization,
   verifyTokenAndAdmin,
 } = require("./verifyToken");
+const CryptoJS = require("crypto-js");
 
 const router = require("express").Router();
 
@@ -35,6 +36,25 @@ router.get("/stats", verifyTokenAndAdmin, async (req, res) => {
 // UPDATE
 router.put("/:id", verifyTokenAndAuthorization, async (req, res) => {
   if (req.body.password) {
+    const user = await User.findById(req.params.id);
+    if (!user) {
+      return res.status(400).json("User does not exist");
+    }
+
+    const hashedPassword = CryptoJS.AES.decrypt(
+      user.password,
+      process.env.PASSWORD_KEY
+    );
+    const ogPassword = hashedPassword.toString(CryptoJS.enc.Utf8);
+
+    if (ogPassword !== req.body.oldPassword) {
+      return res.status(400).json("Incorrect password");
+    }
+
+    if (req.body.password !== req.body.confirmPassword) {
+      return res.status(400).json("Passwords do not match");
+    }
+
     req.body.password = CryptoJS.AES.encrypt(
       req.body.password,
       process.env.PASSWORD_KEY

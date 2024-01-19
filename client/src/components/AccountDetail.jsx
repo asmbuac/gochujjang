@@ -95,6 +95,7 @@ const AccountDetail = ({ label, field, data, type }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
+
     try {
       const res = await axios.put(
         `http://localhost:8000/api/users/${userId}`,
