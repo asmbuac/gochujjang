@@ -1,5 +1,3 @@
-volumes:
-  jjang-data:
 services:
   api:
     image: node:lts-bullseye
