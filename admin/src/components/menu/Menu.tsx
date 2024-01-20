@@ -25,14 +25,13 @@ const Menu = () => {
           <div className="item" key={item.id}>
             <span className="title">{item.title}</span>
             {item.listItems.map((listItem) => (
-              <MenuItem listItem={listItem} userId={userId} />
+              <MenuItem listItem={listItem} userId={userId} key={listItem.id} />
             ))}
           </div>
         ))}
       </div>
       <div className="logout" onClick={handleClick}>
-        <Logout />
-        <span>Logout</span>
+        <MenuItem listItem={{ title: "Logout", icon: Logout }} />
       </div>
     </div>
   );

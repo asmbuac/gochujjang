@@ -6,12 +6,12 @@ import Tooltip from "../tooltip/Tooltip";
 
 type Props = {
   listItem: {
-    id: number;
+    id?: number;
     title: string;
     url?: string;
     icon: SvgIconComponent;
   };
-  userId: string;
+  userId?: string;
 };
 
 const MenuItem: React.FC<Props> = ({ listItem, userId }) => {
@@ -20,11 +20,13 @@ const MenuItem: React.FC<Props> = ({ listItem, userId }) => {
 
   useEffect(() => {
     const checkWindowWidth = () => {
-      if (window.innerWidth < 1024) {
-        setTooltipOption(true);
-      }
+      window.innerWidth < 1024
+        ? setTooltipOption(true)
+        : setTooltipOption(false);
     };
+
     checkWindowWidth();
+
     window.addEventListener("resize", checkWindowWidth, true);
     return () => {
       window.removeEventListener("resize", checkWindowWidth);
