@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { mobile } from "../responsive";
 import { useGetProductsQuery } from "../redux/productApi";
+import useCheckOutsideClick from "../hooks/useCheckOutsideClick";
 
 const Container = styled.div`
   width: 100vw;
@@ -174,22 +175,9 @@ const Button = styled.button`
 `;
 
 const SearchDrawer = ({ open, setOpen }) => {
-  const ref = useRef();
+  const ref = useCheckOutsideClick(setOpen);
   const [query, setQuery] = useState("");
   const { data: products, isLoading } = useGetProductsQuery({ title: query });
-
-  useEffect(() => {
-    const checkIfClickedOutside = (e) => {
-      if (ref.current && !ref.current.contains(e.target)) {
-        setOpen(false);
-      }
-    };
-
-    document.addEventListener("click", checkIfClickedOutside, true);
-    return () => {
-      document.removeEventListener("click", checkIfClickedOutside);
-    };
-  }, [setOpen]);
 
   useEffect(() => {
     if (open) {

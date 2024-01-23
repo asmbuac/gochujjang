@@ -1,5 +1,5 @@
 import { AccountCircleOutlined, Close } from "@mui/icons-material";
-import { useEffect, useRef } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import styled from "styled-components";
@@ -11,6 +11,7 @@ import {
 } from "../redux/cartApi";
 import { deleteCart } from "../redux/cartSlice";
 import { logout } from "../redux/authSlice";
+import useCheckOutsideClick from "../hooks/useCheckOutsideClick";
 
 const Container = styled.div`
   width: 100vw;
@@ -98,7 +99,7 @@ const AccountIcon = styled(AccountCircleOutlined)`
 `;
 
 const NavDrawer = ({ open, setOpen }) => {
-  const ref = useRef();
+  const ref = useCheckOutsideClick(setOpen);
   const user = useSelector((state) => state.auth.currentUser);
   const storeCart = useSelector((state) => state.cart.products);
   const { data: cartData } = useGetCartQuery(user?._id);
@@ -123,19 +124,6 @@ const NavDrawer = ({ open, setOpen }) => {
     dispatch(logout());
     setOpen(false);
   };
-
-  useEffect(() => {
-    const checkIfClickedOutside = (e) => {
-      if (ref.current && !ref.current.contains(e.target)) {
-        setOpen(false);
-      }
-    };
-
-    document.addEventListener("click", checkIfClickedOutside, true);
-    return () => {
-      document.removeEventListener("click", checkIfClickedOutside);
-    };
-  }, [setOpen]);
 
   useEffect(() => {
     if (open) {
