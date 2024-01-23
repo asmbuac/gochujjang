@@ -1,10 +1,11 @@
 import { Close, Search } from "@mui/icons-material";
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { mobile } from "../responsive";
 import { useGetProductsQuery } from "../redux/productApi";
 import useCheckOutsideClick from "../hooks/useCheckOutsideClick";
+import useHideScrollbar from "../hooks/useHideScrollbar";
 
 const Container = styled.div`
   width: 100vw;
@@ -178,15 +179,7 @@ const SearchDrawer = ({ open, setOpen }) => {
   const ref = useCheckOutsideClick(setOpen);
   const [query, setQuery] = useState("");
   const { data: products, isLoading } = useGetProductsQuery({ title: query });
-
-  useEffect(() => {
-    if (open) {
-      document.body.style.overflow = "hidden";
-    }
-    return () => {
-      document.body.style.overflow = "unset";
-    };
-  }, [open]);
+  useHideScrollbar(open);
 
   return (
     <Container open={open}>

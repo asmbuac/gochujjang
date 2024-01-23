@@ -1,5 +1,4 @@
 import { AccountCircleOutlined, Close } from "@mui/icons-material";
-import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import styled from "styled-components";
@@ -12,6 +11,7 @@ import {
 import { deleteCart } from "../redux/cartSlice";
 import { logout } from "../redux/authSlice";
 import useCheckOutsideClick from "../hooks/useCheckOutsideClick";
+import useHideScrollbar from "../hooks/useHideScrollbar";
 
 const Container = styled.div`
   width: 100vw;
@@ -106,6 +106,7 @@ const NavDrawer = ({ open, setOpen }) => {
   const [createCart] = useCreateCartMutation();
   const [updateCart] = useUpdateCartMutation();
   const dispatch = useDispatch();
+  useHideScrollbar(open);
 
   const handleLogout = async () => {
     let products;
@@ -124,15 +125,6 @@ const NavDrawer = ({ open, setOpen }) => {
     dispatch(logout());
     setOpen(false);
   };
-
-  useEffect(() => {
-    if (open) {
-      document.body.style.overflow = "hidden";
-    }
-    return () => {
-      document.body.style.overflow = "unset";
-    };
-  }, [open]);
 
   return (
     <Container open={open}>
