@@ -12,6 +12,7 @@ import { deleteCart } from "../redux/cartSlice";
 import { logout } from "../redux/authSlice";
 import useCheckOutsideClick from "../hooks/useCheckOutsideClick";
 import useHideScrollbar from "../hooks/useHideScrollbar";
+import useCloseOnEscape from "../hooks/useCloseOnEscape";
 
 const Container = styled.div`
   width: 100vw;
@@ -107,6 +108,7 @@ const NavDrawer = ({ open, setOpen }) => {
   const [updateCart] = useUpdateCartMutation();
   const dispatch = useDispatch();
   useHideScrollbar(open);
+  useCloseOnEscape(setOpen);
 
   const handleLogout = async () => {
     let products;

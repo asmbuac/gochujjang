@@ -11,6 +11,7 @@ const useCheckOutsideClick = (setOpen) => {
     };
 
     document.addEventListener("click", checkIfClickedOutside, true);
+
     return () => {
       document.removeEventListener("click", checkIfClickedOutside);
     };

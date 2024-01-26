@@ -4,6 +4,7 @@ import { ChangeEvent, useEffect, useRef, useState } from "react";
 import { ColumnInfo } from "../../types";
 import { useUpdateRowMutation } from "../../redux/apiSlice";
 import { parseProducts, splitString } from "../addModal/AddModal";
+import useCloseOnEscape from "../../hooks/useCloseOnEscape";
 
 type Props = {
   slug: string;
@@ -23,6 +24,7 @@ const EditModal: React.FC<Props> = ({
   const ref = useRef<HTMLDivElement>(null);
   const [errorMsg, setErrorMsg] = useState<string>("");
   const [editItem, { isSuccess, error, reset }] = useUpdateRowMutation();
+  useCloseOnEscape(setOpen);
 
   const handleChange = (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>

@@ -6,6 +6,7 @@ import { mobile } from "../responsive";
 import { useGetProductsQuery } from "../redux/productApi";
 import useCheckOutsideClick from "../hooks/useCheckOutsideClick";
 import useHideScrollbar from "../hooks/useHideScrollbar";
+import useCloseOnEscape from "../hooks/useCloseOnEscape";
 
 const Container = styled.div`
   width: 100vw;
@@ -180,6 +181,7 @@ const SearchDrawer = ({ open, setOpen }) => {
   const [query, setQuery] = useState("");
   const { data: products, isLoading } = useGetProductsQuery({ title: query });
   useHideScrollbar(open);
+  useCloseOnEscape(setOpen);
 
   return (
     <Container open={open}>

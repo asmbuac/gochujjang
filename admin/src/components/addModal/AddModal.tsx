@@ -3,6 +3,7 @@ import { ErrorOutline, HighlightOff } from "@mui/icons-material";
 import { ChangeEvent, useEffect, useRef, useState } from "react";
 import { ColumnInfo, Order, Product, User } from "../../types";
 import { useCreateRowMutation } from "../../redux/apiSlice";
+import useCloseOnEscape from "../../hooks/useCloseOnEscape";
 
 type Props = {
   slug: string;
@@ -39,6 +40,7 @@ const AddModal: React.FC<Props> = ({
   const ref = useRef<HTMLDivElement>(null);
   const [errorMsg, setErrorMsg] = useState<string>("");
   const [createItem, { isSuccess, error, reset }] = useCreateRowMutation();
+  useCloseOnEscape(setOpen);
 
   const resetForm = () => {
     const newForm = Object.fromEntries(
