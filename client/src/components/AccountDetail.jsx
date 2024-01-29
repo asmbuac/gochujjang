@@ -55,7 +55,7 @@ const ButtonContainer = styled.div`
 const Button = styled.button`
   padding: 10px;
   border: 2px solid;
-  border-color: ${(props) => props.bc};
+  border-color: black;
   background-color: ${(props) => props.bg};
   color: ${(props) => props.color};
   font-weight: 600;
@@ -149,7 +149,6 @@ const AccountDetail = ({ label, field, data, type }) => {
           )}
           <ButtonContainer>
             <Button
-              bc="black"
               bg="white"
               color="black"
               type="button"
@@ -157,7 +156,7 @@ const AccountDetail = ({ label, field, data, type }) => {
             >
               Cancel
             </Button>
-            <Button bc="black" bg="black" color="white" type="submit">
+            <Button bg="black" color="white" type="submit">
               Save
             </Button>
           </ButtonContainer>
