@@ -22,6 +22,7 @@ import SearchDrawer from "./components/SearchDrawer";
 import Account from "./pages/Account";
 import Orders from "./pages/Orders";
 import AccountInfo from "./pages/AccountInfo";
+import Order from "./pages/Order";
 
 export const WishlistContext = createContext(null);
 
@@ -82,7 +83,10 @@ const App = () => {
             element={user ? <Account /> : <Navigate replace to="/login" />}
           >
             <Route index element={<AccountInfo />} />
-            <Route path="orders" element={<Orders />} />
+            <Route path="orders">
+              <Route index element={<Orders />} />
+              <Route path=":id" element={<Order />} />
+            </Route>
           </Route>
         </Routes>
       </WishlistContext.Provider>
