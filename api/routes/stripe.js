@@ -1,5 +1,6 @@
 const router = require("express").Router();
 const stripe = require("stripe")(process.env.STRIPE_KEY);
+const { verifyTokenAndAuthorization } = require("./verifyToken");
 
 // CREATE SESSION
 router.post("/", async (req, res) => {
@@ -25,7 +26,7 @@ router.post("/", async (req, res) => {
       line_items: cartItems,
       mode: "payment",
       success_url:
-        "http://localhost:5173/success?session_id={CHECKOUT_SESSION_ID}",
+        "http://localhost:3000/success?session_id={CHECKOUT_SESSION_ID}",
       cancel_url: "http://localhost:5173/cart",
       automatic_tax: { enabled: true },
       shipping_address_collection: { allowed_countries: ["US"] },
@@ -37,7 +38,7 @@ router.post("/", async (req, res) => {
 });
 
 // RETRIEVE SESSION
-router.get("/:sessionId", async (req, res) => {
+router.get("/:sessionId", verifyTokenAndAuthorization, async (req, res) => {
   const sessionId = req.params.sessionId;
 
   try {

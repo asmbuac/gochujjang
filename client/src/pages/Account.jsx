@@ -111,7 +111,7 @@ const Account = () => {
           <Icon component={ManageAccountsOutlined} />
           <ItemTitle>My Account</ItemTitle>
         </NavItem>
-        <NavItem to="/account/orders" end>
+        <NavItem to="/account/orders">
           <Icon component={ReceiptLongOutlined} />
           <ItemTitle>My Orders</ItemTitle>
         </NavItem>
