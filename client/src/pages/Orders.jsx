@@ -7,22 +7,22 @@ const Title = styled.h1`
   font-weight: 900;
 `;
 
-const OrdersContainer = styled.div`
+const Container = styled.div`
   display: flex;
   flex-direction: column;
   gap: 15px;
 `;
 
-const Orders = () => {
+const OrderList = () => {
   return (
     <>
       <Title>My Orders</Title>
-      <OrdersContainer>
+      <Container>
         <Order />
         <Order />
-      </OrdersContainer>
+      </Container>
     </>
   );
 };
 
-export default Orders;
+export default OrderList;

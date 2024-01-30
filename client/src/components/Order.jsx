@@ -70,15 +70,11 @@ const Order = () => {
           <Value>FDS789FDS78</Value>
         </Row>
         <Row>
-          <Field>Processed On</Field>
+          <Field>Date Placed</Field>
           <Value>Jan 28, 2024</Value>
         </Row>
         <Row>
-          <Field>Payment Status</Field>
-          <Value>Paid</Value>
-        </Row>
-        <Row>
-          <Field>Fulfillment Status</Field>
+          <Field>Order Status</Field>
           <Value>Fulfilled</Value>
         </Row>
         <Row>
@@ -90,9 +86,9 @@ const Order = () => {
         <Button type="button" $bg="transparent" $color="black">
           Support
         </Button>
-        <Link to="/">
+        <Link to="/account/orders/1">
           <Button type="button" $bg="black" $color="white">
-            View Details
+            Details
           </Button>
         </Link>
       </ButtonContainer>
