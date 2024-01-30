@@ -43,7 +43,7 @@ router.get("/:sessionId", verifyTokenAndAuthorization, async (req, res) => {
 
   try {
     const session = await stripe.checkout.sessions.retrieve(sessionId, {
-      expand: ["line_items"],
+      expand: ["line_items", "payment_intent.payment_method"],
     });
     res.status(200).json(session);
   } catch (err) {

@@ -28,7 +28,10 @@ export const artistApi = createApi({
         return params;
       },
     }),
+    getArtist: builder.query({
+      query: (id) => `/${id}`,
+    }),
   }),
 });
 
-export const { useGetArtistsQuery } = artistApi;
+export const { useGetArtistsQuery, useGetArtistQuery } = artistApi;

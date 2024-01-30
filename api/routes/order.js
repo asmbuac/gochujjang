@@ -105,7 +105,9 @@ router.get("/session/:sessionId", async (req, res) => {
 // GET USER'S ORDERS
 router.get("/user/:userId", verifyTokenAndAuthorization, async (req, res) => {
   try {
-    const orders = await Order.find({ userId: req.params.userId });
+    const orders = await Order.find({ userId: req.params.userId }).sort({
+      createdAt: -1,
+    });
     res.status(200).json(orders);
   } catch (err) {
     res.status(500).json(err);

@@ -80,4 +80,14 @@ router.get("/", async (req, res) => {
   }
 });
 
+// GET ARTIST
+router.get("/:id", async (req, res) => {
+  try {
+    const artist = await Artist.findById(req.params.id);
+    res.status(200).json(artist);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
 module.exports = router;
