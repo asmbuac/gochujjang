@@ -204,7 +204,7 @@ const SearchDrawer = ({ open, setOpen }) => {
             : isLoading
             ? "Loading"
             : products?.map((product) => (
-                <Product>
+                <Product key={product._id}>
                   <Info>
                     <Image src={product.image} />
                     <Details>

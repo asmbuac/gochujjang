@@ -1,29 +1,14 @@
-import {
-  CheckCircleOutline,
-  ErrorOutline,
-  RestartAltOutlined,
-} from "@mui/icons-material";
+import { RestartAltOutlined } from "@mui/icons-material";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
+import Alert from "./ui/Alert";
 
 const Form = styled.form`
   margin-top: 15px;
   display: flex;
   flex-direction: column;
-`;
-
-const MsgContainer = styled.div`
-  margin: ${(props) => props.margin};
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  color: ${(props) => props.color};
-`;
-
-const Msg = styled.span`
-  font-weight: 600;
 `;
 
 const InputContainer = styled.div`
@@ -117,10 +102,9 @@ const ResetPassword = () => {
   return showForm ? (
     <Form onSubmit={handleSubmit}>
       {errorMsg.length > 0 && (
-        <MsgContainer color="rosybrown" margin="0 0 15px">
-          <ErrorOutline />
-          <Msg>{errorMsg}</Msg>
-        </MsgContainer>
+        <Alert type="danger" margin="0 0 15px">
+          {errorMsg}
+        </Alert>
       )}
       <InputContainer>
         <Label htmlFor="oldPassword">Old Password</Label>
@@ -162,10 +146,9 @@ const ResetPassword = () => {
   ) : (
     <>
       {successMsg.length > 0 && (
-        <MsgContainer color="darkolivegreen" margin="15px 0 0">
-          <CheckCircleOutline />
-          <Msg>{successMsg}</Msg>
-        </MsgContainer>
+        <Alert type="success" margin="15px 0 0">
+          {successMsg}
+        </Alert>
       )}
       <ButtonContainer
         margin="15px"

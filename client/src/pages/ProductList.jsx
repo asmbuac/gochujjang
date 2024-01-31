@@ -46,7 +46,7 @@ const Option = styled.option``;
 const ProductList = () => {
   const params = useParams();
   const category = params?.category || "";
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
   const artist = searchParams.get("artist") || "";
   const title = searchParams.get("title") || "";
   const [filters, setFilters] = useState({});

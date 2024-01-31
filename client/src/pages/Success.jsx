@@ -47,7 +47,7 @@ function Success() {
   const userId = useSelector((state) => state.auth.currentUser?._id);
   const sessionId = useLocation().search.slice(12);
   const { data } = useGetOrderBySessionQuery(sessionId);
-  const [createOrder, { isSuccess, reset }] = useCreateOrderMutation();
+  const [createOrder] = useCreateOrderMutation();
 
   useEffect(() => {
     if (data?.length > 0) {

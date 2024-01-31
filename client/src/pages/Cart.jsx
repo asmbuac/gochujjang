@@ -3,6 +3,9 @@ import { mobile, md, lg } from "../responsive";
 import { useSelector } from "react-redux";
 import CartItem from "../components/CartItem";
 import { publicRequest } from "../requestMethods";
+import { useState } from "react";
+import Alert from "../components/ui/Alert";
+import { ErrorOutline } from "@mui/icons-material";
 
 const Container = styled.div``;
 
@@ -111,8 +114,11 @@ const Button = styled.button`
   }
 `;
 
+const Break = styled.br``;
+
 const Cart = () => {
   const cart = useSelector((state) => state.cart);
+  const [error, setError] = useState("");
 
   const handleCheckout = async () => {
     try {
@@ -121,7 +127,7 @@ const Cart = () => {
         window.location.href = res.data.url;
       }
     } catch (err) {
-      console.error(err);
+      setError(err);
     }
   };
 
@@ -164,6 +170,11 @@ const Cart = () => {
               <SummaryItemPrice>${cart.total.toFixed(2)}</SummaryItemPrice>
             </SummaryItem>
             <Button onClick={handleCheckout}>CHECKOUT</Button>
+            <Alert icon={ErrorOutline} margin="10px 0 0" color="crimson">
+              Unable to checkout
+              <Break />
+              {error}
+            </Alert>
           </Summary>
         </Bottom>
       </Wrapper>

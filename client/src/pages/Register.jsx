@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { mobile, md } from "../responsive";
+import { mobile } from "../responsive";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { login } from "../redux/apiCalls";
