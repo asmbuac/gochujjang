@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 const Container = styled.div`
   padding: 15px 25px;
@@ -34,7 +34,9 @@ const Field = styled.span`
   color: gray;
 `;
 
-const Value = styled.span``;
+const Value = styled.span`
+  text-transform: capitalize;
+`;
 
 const ButtonContainer = styled.div`
   padding: 10px 0;
@@ -61,37 +63,51 @@ const Button = styled.button`
   }
 `;
 
-const Order = () => {
+const Order = ({ order }) => {
+  const params = useParams().id;
+
   return (
     <Container>
       <Details>
         <Row>
           <Field>Order Number</Field>
-          <Value>FDS789FDS78</Value>
+          <Value>{order?._id}</Value>
         </Row>
         <Row>
           <Field>Date Placed</Field>
-          <Value>Jan 28, 2024</Value>
+          {!params ? (
+            <Value>{new Date(order?.createdAt).toLocaleDateString()}</Value>
+          ) : (
+            <Value>
+              {new Date(order?.createdAt).toLocaleDateString(undefined, {
+                month: "short",
+                day: "numeric",
+                year: "numeric",
+              })}
+            </Value>
+          )}
         </Row>
         <Row>
           <Field>Order Status</Field>
-          <Value>Fulfilled</Value>
+          <Value>{order?.status}</Value>
         </Row>
         <Row>
           <Field>Total</Field>
-          <Value>$29.99</Value>
+          <Value>${order?.amount}</Value>
         </Row>
       </Details>
-      <ButtonContainer>
-        <Button type="button" $bg="transparent" $color="black">
-          Support
-        </Button>
-        <Link to="/account/orders/1">
-          <Button type="button" $bg="black" $color="white">
-            Details
+      {!params && (
+        <ButtonContainer>
+          <Button type="button" $bg="transparent" $color="black">
+            Support
           </Button>
-        </Link>
-      </ButtonContainer>
+          <Link to={`/account/orders/${order?._id}`}>
+            <Button type="button" $bg="black" $color="white">
+              Details
+            </Button>
+          </Link>
+        </ButtonContainer>
+      )}
     </Container>
   );
 };

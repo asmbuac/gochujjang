@@ -1,5 +1,7 @@
 import styled from "styled-components";
-import Order from "../components/Order";
+import Order from "../components/orders/Order";
+import { useGetOrdersQuery } from "../redux/orderApi";
+import { useSelector } from "react-redux";
 
 const Title = styled.h1`
   margin-bottom: 30px;
@@ -14,12 +16,16 @@ const Container = styled.div`
 `;
 
 const OrderList = () => {
+  const userId = useSelector((state) => state.auth.currentUser?._id);
+  const { data: orders, isLoading } = useGetOrdersQuery(userId);
+
   return (
     <>
       <Title>My Orders</Title>
       <Container>
-        <Order />
-        <Order />
+        {isLoading
+          ? "Loading"
+          : orders?.map((order) => <Order key={order?._id} order={order} />)}
       </Container>
     </>
   );
