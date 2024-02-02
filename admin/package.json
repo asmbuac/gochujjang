@@ -6,8 +6,13 @@
   "scripts": {
     "dev": "vite --host 0.0.0.0 --port 3001",
     "build": "tsc && vite build",
-    "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview"
+  },
+  "lint-staged": {
+    "src/**/*.{js,jsx,tsx,ts,json,css}": [
+      "prettier --write --ignore-unknown"
+    ]
   },
   "dependencies": {
     "@emotion/react": "^11.11.1",
@@ -31,9 +36,13 @@
     "@typescript-eslint/eslint-plugin": "^5.61.0",
     "@typescript-eslint/parser": "^5.61.0",
     "@vitejs/plugin-react": "^4.2.1",
-    "eslint": "^8.44.0",
+    "eslint": "^8.53.0",
+    "eslint-config-prettier": "^9.0.0",
+    "eslint-plugin-react": "^7.33.2",
     "eslint-plugin-react-hooks": "^4.6.0",
-    "eslint-plugin-react-refresh": "^0.4.1",
+    "eslint-plugin-react-refresh": "^0.4.4",
+    "husky": "^8.0.3",
+    "lint-staged": "^15.0.1",
     "typescript": "^5.0.2",
     "vite": "^5.0.11"
   }
