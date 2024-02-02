@@ -170,11 +170,13 @@ const Cart = () => {
               <SummaryItemPrice>${cart.total.toFixed(2)}</SummaryItemPrice>
             </SummaryItem>
             <Button onClick={handleCheckout}>CHECKOUT</Button>
-            <Alert icon={ErrorOutline} margin="10px 0 0" color="crimson">
-              Unable to checkout
-              <Break />
-              {error}
-            </Alert>
+            {error && (
+              <Alert icon={ErrorOutline} margin="10px 0 0" color="crimson">
+                Unable to checkout
+                <Break />
+                {error}
+              </Alert>
+            )}
           </Summary>
         </Bottom>
       </Wrapper>

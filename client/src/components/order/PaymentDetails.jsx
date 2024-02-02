@@ -7,16 +7,11 @@ const Header = styled.h2`
   margin-bottom: 10px;
 `;
 
-const DetailsContainer = styled.div`
+const Details = styled.div`
   padding: 15px 25px;
   display: flex;
   flex-direction: column;
   border: 1px solid #e6e6e6;
-`;
-
-const Details = styled.div`
-  display: flex;
-  flex-direction: column;
 `;
 
 const Row = styled.div`
@@ -41,16 +36,16 @@ const Field = styled.span`
   color: gray;
 `;
 
+const Billing = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: end;
+`;
+
 const Value = styled.span`
   &::first-letter {
     text-transform: capitalize;
   }
-`;
-
-const BillingContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: end;
 `;
 
 const PaymentDetails = ({ stripeSesh }) => {
@@ -66,38 +61,36 @@ const PaymentDetails = ({ stripeSesh }) => {
   return (
     <>
       <Header>Payment</Header>
-      <DetailsContainer>
-        <Details>
-          <Row>
-            <Field>Billed To</Field>
-            <BillingContainer>
-              <Value>{name}</Value>
-              <Value>{line1}</Value>
-              {line2 && <Value>{line2}</Value>}
-              <Value>
-                {city}, {state} {postal_code}
-              </Value>
-              <Value>{country}</Value>
-              <Value>Email: {email}</Value>
-              {phone && <Value>Phone: {phone}</Value>}
-            </BillingContainer>
-          </Row>
-          <Row>
-            <Field>Method</Field>
+      <Details>
+        <Row>
+          <Field>Billed To</Field>
+          <Billing>
+            <Value>{name}</Value>
+            <Value>{line1}</Value>
+            {line2 && <Value>{line2}</Value>}
             <Value>
-              {card
-                ? `${card?.brand} ending in ${card?.last4}`
-                : paymentMethods?.reduce(
-                    (methods, method) => methods + `\n${method}`
-                  )}
+              {city}, {state} {postal_code}
             </Value>
-          </Row>
-          <Row>
-            <Field>Status</Field>
-            <Value>{stripeSesh?.payment_status}</Value>
-          </Row>
-        </Details>
-      </DetailsContainer>
+            <Value>{country}</Value>
+            <Value>Email: {email}</Value>
+            {phone && <Value>Phone: {phone}</Value>}
+          </Billing>
+        </Row>
+        <Row>
+          <Field>Method</Field>
+          <Value>
+            {card
+              ? `${card?.brand} ending in ${card?.last4}`
+              : paymentMethods?.reduce(
+                  (methods, method) => methods + `\n${method}`
+                )}
+          </Value>
+        </Row>
+        <Row>
+          <Field>Status</Field>
+          <Value>{stripeSesh?.payment_status}</Value>
+        </Row>
+      </Details>
     </>
   );
 };
