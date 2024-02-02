@@ -8,6 +8,7 @@ import { useSelector } from "react-redux";
 import OrderDetails from "../components/orders/Order";
 import PaymentDetails from "../components/order/PaymentDetails";
 import Products from "../components/order/Products";
+import ShippingDetails from "../components/order/ShippingDetails";
 
 const ReturnContainer = styled(Link)`
   display: flex;
@@ -92,15 +93,20 @@ const Order = () => {
       ) : (
         <OrderContainer>
           <OrderDetails order={order} stripeSesh={stripeSesh} />
-          <Section>
-            {!error ? (
-              <PaymentDetails stripeSesh={stripeSesh} />
-            ) : (
-              `Unable to obtain Stripe checkout session information
+          {!error ? (
+            <>
+              <Section>
+                <ShippingDetails stripeSesh={stripeSesh} />
+              </Section>
+              <Section>
+                <PaymentDetails stripeSesh={stripeSesh} />
+              </Section>
+            </>
+          ) : (
+            `Unable to obtain Stripe checkout session information
               \n
               ${error}`
-            )}
-          </Section>
+          )}
           <Section>
             <Products products={order?.products} />
           </Section>
