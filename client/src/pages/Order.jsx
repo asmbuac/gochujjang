@@ -98,9 +98,7 @@ const Order = () => {
               <Section>
                 <ShippingDetails stripeSesh={stripeSesh} />
               </Section>
-              <Section>
-                <PaymentDetails stripeSesh={stripeSesh} />
-              </Section>
+              <PaymentDetails stripeSesh={stripeSesh} />
             </>
           ) : (
             `Unable to obtain Stripe checkout session information

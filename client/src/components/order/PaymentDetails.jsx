@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import DetailsSection from "../ui/DetailsSection";
 
 const Header = styled.h2`
   font-size: 18px;
@@ -21,7 +22,6 @@ const Row = styled.div`
   justify-content: space-between;
   gap: 20px;
   border-bottom: 1px solid #f0f0f0;
-  font-weight: ${({ $fw }) => $fw};
 
   &:last-child {
     border-bottom: none;
@@ -58,41 +58,30 @@ const PaymentDetails = ({ stripeSesh }) => {
   const card = stripeSesh?.payment_intent?.payment_method?.card;
   const paymentMethods = stripeSesh?.payment_intent?.payment_method_types;
 
-  return (
-    <>
-      <Header>Payment</Header>
-      <Details>
-        <Row>
-          <Field>Billed To</Field>
-          <Billing>
-            <Value>{name}</Value>
-            <Value>{line1}</Value>
-            {line2 && <Value>{line2}</Value>}
-            <Value>
-              {city}, {state} {postal_code}
-            </Value>
-            <Value>{country}</Value>
-            <Value>Email: {email}</Value>
-            {phone && <Value>Phone: {phone}</Value>}
-          </Billing>
-        </Row>
-        <Row>
-          <Field>Method</Field>
-          <Value>
-            {card
-              ? `${card?.brand} ending in ${card?.last4}`
-              : paymentMethods?.reduce(
-                  (methods, method) => methods + `\n${method}`
-                )}
-          </Value>
-        </Row>
-        <Row>
-          <Field>Status</Field>
-          <Value>{stripeSesh?.payment_status}</Value>
-        </Row>
-      </Details>
-    </>
-  );
+  const details = [
+    {
+      field: "Billed To",
+      value: {
+        name,
+        line1,
+        line2: line2 && line2,
+        cityStatePostal: `${city} ${state}
+        ${postal_code}`,
+        country,
+        email: `Email: ${email}`,
+        phone: phone && `Phone: ${phone}`,
+      },
+    },
+    {
+      field: "Method",
+      value: card
+        ? `${card?.brand} ending in ${card?.last4}`
+        : paymentMethods?.reduce((methods, method) => methods + `\n${method}`),
+    },
+    { field: "Status", value: stripeSesh?.payment_status },
+  ];
+
+  return <DetailsSection header="Payment" details={details} />;
 };
 
 export default PaymentDetails;

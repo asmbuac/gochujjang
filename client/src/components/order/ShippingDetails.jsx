@@ -21,7 +21,6 @@ const Row = styled.div`
   justify-content: space-between;
   gap: 20px;
   border-bottom: 1px solid #f0f0f0;
-  font-weight: ${({ $fw }) => $fw};
 
   &:last-child {
     border-bottom: none;

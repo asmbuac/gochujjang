@@ -85,6 +85,7 @@ const Data = styled.span``;
 
 const EditButton = styled(EditOutlined)`
   cursor: pointer;
+  color: darkgray;
 `;
 
 const AccountDetail = ({ label, field, data, type }) => {

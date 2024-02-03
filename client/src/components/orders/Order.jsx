@@ -1,5 +1,6 @@
 import styled from "styled-components";
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
+import DetailsSection from "../ui/DetailsSection";
 
 const Container = styled.div`
   padding: 15px 25px;
@@ -66,50 +67,38 @@ const Button = styled.button`
 const Order = ({ order }) => {
   const params = useParams().id;
 
-  return (
-    <Container>
-      <Details>
-        <Row>
-          <Field>Order Number</Field>
-          <Value>{order?._id}</Value>
-        </Row>
-        <Row>
-          <Field>Date Placed</Field>
-          {!params ? (
-            <Value>{new Date(order?.createdAt).toLocaleDateString()}</Value>
-          ) : (
-            <Value>
-              {new Date(order?.createdAt).toLocaleDateString(undefined, {
-                month: "short",
-                day: "numeric",
-                year: "numeric",
-              })}
-            </Value>
-          )}
-        </Row>
-        <Row>
-          <Field>Order Status</Field>
-          <Value>{order?.status}</Value>
-        </Row>
-        <Row>
-          <Field>Total</Field>
-          <Value>${order?.amount}</Value>
-        </Row>
-      </Details>
-      {!params && (
-        <ButtonContainer>
-          <Button type="button" $bg="transparent" $color="black">
-            Support
-          </Button>
-          <Link to={`/account/orders/${order?._id}`}>
-            <Button type="button" $bg="black" $color="white">
-              Details
-            </Button>
-          </Link>
-        </ButtonContainer>
-      )}
-    </Container>
-  );
+  const details = [
+    { field: "Order Number", value: order?._id },
+    {
+      field: "Date Placed",
+      value: !params
+        ? new Date(order?.createdAt).toLocaleDateString()
+        : new Date(order?.createdAt).toLocaleDateString(undefined, {
+            month: "short",
+            day: "numeric",
+            year: "numeric",
+          }),
+    },
+    { field: "Order Status", value: order?.status },
+    { field: "Total", value: `$${order?.amount}` },
+  ];
+
+  const buttons = [
+    {
+      text: "Support",
+      link: "/support",
+      bgColor: "transparent",
+      textColor: "black",
+    },
+    {
+      text: "Details",
+      link: `/account/orders/${order?._id}`,
+      bgColor: "black",
+      textColor: "white",
+    },
+  ];
+
+  return <DetailsSection details={details} buttons={buttons} />;
 };
 
 export default Order;
