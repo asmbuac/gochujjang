@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import Product from "./Product";
+import { Container } from "../ui/DetailsSection";
 
 const Header = styled.h2`
   font-size: 18px;
@@ -8,23 +9,23 @@ const Header = styled.h2`
   margin-bottom: 10px;
 `;
 
-const Container = styled.div`
+const ProductContainer = styled.div`
   display: flex;
   flex-direction: column;
 `;
 
 const Products = ({ products }) => {
   return (
-    <>
+    <Container>
       <Header>Products</Header>
-      <Container>
+      <ProductContainer>
         {!products
           ? "Loading products..."
           : products?.map((product) => (
               <Product key={product?.product?._id} productDetails={product} />
             ))}
-      </Container>
-    </>
+      </ProductContainer>
+    </Container>
   );
 };
 

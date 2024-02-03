@@ -42,12 +42,6 @@ const OrderContainer = styled.div`
   gap: 40px;
 `;
 
-const Section = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-`;
-
 const Order = () => {
   const orderId = useParams().id;
   const { data: order, isLoading } = useGetOrderByIdQuery(orderId);
@@ -95,9 +89,7 @@ const Order = () => {
           <OrderDetails order={order} stripeSesh={stripeSesh} />
           {!error ? (
             <>
-              <Section>
-                <ShippingDetails stripeSesh={stripeSesh} />
-              </Section>
+              <ShippingDetails stripeSesh={stripeSesh} />
               <PaymentDetails stripeSesh={stripeSesh} />
             </>
           ) : (
@@ -105,9 +97,7 @@ const Order = () => {
               \n
               ${error}`
           )}
-          <Section>
-            <Products products={order?.products} />
-          </Section>
+          <Products products={order?.products} />
         </OrderContainer>
       )}
     </>
