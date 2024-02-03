@@ -31,12 +31,13 @@ const Row = styled.div`
 
   &:last-child {
     border-bottom: none;
-    font-weight: bold;
+    font-weight: ${({ $boldLastRow }) => $boldLastRow && "bold"};
   }
 
   &:nth-last-child(2) {
     border-bottom: ${({ $buttons }) => $buttons && "none"};
-    font-weight: ${({ $buttons }) => $buttons && "bold"};
+    font-weight: ${({ $buttons, $boldLastRow }) =>
+      $buttons && $boldLastRow && "bold"};
   }
 `;
 
@@ -85,13 +86,18 @@ const Button = styled.button`
   }
 `;
 
-const DetailsSection = ({ header = null, details = null, buttons = null }) => {
+const DetailsSection = ({
+  header = null,
+  details = null,
+  buttons = null,
+  boldLastRow = false,
+}) => {
   return (
     <Container>
       {header && <Header>{header}</Header>}
       <Details>
         {details.map(({ field, value }) => (
-          <Row key={field} $buttons={buttons}>
+          <Row key={field} $buttons={buttons} $boldLastRow={boldLastRow}>
             <Field>{field}</Field>
             {typeof value === "object" ? (
               <ValueContainer>
