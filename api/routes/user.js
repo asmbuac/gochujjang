@@ -1,11 +1,10 @@
+const CryptoJS = require("crypto-js");
+const router = require("express").Router();
 const User = require("../models/User");
 const {
   verifyTokenAndAuthorization,
   verifyTokenAndAdmin,
 } = require("./verifyToken");
-const CryptoJS = require("crypto-js");
-
-const router = require("express").Router();
 
 // GET USER STATS
 router.get("/stats", verifyTokenAndAdmin, async (req, res) => {
@@ -43,7 +42,7 @@ router.put("/:id", verifyTokenAndAuthorization, async (req, res) => {
 
     const hashedPassword = CryptoJS.AES.decrypt(
       user.password,
-      process.env.PASSWORD_KEY
+      process.env.PASSWORD_KEY,
     );
     const ogPassword = hashedPassword.toString(CryptoJS.enc.Utf8);
 
@@ -57,7 +56,7 @@ router.put("/:id", verifyTokenAndAuthorization, async (req, res) => {
 
     req.body.password = CryptoJS.AES.encrypt(
       req.body.password,
-      process.env.PASSWORD_KEY
+      process.env.PASSWORD_KEY,
     ).toString();
   }
 
@@ -67,9 +66,9 @@ router.put("/:id", verifyTokenAndAuthorization, async (req, res) => {
       {
         $set: req.body,
       },
-      { new: true }
+      { new: true },
     );
-    res.status(200).json(updatedUser);
+    return res.status(200).json(updatedUser);
   } catch (err) {
     if (err.code === 11000) {
       const duplicateField = Object.keys(err.keyValue)[0];
@@ -77,10 +76,9 @@ router.put("/:id", verifyTokenAndAuthorization, async (req, res) => {
         duplicateField === "username"
           ? "Username already exists"
           : "Email already exists";
-      res.status(400).json(errMsg);
-    } else {
-      res.status(400).json(err);
+      return res.status(400).json(errMsg);
     }
+    return res.status(400).json(err);
   }
 });
 

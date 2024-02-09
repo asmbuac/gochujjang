@@ -1,11 +1,10 @@
+const router = require("express").Router();
 const Cart = require("../models/Cart");
 const {
   verifyToken,
   verifyTokenAndAuthorization,
   verifyTokenAndAdmin,
 } = require("./verifyToken");
-
-const router = require("express").Router();
 
 // CREATE
 router.post("/", verifyToken, async (req, res) => {
@@ -27,7 +26,7 @@ router.put("/:userId", verifyTokenAndAuthorization, async (req, res) => {
       {
         $set: req.body,
       },
-      { new: true }
+      { new: true },
     );
     res.status(200).json(updatedCart);
   } catch (err) {
@@ -49,7 +48,7 @@ router.delete("/:userId", verifyTokenAndAuthorization, async (req, res) => {
 router.get("/:userId", verifyTokenAndAuthorization, async (req, res) => {
   try {
     const cart = await Cart.findOne({ userId: req.params.userId }).populate(
-      "products.product"
+      "products.product",
     );
     res.status(200).json(cart);
   } catch (err) {

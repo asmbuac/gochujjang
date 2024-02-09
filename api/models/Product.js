@@ -38,7 +38,7 @@ const ProductSchema = new mongoose.Schema(
       default: true,
     },
   },
-  { timestamps: true }
+  { timestamps: true },
 );
 
 ProductSchema.pre("aggregate", function (next) {
@@ -69,7 +69,7 @@ ProductSchema.pre("aggregate", function (next) {
         inStock: 1,
         createdAt: 1,
       },
-    }
+    },
   );
   next();
 });

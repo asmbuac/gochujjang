@@ -1,7 +1,6 @@
+const router = require("express").Router();
 const Artist = require("../models/Artist");
 const { verifyTokenAndAdmin } = require("./verifyToken");
-
-const router = require("express").Router();
 
 // CREATE
 router.post("/", verifyTokenAndAdmin, async (req, res) => {
@@ -23,7 +22,7 @@ router.put("/:id", verifyTokenAndAdmin, async (req, res) => {
       {
         $set: req.body,
       },
-      { new: true }
+      { new: true },
     );
     res.status(200).json(updatedArtist);
   } catch (err) {
@@ -43,13 +42,15 @@ router.delete("/:id", verifyTokenAndAdmin, async (req, res) => {
 
 // GET ALL ARTISTS
 router.get("/", async (req, res) => {
-  let { type, name } = req.query;
+  const { name } = req.query;
+  let { type } = req.query;
+
   if (type && !Array.isArray(type)) {
     type = [type];
   }
 
   try {
-    let pipeline = [];
+    const pipeline = [];
 
     if (type) {
       pipeline.push({

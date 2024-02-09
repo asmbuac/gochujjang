@@ -1,7 +1,9 @@
 const express = require("express");
+
 const app = express();
 const mongoose = require("mongoose");
 require("dotenv").config();
+const cors = require("cors");
 const userRoute = require("./routes/user");
 const authRoute = require("./routes/auth");
 const productRoute = require("./routes/product");
@@ -11,7 +13,6 @@ const stripeRoute = require("./routes/stripe");
 const slideRoute = require("./routes/slide");
 const wishlistRoute = require("./routes/wishlist");
 const artistRoute = require("./routes/artist");
-const cors = require("cors");
 
 mongoose
   .connect(process.env.MONGO_URL)

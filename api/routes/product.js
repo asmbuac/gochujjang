@@ -1,7 +1,6 @@
+const router = require("express").Router();
 const Product = require("../models/Product");
 const { verifyTokenAndAdmin } = require("./verifyToken");
-
-const router = require("express").Router();
 
 // CREATE
 router.post("/", verifyTokenAndAdmin, async (req, res) => {
@@ -23,7 +22,7 @@ router.put("/:id", verifyTokenAndAdmin, async (req, res) => {
       {
         $set: req.body,
       },
-      { new: true }
+      { new: true },
     );
     res.status(200).json(updatedProduct);
   } catch (err) {
@@ -46,7 +45,7 @@ router.get("/:id", async (req, res) => {
   try {
     const product = await Product.findById(req.params.id).populate(
       "artist",
-      "name"
+      "name",
     );
     res.status(200).json(product);
   } catch (err) {
@@ -64,7 +63,7 @@ router.get("/", async (req, res) => {
   } = req.query;
 
   try {
-    let pipeline = [];
+    const pipeline = [];
 
     if (qTitle) {
       pipeline.push({
@@ -98,7 +97,7 @@ router.get("/", async (req, res) => {
         },
         {
           $project: { artist: 0 },
-        }
+        },
       );
     }
     if (qNew) {
@@ -108,7 +107,7 @@ router.get("/", async (req, res) => {
         },
         {
           $limit: 6,
-        }
+        },
       );
     }
 

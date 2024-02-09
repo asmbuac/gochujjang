@@ -1,7 +1,6 @@
+const router = require("express").Router();
 const Slide = require("../models/Slide");
 const { verifyTokenAndAdmin } = require("./verifyToken");
-
-const router = require("express").Router();
 
 // CREATE
 router.post("/", verifyTokenAndAdmin, async (req, res) => {
@@ -23,7 +22,7 @@ router.put("/:id", verifyTokenAndAdmin, async (req, res) => {
       {
         $set: req.body,
       },
-      { new: true }
+      { new: true },
     );
     res.status(200).json(updatedSlide);
   } catch (err) {

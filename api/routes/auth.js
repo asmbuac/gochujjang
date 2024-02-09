@@ -1,7 +1,7 @@
 const router = require("express").Router();
-const User = require("../models/User");
 const CryptoJS = require("crypto-js");
 const jwt = require("jsonwebtoken");
+const User = require("../models/User");
 
 // SIGNUP
 router.post("/register", async (req, res) => {
@@ -10,7 +10,7 @@ router.post("/register", async (req, res) => {
     email: req.body.email,
     password: CryptoJS.AES.encrypt(
       req.body.password,
-      process.env.PASSWORD_KEY
+      process.env.PASSWORD_KEY,
     ).toString(),
     firstName: req.body.firstName,
     lastName: req.body.lastName,
@@ -45,7 +45,7 @@ router.post("/login", async (req, res) => {
 
     const hashedPassword = CryptoJS.AES.decrypt(
       user.password,
-      process.env.PASSWORD_KEY
+      process.env.PASSWORD_KEY,
     );
     const ogPassword = hashedPassword.toString(CryptoJS.enc.Utf8);
 
@@ -59,14 +59,14 @@ router.post("/login", async (req, res) => {
         isAdmin: user.isAdmin,
       },
       process.env.JWT_KEY,
-      { expiresIn: "3d" }
+      { expiresIn: "3d" },
     );
 
     const { password, ...others } = user._doc;
 
-    res.status(200).json({ ...others, token });
+    return res.status(200).json({ ...others, token });
   } catch (err) {
-    res.status(500).json(err);
+    return res.status(500).json(err);
   }
 });
 

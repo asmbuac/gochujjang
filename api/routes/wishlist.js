@@ -1,11 +1,10 @@
+const router = require("express").Router();
 const Wishlist = require("../models/Wishlist");
 const {
   verifyTokenAndAuthorization,
   verifyToken,
   verifyTokenAndAdmin,
 } = require("./verifyToken");
-
-const router = require("express").Router();
 
 // CREATE
 router.post("/", verifyToken, async (req, res) => {
@@ -25,7 +24,7 @@ router.put("/:userId", verifyTokenAndAuthorization, async (req, res) => {
     const updatedWishlist = await Wishlist.findOneAndUpdate(
       { userId: req.params.userId },
       { $set: req.body },
-      { new: true }
+      { new: true },
     );
     res.status(200).json(updatedWishlist);
   } catch (err) {

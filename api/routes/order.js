@@ -1,10 +1,9 @@
+const router = require("express").Router();
 const Order = require("../models/Order");
 const {
   verifyTokenAndAuthorization,
   verifyTokenAndAdmin,
 } = require("./verifyToken");
-
-const router = require("express").Router();
 
 // GET MONTHLY INCOME
 router.get("/income", verifyTokenAndAdmin, async (req, res) => {
@@ -62,7 +61,7 @@ router.put("/:id", verifyTokenAndAdmin, async (req, res) => {
       {
         $set: req.body,
       },
-      { new: true }
+      { new: true },
     );
     res.status(200).json(updatedOrder);
   } catch (err) {

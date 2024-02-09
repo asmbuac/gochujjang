@@ -40,7 +40,7 @@ const OrderSchema = new mongoose.Schema(
       default: "pending",
     },
   },
-  { timestamps: true }
+  { timestamps: true },
 );
 
 OrderSchema.pre(/^(find|findOne|findById)$/, function (next) {

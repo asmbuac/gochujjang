@@ -4,7 +4,7 @@ const { verifyTokenAndAuthorization } = require("./verifyToken");
 
 // CREATE SESSION
 router.post("/", async (req, res) => {
-  const cart = req.body.cart;
+  const { cart } = req.body;
 
   const cartItems = cart?.products?.map(
     ({ _id, title, image, price, quantity }) => ({
@@ -18,7 +18,7 @@ router.post("/", async (req, res) => {
         unit_amount: (price * 100).toFixed(0),
       },
       quantity,
-    })
+    }),
   );
 
   try {
@@ -39,7 +39,7 @@ router.post("/", async (req, res) => {
 
 // RETRIEVE SESSION
 router.get("/:sessionId", verifyTokenAndAuthorization, async (req, res) => {
-  const sessionId = req.params.sessionId;
+  const { sessionId } = req.params;
 
   try {
     const session = await stripe.checkout.sessions.retrieve(sessionId, {
