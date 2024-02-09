@@ -1,0 +1,7 @@
+{
+  "src/**/*.{js,jsx,tsx,ts,json,css}": [
+    "prettier --write --ignore-unknown",
+    "eslint --fix",
+    "eslint"
+  ]
+}
